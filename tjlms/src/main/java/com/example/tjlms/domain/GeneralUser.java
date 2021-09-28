@@ -1,16 +1,14 @@
 package com.example.tjlms.domain;
-
+/**
+ * @author Charles Gao
+ * @Description GeneralUser class
+ * @date 2021/9/28
+ */
 // class GeneralUser
 public class GeneralUser {
     private String id;
     private String emailAddress;
     private String name;
-
-    public GeneralUser(String id, String emailAddress, String name) {
-        this.id = id;
-        this.emailAddress = emailAddress;
-        this.name = name;
-    }
 
     public String getId() {
         return id;
@@ -37,41 +35,6 @@ public class GeneralUser {
     }
 }
 
-// class User
-class User extends GeneralUser
-{
-    private boolean verified;
 
-    public User(String id, String emailAddress, String name, boolean verified) {
-        super(id, emailAddress, name);
-        this.verified = verified;
-    }
 
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
-    }
-}
-
-// class Admin
-class Admin extends GeneralUser
-{
-    private String telNum;
-
-    public Admin(String id, String emailAddress, String name, String telNum) {
-        super(id, emailAddress, name);
-        this.telNum = telNum;
-    }
-
-    public String getTelNum() {
-        return telNum;
-    }
-
-    public void setTelNum(String telNum) {
-        this.telNum = telNum;
-    }
-}
 

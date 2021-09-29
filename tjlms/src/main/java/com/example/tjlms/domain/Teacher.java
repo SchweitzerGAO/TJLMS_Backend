@@ -3,8 +3,8 @@ package com.example.tjlms.domain;
 public class Teacher extends User
 {
     private String telNum;
-    private boolean isResp;
-    private boolean isAssist;
+    private boolean resp;
+    private boolean assist;
 
 
     public String getTelNum() {
@@ -16,18 +16,18 @@ public class Teacher extends User
     }
 
     public boolean isResp() {
-        return isResp;
+        return resp;
     }
 
     public void setResp(boolean resp) {
-        isResp = resp;
+        this.resp = resp;
     }
 
     public boolean isAssist() {
-        return isAssist;
+        return assist;
     }
 
     public void setAssist(boolean assist) {
-        isAssist = assist;
+        this.assist = assist;
     }
 }

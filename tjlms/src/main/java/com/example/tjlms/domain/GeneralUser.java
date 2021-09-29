@@ -7,7 +7,6 @@ package com.example.tjlms.domain;
 // class GeneralUser
 public class GeneralUser {
     private String id;
-    private String emailAddress;
     private String name;
 
     public String getId() {
@@ -18,13 +17,6 @@ public class GeneralUser {
         this.id = id;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 
     public String getName() {
         return name;

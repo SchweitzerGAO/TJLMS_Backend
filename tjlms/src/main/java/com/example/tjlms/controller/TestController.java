@@ -13,6 +13,11 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
+/**
+ * @author Charles Gao
+ * @description test webAPIs
+ * @date 2021/9/12
+ */
 @RestController
 @RequestMapping("/api")
 public class TestController {
@@ -50,6 +55,7 @@ public class TestController {
 
         catch(Exception e)
         {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
 

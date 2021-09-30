@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class EncryptSha256Util {
     /**
-     * sha256encrypting
+     * sha256 encrypting
      *
      * @param str string to be encrypted
      * @return encrypted string

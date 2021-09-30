@@ -25,6 +25,7 @@ import edu.tongji.tjlms.encrypt.EncryptSha256Util;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class LoginController {
     @Resource
@@ -46,6 +47,7 @@ public class LoginController {
             admin.setId(rs.getString("id"));
             admin.setName(rs.getString("name"));
             admin.setTelNum(rs.getString("tel_num"));
+            admin.setEmailAddress(rs.getString("email_addr"));
             return admin;
         }
 
@@ -68,6 +70,7 @@ public class LoginController {
             student.setName(rs.getString("name"));
             student.setVerified(rs.getBoolean("verified"));
             student.setClassId(rs.getString("class_id"));
+            student.setEmailAddress(rs.getString("email_addr"));
             return student;
         }
     }
@@ -91,6 +94,7 @@ public class LoginController {
             teacher.setAssist(rs.getBoolean("is_assist"));
             teacher.setTelNum(rs.getString("tel_num"));
             teacher.setResp(rs.getBoolean("is_resp"));
+            teacher.setEmailAddress(rs.getString("email_addr"));
             return teacher;
 
         }

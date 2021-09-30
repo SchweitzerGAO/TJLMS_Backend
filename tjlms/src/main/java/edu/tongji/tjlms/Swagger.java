@@ -1,4 +1,4 @@
-package com.example.tjlms;
+package edu.tongji.tjlms;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

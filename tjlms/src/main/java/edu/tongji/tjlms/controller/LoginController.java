@@ -1,6 +1,10 @@
-package com.example.tjlms.controller;
+package edu.tongji.tjlms.controller;
 
-import com.example.tjlms.domain.*;
+
+import edu.tongji.tjlms.domain.Admin;
+import edu.tongji.tjlms.domain.Login;
+import edu.tongji.tjlms.domain.Student;
+import edu.tongji.tjlms.domain.Teacher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
-import com.example.tjlms.encrypt.EncryptSha256Util;
+import edu.tongji.tjlms.encrypt.EncryptSha256Util;
 
 /**
  * @author Charles Gao
@@ -92,11 +96,17 @@ public class LoginController {
         }
     }
 
-    // login API
+
+    /**
+     * login logic
+     * @param l login info
+     * @return the user's necessary information
+     */
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity login(@RequestBody Login l)
     {
+
         try
         {
             int userType = l.getUserType();
@@ -137,7 +147,7 @@ public class LoginController {
                     );
                     if(studentList.isEmpty())
                     {
-                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("用户名或密码错误");
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误");
                     }
                     // check the verification
                     Student student = studentList.get(0);
@@ -160,7 +170,7 @@ public class LoginController {
                     );
                     if(TeacherList.isEmpty())
                     {
-                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("用户名或密码错误");
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误");
                     }
                     // check the verification
                     Teacher teacher = TeacherList.get(0);

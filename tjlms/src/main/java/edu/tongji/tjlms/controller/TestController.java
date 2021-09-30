@@ -1,6 +1,6 @@
-package com.example.tjlms.controller;
+package edu.tongji.tjlms.controller;
 
-import com.example.tjlms.domain.Test;
+import edu.tongji.tjlms.domain.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;

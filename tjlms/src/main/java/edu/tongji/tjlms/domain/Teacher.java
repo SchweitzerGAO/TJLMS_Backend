@@ -1,4 +1,4 @@
-package com.example.tjlms.domain;
+package edu.tongji.tjlms.domain;
 
 public class Teacher extends User
 {

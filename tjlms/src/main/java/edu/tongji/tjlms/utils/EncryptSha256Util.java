@@ -1,4 +1,4 @@
-package edu.tongji.tjlms.encrypt;
+package edu.tongji.tjlms.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

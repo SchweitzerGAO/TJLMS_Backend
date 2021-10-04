@@ -1,6 +1,5 @@
 package edu.tongji.tjlms.controller;
 
-
 import edu.tongji.tjlms.domain.Admin;
 import edu.tongji.tjlms.domain.Login;
 import edu.tongji.tjlms.domain.Student;
@@ -16,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
-import edu.tongji.tjlms.encrypt.EncryptSha256Util;
+import edu.tongji.tjlms.utils.EncryptSha256Util;
 
 /**
  * @author Charles Gao
@@ -119,7 +118,7 @@ public class LoginController {
             String[] userTypes = {"ADMIN","STUDENT","TEACHER"};
             String sql = "SELECT * FROM " +userTypes[userType]+ " WHERE EMAIL_ADDR=? AND PASSWORD=?";
 
-            // main login logic
+            // main l logic
             switch(userType)
             {
                 // Admin

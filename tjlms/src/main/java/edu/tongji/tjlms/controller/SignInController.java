@@ -21,6 +21,8 @@ import java.sql.Types;
 import java.util.Random;
 import java.util.List;
 
+import edu.tongji.tjlms.utils.EncryptSha256Util;
+
 @RestController
 @RequestMapping("/api")
 @Service
@@ -35,6 +37,7 @@ public class SignInController {
     private JdbcTemplate jdbcTemplate;
 
     private String verificationCode = "";
+    private final String[] userTypes = {"ADMIN","STUDENT","TEACHER"}
     // Student row mapper
     static class StudentRowMapper implements RowMapper<Student>{
         /**
@@ -93,7 +96,6 @@ public class SignInController {
             code.append(r.nextInt(10));
         }
         verificationCode = code.toString();
-        String[] userTypes = {"ADMIN","STUDENT","TEACHER"};
         String id = ei.getId();
         String name = "";
         int userType = ei.getUserType();
@@ -145,7 +147,7 @@ public class SignInController {
             message.setFrom(sender);
             message.setTo(ei.getEmailAddress());
             message.setSubject("TJLMS邮箱验证");
-            final String text = "您的验证码是："+ verificationCode+"\n\nTJLMS";
+            final String text = "您的验证码是："+ verificationCode+"\n\nTJLMS实验管理系统";
             String head = name+((userType == 1) ? "同学：\n" :"老师：\n")+"您好！\n";
             String mainMsg = head+text;
             message.setText(mainMsg);
@@ -157,6 +159,41 @@ public class SignInController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("发送失败");
         }
+    }
+
+    @PostMapping("/signIn")
+    @ResponseBody
+    public ResponseEntity<String> signIn(SignIn si)
+    {
+        try
+        {
+            if(!si.getVerificationCode().equals(this.verificationCode))
+            {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("验证码错误");
+            }
+            int userType = si.getUserType();
+            String id = si.getId();
+            String email = si.getEmailAddress();
+            String password = EncryptSha256Util.getSha256Str(si.getPassword());
+            String sql = "UPDATE "+userTypes[userType]+" SET EMAIL_ADDR=?,PASSWORD=?,VERIFIED=1 WHERE ID=?";
+            int res = jdbcTemplate.update(
+                    sql,
+                    new Object[]{email,password,id},
+                    new int[]{Types.VARCHAR,Types.VARCHAR,Types.VARCHAR}
+            );
+
+            if(res == 0)
+            {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("注册失败");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body("注册成功");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+
     }
 
 }

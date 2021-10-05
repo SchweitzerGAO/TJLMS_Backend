@@ -23,8 +23,14 @@ import java.util.List;
 
 import edu.tongji.tjlms.utils.EncryptSha256Util;
 
+/**
+ * @author Charles Gao
+ * @date 2021/10/5
+ * @description the APIs for email and signing in
+ */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 @Service
 public class SignInController {
     @Autowired
@@ -37,7 +43,7 @@ public class SignInController {
     private JdbcTemplate jdbcTemplate;
 
     private String verificationCode = "";
-    private final String[] userTypes = {"ADMIN","STUDENT","TEACHER"}
+    private final String[] userTypes = {"ADMIN","STUDENT","TEACHER"};
     // Student row mapper
     static class StudentRowMapper implements RowMapper<Student>{
         /**
@@ -84,7 +90,12 @@ public class SignInController {
 
         }
     }
-    
+
+    /**
+     * send email
+     * @param ei the data for sending the email
+     * @return the response code with information
+     */
     @PostMapping("/sendEmail")
     @ResponseBody
     public ResponseEntity<String> sendEmail(@RequestBody EmailInfo ei)
@@ -147,7 +158,7 @@ public class SignInController {
             message.setFrom(sender);
             message.setTo(ei.getEmailAddress());
             message.setSubject("TJLMS邮箱验证");
-            final String text = "您的验证码是："+ verificationCode+"\n\nTJLMS实验管理系统";
+            final String text = "您的验证码是："+ verificationCode+" 如注册遇到问题，请发送问题至本邮箱"+"\n\nTJLMS实验管理系统";
             String head = name+((userType == 1) ? "同学：\n" :"老师：\n")+"您好！\n";
             String mainMsg = head+text;
             message.setText(mainMsg);
@@ -161,9 +172,14 @@ public class SignInController {
         }
     }
 
+    /**
+     * sign in
+     * @param si the data for signing in
+     * @return response code with information
+     */
     @PostMapping("/signIn")
     @ResponseBody
-    public ResponseEntity<String> signIn(SignIn si)
+    public ResponseEntity<String> signIn(@RequestBody SignIn si)
     {
         try
         {
@@ -171,6 +187,7 @@ public class SignInController {
             {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("验证码错误");
             }
+            verificationCode = "";
             int userType = si.getUserType();
             String id = si.getId();
             String email = si.getEmailAddress();

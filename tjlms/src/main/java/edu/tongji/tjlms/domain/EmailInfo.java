@@ -1,5 +1,10 @@
 package edu.tongji.tjlms.domain;
 
+/**
+ * @author Charles Gao
+ * @date 2021/10/5
+ * @description class EmailInfo(used in sending email API)
+ */
 public class EmailInfo {
     private String id;
     private String emailAddress;

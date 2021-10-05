@@ -1,7 +1,10 @@
 package edu.tongji.tjlms.domain;
 
-import java.util.Objects;
-
+/**
+ * @author Charles Gao
+ * @date 2021/10/4
+ * @description class SignIn(used in sign in API)
+ */
 public class SignIn {
     private String id;
     private int userType;

@@ -101,7 +101,7 @@ public class LoginController {
 
 
     /**
-     * login logic
+     * login
      * @param l login info
      * @return the user's necessary information
      */

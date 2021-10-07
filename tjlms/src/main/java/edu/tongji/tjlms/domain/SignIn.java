@@ -6,8 +6,8 @@ package edu.tongji.tjlms.domain;
  * @description class SignIn(used in sign in API)
  */
 public class SignIn {
-    private String id;
     private int userType;
+    private String id;
     private String emailAddress;
     private String password;
     private String verificationCode;

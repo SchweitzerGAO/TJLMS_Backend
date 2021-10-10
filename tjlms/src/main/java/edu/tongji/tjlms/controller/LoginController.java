@@ -118,7 +118,6 @@ public class LoginController {
             String[] userTypes = {"ADMIN","STUDENT","TEACHER"};
             String sql = "SELECT * FROM " +userTypes[userType]+ " WHERE EMAIL_ADDR=? AND PASSWORD=?";
 
-            // main l logic
             switch(userType)
             {
                 // Admin

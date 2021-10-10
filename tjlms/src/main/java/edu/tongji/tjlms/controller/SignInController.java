@@ -35,7 +35,7 @@ import edu.tongji.tjlms.utils.EncryptSha256Util;
 public class SignInController {
     @Autowired
     private JavaMailSender jms;
-
+    // the sender value is in application.properties
     @Value("${spring.mail.username}")
     private String sender;
 
@@ -43,6 +43,7 @@ public class SignInController {
     private JdbcTemplate jdbcTemplate;
 
     private String verificationCode = "";
+    // role "ADMIN" is always verified
     private final String[] userTypes = {"ADMIN","STUDENT","TEACHER"};
     // Student row mapper
     static class StudentRowMapper implements RowMapper<Student>{
@@ -100,6 +101,7 @@ public class SignInController {
     @ResponseBody
     public ResponseEntity<String> sendEmail(@RequestBody EmailInfo ei)
     {
+        // generate verification code
         StringBuilder code = new StringBuilder();
         Random r = new Random();
         for(int i = 0;i<6;i++)
@@ -107,6 +109,8 @@ public class SignInController {
             code.append(r.nextInt(10));
         }
         verificationCode = code.toString();
+
+        // query the information from the DBMS
         String id = ei.getId();
         String name = "";
         int userType = ei.getUserType();
@@ -115,6 +119,7 @@ public class SignInController {
         {
             switch (userType)
             {
+                // student
                 case 1:
                 {
                     List<Student> studentList = jdbcTemplate.query(
@@ -134,6 +139,7 @@ public class SignInController {
                     name = studentList.get(0).getName();
                     break;
                 }
+                // teacher
                 case 2:
                 {
                     List<Teacher> teacherList = jdbcTemplate.query(
@@ -154,14 +160,17 @@ public class SignInController {
                     break;
                 }
             }
+            // send the email
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(sender);
-            message.setTo(ei.getEmailAddress());
-            message.setSubject("TJLMS邮箱验证");
-            final String text = "您的验证码是："+ verificationCode+" 如注册遇到问题，请发送问题至本邮箱"+"\n\nTJLMS实验管理系统";
+            message.setFrom(sender);  // the sender
+            message.setTo(ei.getEmailAddress());  // the receiver
+            message.setSubject("TJLMS邮箱验证");  // subject
+            // the text
+            final String text = "您的验证码是："+ verificationCode+"\n如注册遇到问题，请发送问题至本邮箱；若非您本人操作，请忽略此邮件。"+"\nTJLMS实验管理系统";
             String head = name+((userType == 1) ? "同学：\n" :"老师：\n")+"您好！\n";
             String mainMsg = head+text;
             message.setText(mainMsg);
+            // send it!
             jms.send(message);
             return ResponseEntity.status(HttpStatus.OK).body("发送成功");
         }
@@ -183,6 +192,7 @@ public class SignInController {
     {
         try
         {
+            // compare the verification code
             if(!si.getVerificationCode().equals(this.verificationCode))
             {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("验证码错误");
@@ -191,14 +201,15 @@ public class SignInController {
             int userType = si.getUserType();
             String id = si.getId();
             String email = si.getEmailAddress();
+            // encrypt the password
             String password = EncryptSha256Util.getSha256Str(si.getPassword());
+            // update the DBMS
             String sql = "UPDATE "+userTypes[userType]+" SET EMAIL_ADDR=?,PASSWORD=?,VERIFIED=1 WHERE ID=?";
             int res = jdbcTemplate.update(
                     sql,
                     new Object[]{email,password,id},
                     new int[]{Types.VARCHAR,Types.VARCHAR,Types.VARCHAR}
             );
-
             if(res == 0)
             {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("注册失败");

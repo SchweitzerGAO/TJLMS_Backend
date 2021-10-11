@@ -1,7 +1,5 @@
 package edu.tongji.tjlms.controller;
 
-import edu.tongji.tjlms.domain.Student;
-import edu.tongji.tjlms.domain.Teacher;
 import edu.tongji.tjlms.dto.EmailInfo;
 import edu.tongji.tjlms.dto.SignIn;
 import edu.tongji.tjlms.model.StudentEntity;
@@ -14,17 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.Optional;
 
 /**

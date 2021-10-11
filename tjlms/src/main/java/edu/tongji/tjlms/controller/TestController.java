@@ -36,7 +36,7 @@ public class TestController {
         }
     }
     // get all
-    @GetMapping("/alltest")
+    @GetMapping("/allTest")
     @ResponseBody
     public ResponseEntity getAll()
     {
@@ -62,7 +62,7 @@ public class TestController {
     }
 
     // get by id
-    @GetMapping("/gettest/{id}")
+    @GetMapping("/getTest/{id}")
     @ResponseBody
     public ResponseEntity getById(@PathVariable("id") Long id)
     {
@@ -89,7 +89,7 @@ public class TestController {
     }
 
     // add a new test object
-    @PostMapping("/newtest")
+    @PostMapping("/newTest")
     @ResponseBody
     public ResponseEntity<String> newTest(@RequestBody Test t)
     {
@@ -115,7 +115,7 @@ public class TestController {
         }
     }
 
-    @PostMapping("/newtestlist")
+    @PostMapping("/newTestList")
     @ResponseBody
     public ResponseEntity newTestList(@RequestBody List<Test> l)
     {
@@ -139,7 +139,7 @@ public class TestController {
         }
     }
 
-    @GetMapping("/deletetest/{id}")
+    @GetMapping("/deleteTest/{id}")
     @ResponseBody
     public ResponseEntity deleteTestById(@PathVariable("id") Long id)
     {

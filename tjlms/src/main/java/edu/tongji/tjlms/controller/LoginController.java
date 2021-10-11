@@ -1,104 +1,36 @@
 package edu.tongji.tjlms.controller;
 
-import edu.tongji.tjlms.domain.Admin;
-import edu.tongji.tjlms.domain.Login;
-import edu.tongji.tjlms.domain.Student;
-import edu.tongji.tjlms.domain.Teacher;
+import edu.tongji.tjlms.dto.Login;
+import edu.tongji.tjlms.model.AdminEntity;
+import edu.tongji.tjlms.model.StudentEntity;
+import edu.tongji.tjlms.model.TeacherEntity;
+import edu.tongji.tjlms.repository.AdminRepository;
+import edu.tongji.tjlms.repository.StudentRepository;
+import edu.tongji.tjlms.repository.TeacherRepository;
+import edu.tongji.tjlms.util.EncryptSha256Util;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.List;
-import edu.tongji.tjlms.utils.EncryptSha256Util;
+import java.util.Optional;
 
 /**
  * @author Charles Gao
  * @description login webAPI
- * @date 2021/9/29
+ * @date 2021/10/11
  */
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api")
 public class LoginController {
     @Resource
-    private JdbcTemplate jdbcTemplate;
-
-    // Admin row mapper
-    static class AdminRowMapper implements RowMapper<Admin> {
-        /**
-         * map the admins' data
-         * @param rs result set
-         * @param rowNum number of rows
-         * @return the mapped data
-         * @throws SQLException exception
-         */
-        @Override
-        public Admin mapRow(ResultSet rs, int rowNum) throws SQLException
-        {
-            Admin admin = new Admin();
-            admin.setId(rs.getString("id"));
-            admin.setName(rs.getString("name"));
-            admin.setTelNum(rs.getString("tel_num"));
-            admin.setEmailAddress(rs.getString("email_addr"));
-            return admin;
-        }
-
-    }
-
-    // Student row mapper
-    static class StudentRowMapper implements RowMapper<Student>{
-        /**
-         * map the students' data
-         * @param rs result set
-         * @param rowNum number of rows
-         * @return the mapped data
-         * @throws SQLException exception
-         */
-        @Override
-        public Student mapRow(ResultSet rs, int rowNum) throws SQLException
-        {
-            Student student = new Student();
-            student.setId(rs.getString("id"));
-            student.setName(rs.getString("name"));
-            student.setVerified(rs.getBoolean("verified"));
-            student.setClassId(rs.getString("class_id"));
-            student.setEmailAddress(rs.getString("email_addr"));
-            return student;
-        }
-    }
-
-    // Teacher row mapper
-    static class TeacherRowMapper implements RowMapper<Teacher>{
-        /**
-         * map the teachers' data
-         * @param rs result set
-         * @param rowNum number of rows
-         * @return the mapped data
-         * @throws SQLException exception
-         */
-        @Override
-        public Teacher mapRow(ResultSet rs, int rowNum) throws SQLException
-        {
-            Teacher teacher = new Teacher();
-            teacher.setId(rs.getString("id"));
-            teacher.setName(rs.getString("name"));
-            teacher.setVerified(rs.getBoolean("verified"));
-            teacher.setAssist(rs.getBoolean("is_assist"));
-            teacher.setTelNum(rs.getString("tel_num"));
-            teacher.setResp(rs.getBoolean("is_resp"));
-            teacher.setEmailAddress(rs.getString("email_addr"));
-            return teacher;
-
-        }
-    }
-
+    private AdminRepository adminRepository;
+    @Resource
+    private StudentRepository studentRepository;
+    @Resource
+    private TeacherRepository teacherRepository;
 
     /**
      * login
@@ -107,7 +39,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity login(@RequestBody Login l)
+    public ResponseEntity<String> login(@RequestBody Login l)
     {
 
         try
@@ -115,72 +47,51 @@ public class LoginController {
             int userType = l.getUserType();
             String email = l.getEmailAddress();
             String password = EncryptSha256Util.getSha256Str(l.getPassword());
-            String[] userTypes = {"ADMIN","STUDENT","TEACHER"};
-            String sql = "SELECT * FROM " +userTypes[userType]+ " WHERE EMAIL_ADDR=? AND PASSWORD=?";
-
             switch(userType)
             {
                 // Admin
                 case 0:
                 {
-                    // check the email and password
-                    List<Admin> adminList = jdbcTemplate.query(
-                            sql,
-                            new Object[]{email,password},
-                            new int[]{Types.VARCHAR,Types.VARCHAR},
-                            new AdminRowMapper()
-                    );
-                    if(adminList.isEmpty())
+                    // JPA code
+                    Optional<AdminEntity> admin = adminRepository.findByEmailAddrAndPassword(email, password);
+                    if(!admin.isPresent())
                     {
-                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误");
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误。");
                     }
-                    return ResponseEntity.status(HttpStatus.OK).body(adminList.get(0));
+                    return ResponseEntity.status(HttpStatus.OK).body("登录成功");
                 }
 
                 // Student
                 case 1:
                 {
-                    // check the email and password
-                    List<Student> studentList = jdbcTemplate.query(
-                            sql,
-                            new Object[]{email,password},
-                            new int[]{Types.VARCHAR,Types.VARCHAR},
-                            new StudentRowMapper()
-                    );
-                    if(studentList.isEmpty())
+                    // JPA code
+                    Optional<StudentEntity> student = studentRepository.findByEmailAddrAndPassword(email,password);
+                    if(!student.isPresent())
                     {
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误");
                     }
-                    // check the verification
-                    Student student = studentList.get(0);
-                    if(!student.isVerified())
+                    if(!student.get().getVerified())
                     {
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("账户尚未激活");
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("尚未激活");
                     }
-                    return ResponseEntity.status(HttpStatus.OK).body(student);
+                    return ResponseEntity.status(HttpStatus.OK).body("登录成功");
                 }
 
                 // Teacher
                 case 2:
                 {
-                    // check the email and password
-                    List<Teacher> TeacherList = jdbcTemplate.query(
-                            sql,
-                            new Object[]{email,password},
-                            new int[]{Types.VARCHAR,Types.VARCHAR},
-                            new TeacherRowMapper()
-                    );
-                    if(TeacherList.isEmpty())
+                    // JPA code
+                    Optional<TeacherEntity> teacher = teacherRepository.findByEmailAddrAndPassword(email, password);
+                    if(!teacher.isPresent())
                     {
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误");
                     }
-                    // check the verification
-                    Teacher teacher = TeacherList.get(0);
-                    if(!teacher.isVerified())
+                    if(!teacher.get().getVerified())
                     {
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("账户尚未激活");
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("尚未激活");
                     }
-                    return ResponseEntity.status(HttpStatus.OK).body(teacher);
+                    return ResponseEntity.status(HttpStatus.OK).body("登录成功");
+
                 }
                 default:
                 {

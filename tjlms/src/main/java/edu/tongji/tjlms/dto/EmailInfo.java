@@ -1,4 +1,4 @@
-package edu.tongji.tjlms.domain;
+package edu.tongji.tjlms.dto;
 
 /**
  * @author Charles Gao

@@ -5,7 +5,7 @@ package edu.tongji.tjlms.dto;
  * @date 2021/10/4
  * @description class SignIn(used in sign in API)
  */
-public class SignIn {
+public class SignInDto {
     private int userType;
     private String id;
     private String emailAddress;

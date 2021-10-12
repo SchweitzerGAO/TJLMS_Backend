@@ -1,7 +1,7 @@
 package edu.tongji.tjlms.controller;
 
-import edu.tongji.tjlms.dto.EmailInfo;
-import edu.tongji.tjlms.dto.SignIn;
+import edu.tongji.tjlms.dto.EmailDto;
+import edu.tongji.tjlms.dto.SignInDto;
 import edu.tongji.tjlms.model.StudentEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
 import edu.tongji.tjlms.repository.StudentRepository;
@@ -48,7 +48,7 @@ public class SignInController {
      */
     @PostMapping("/sendEmail")
     @ResponseBody
-    public ResponseEntity<String> sendEmail(@RequestBody EmailInfo ei)
+    public ResponseEntity<String> sendEmail(@RequestBody EmailDto ei)
     {
         // generate verification code
         verificationCode = VerificationCodeUtil.generateCode();
@@ -122,7 +122,7 @@ public class SignInController {
      */
     @PostMapping("/signIn")
     @ResponseBody
-    public ResponseEntity<String> signIn(@RequestBody SignIn si)
+    public ResponseEntity<String> signIn(@RequestBody SignInDto si)
     {
         try
         {

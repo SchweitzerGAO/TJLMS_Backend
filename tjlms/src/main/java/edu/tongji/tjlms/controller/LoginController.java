@@ -1,6 +1,6 @@
 package edu.tongji.tjlms.controller;
 
-import edu.tongji.tjlms.dto.Login;
+import edu.tongji.tjlms.dto.LoginDto;
 import edu.tongji.tjlms.model.AdminEntity;
 import edu.tongji.tjlms.model.StudentEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
@@ -10,7 +10,6 @@ import edu.tongji.tjlms.repository.TeacherRepository;
 import edu.tongji.tjlms.util.EncryptSha256Util;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,7 +38,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody Login l)
+    public ResponseEntity<String> login(@RequestBody LoginDto l)
     {
 
         try

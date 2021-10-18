@@ -10,6 +10,12 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * @author Charles Gao
+ * @date 2021/10/13
+ * @description Swagger configuration utility
+ * @reference
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerUtil {

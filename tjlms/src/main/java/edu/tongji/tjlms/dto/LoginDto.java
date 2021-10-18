@@ -3,7 +3,7 @@ package edu.tongji.tjlms.dto;
 /**
  * @author Charles Gao
  * @date 2021/10/5
- * @description class login(used in API login)
+ * @description class LoginDto(used in API login)
  */
 public class LoginDto {
     private String emailAddress;

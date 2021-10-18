@@ -1,6 +1,5 @@
 package edu.tongji.tjlms.model;
 
-import com.fasterxml.jackson.core.json.ByteSourceJsonBootstrapper;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.persistence.*;
@@ -17,6 +16,7 @@ public class TeacherEntity {
     private Boolean verified;
     private Boolean isResp;
     private Boolean isAssist;
+    private Boolean canGrade;
 
     @Id
     @Column(name = "id")
@@ -98,16 +98,26 @@ public class TeacherEntity {
         this.isAssist = isAssist;
     }
 
+    @Basic
+    @Column(name = "can_grade")
+    public Boolean getCanGrade() {
+        return canGrade;
+    }
+
+    public void setCanGrade(Boolean canGrade) {
+        this.canGrade = canGrade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeacherEntity that = (TeacherEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(telNum, that.telNum) && Objects.equals(verified, that.verified) && Objects.equals(isResp, that.isResp) && Objects.equals(isAssist, that.isAssist);
+        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(telNum, that.telNum) && Objects.equals(verified, that.verified) && Objects.equals(isResp, that.isResp) && Objects.equals(isAssist, that.isAssist) && Objects.equals(canGrade, that.canGrade);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, emailAddr, name, password, telNum, verified, isResp, isAssist);
+        return Objects.hash(id, emailAddr, name, password, telNum, verified, isResp, isAssist, canGrade);
     }
 }

@@ -3,7 +3,7 @@ package edu.tongji.tjlms.dto;
 /**
  * @author Charles Gao
  * @date 2021/10/4
- * @description class SignIn(used in sign in API)
+ * @description class SignInDto(used in sign in API)
  */
 public class SignInDto {
     private int userType;

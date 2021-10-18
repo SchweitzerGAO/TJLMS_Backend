@@ -43,20 +43,20 @@ public class SignInController {
 
     /**
      * send email
-     * @param ei the data for sending the email
+     * @param ed the data for sending the email
      * @return the response code with information
      */
     @PostMapping("/sendEmail")
     @ResponseBody
-    public ResponseEntity<String> sendEmail(@RequestBody EmailDto ei)
+    public ResponseEntity<String> sendEmail(@RequestBody EmailDto ed)
     {
         // generate verification code
         verificationCode = VerificationCodeUtil.generateCode();
 
         // query the information from the DBMS
-        String id = ei.getId();
+        String id = ed.getId();
         String name = "";
-        int userType = ei.getUserType();
+        int userType = ed.getUserType();
         try
         {
             switch (userType)
@@ -97,7 +97,7 @@ public class SignInController {
             // set the email
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(sender);  // the sender
-            message.setTo(ei.getEmailAddress());  // the receiver
+            message.setTo(ed.getEmailAddress());  // the receiver
             message.setSubject("TJLMS邮箱验证");  // subject
             // the text
             final String text = "您的验证码是："+ verificationCode+"\n如注册遇到问题，请发送问题至本邮箱；若非您本人操作，请忽略此邮件。"+"\nTJLMS实验管理系统";
@@ -117,26 +117,26 @@ public class SignInController {
 
     /**
      * sign in
-     * @param si the data for signing in
+     * @param sid the data for signing in
      * @return response code with information
      */
     @PostMapping("/signIn")
     @ResponseBody
-    public ResponseEntity<String> signIn(@RequestBody SignInDto si)
+    public ResponseEntity<String> signIn(@RequestBody SignInDto sid)
     {
         try
         {
             // compare the verification code
-            if(!si.getVerificationCode().equals(this.verificationCode))
+            if(!sid.getVerificationCode().equals(this.verificationCode))
             {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("验证码错误");
             }
             verificationCode = "";
-            int userType = si.getUserType();
-            String id = si.getId();
-            String email = si.getEmailAddress();
+            int userType = sid.getUserType();
+            String id = sid.getId();
+            String email = sid.getEmailAddress();
             // encrypt the password
-            String password = EncryptSha256Util.getSha256Str(si.getPassword());
+            String password = EncryptSha256Util.getSha256Str(sid.getPassword());
             // JPA code
             int res;
             switch (userType)

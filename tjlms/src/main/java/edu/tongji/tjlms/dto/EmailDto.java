@@ -3,7 +3,7 @@ package edu.tongji.tjlms.dto;
 /**
  * @author Charles Gao
  * @date 2021/10/5
- * @description class EmailInfo(used in sending email API)
+ * @description class EmailDto(used in sending email API)
  */
 public class EmailDto {
     private String id;

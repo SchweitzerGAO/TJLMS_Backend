@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * @author Charles Gao
- * @description verification code generator
+ * @description verification code utility
  * @date 2021/10/11
  */
 public class VerificationCodeUtil {

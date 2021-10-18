@@ -33,19 +33,19 @@ public class LoginController {
 
     /**
      * login
-     * @param l login info
+     * @param ld login DTO info
      * @return the user's necessary information
      */
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody LoginDto l)
+    public ResponseEntity<String> login(@RequestBody LoginDto ld)
     {
 
         try
         {
-            int userType = l.getUserType();
-            String email = l.getEmailAddress();
-            String password = EncryptSha256Util.getSha256Str(l.getPassword());
+            int userType = ld.getUserType();
+            String email = ld.getEmailAddress();
+            String password = EncryptSha256Util.getSha256Str(ld.getPassword());
             switch(userType)
             {
                 // Admin
@@ -74,6 +74,7 @@ public class LoginController {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("尚未激活");
                     }
                     return ResponseEntity.status(HttpStatus.OK).body("登录成功");
+
                 }
 
                 // Teacher

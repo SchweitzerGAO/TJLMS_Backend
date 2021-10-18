@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Charles Gao
- * @description SHA256 encrypting utility class
+ * @description SHA256 encrypting utility
  * @date 2021/9/29
  * @reference https://blog.csdn.net/lh155136/article/details/119325554
  */

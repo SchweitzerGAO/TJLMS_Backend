@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 @Repository("TeacherRepository")
 public interface TeacherRepository extends JpaRepository<TeacherEntity,String> {
-    Optional<TeacherEntity> findById(String id);
     Optional<TeacherEntity> findByEmailAddrAndPassword(String email, String password);
     @Transactional
     @Modifying

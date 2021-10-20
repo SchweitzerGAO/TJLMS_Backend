@@ -1,19 +1,11 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.LoginDto;
-import edu.tongji.tjlms.model.AdminEntity;
-import edu.tongji.tjlms.model.StudentEntity;
-import edu.tongji.tjlms.model.TeacherEntity;
-import edu.tongji.tjlms.repository.AdminRepository;
-import edu.tongji.tjlms.repository.StudentRepository;
-import edu.tongji.tjlms.repository.TeacherRepository;
-import edu.tongji.tjlms.util.EncryptSha256Util;
+import edu.tongji.tjlms.service.login.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import java.util.Optional;
 
 /**
  * @author Charles Gao
@@ -24,80 +16,29 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class LoginController {
-    @Resource
-    private AdminRepository adminRepository;
-    @Resource
-    private StudentRepository studentRepository;
-    @Resource
-    private TeacherRepository teacherRepository;
-
+    @Autowired
+    private LoginService loginService;
     /**
      * login
      * @param ld login DTO info
      * @return the user's necessary information
      */
-    @PostMapping("/login")
+    @PostMapping("/post/login")
     @ResponseBody
     public ResponseEntity<String> login(@RequestBody LoginDto ld)
     {
 
         try
         {
-            int userType = ld.getUserType();
-            String email = ld.getEmailAddress();
-            String password = EncryptSha256Util.getSha256Str(ld.getPassword());
-            switch(userType)
-            {
-                // Admin
-                case 0:
-                {
-                    // JPA code
-                    Optional<AdminEntity> admin = adminRepository.findByEmailAddrAndPassword(email, password);
-                    if(!admin.isPresent())
-                    {
-                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误。");
-                    }
-                    return ResponseEntity.status(HttpStatus.OK).body("登录成功");
-                }
-
-                // Student
-                case 1:
-                {
-                    // JPA code
-                    Optional<StudentEntity> student = studentRepository.findByEmailAddrAndPassword(email,password);
-                    if(!student.isPresent())
-                    {
-                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误");
-                    }
-                    if(!student.get().getVerified())
-                    {
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("尚未激活");
-                    }
-                    return ResponseEntity.status(HttpStatus.OK).body("登录成功");
-
-                }
-
-                // Teacher
-                case 2:
-                {
-                    // JPA code
-                    Optional<TeacherEntity> teacher = teacherRepository.findByEmailAddrAndPassword(email, password);
-                    if(!teacher.isPresent())
-                    {
-                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("邮箱或密码错误");
-                    }
-                    if(!teacher.get().getVerified())
-                    {
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("尚未激活");
-                    }
-                    return ResponseEntity.status(HttpStatus.OK).body("登录成功");
-
-                }
-                default:
-                {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("错误用户类型");
-                }
-            }
+           String ret = loginService.login(ld);
+           if(ret.equals("登录成功"))
+           {
+               return ResponseEntity.status(HttpStatus.OK).body(ret);
+           }
+           else
+           {
+               return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ret);
+           }
         }
         catch (Exception e)
         {

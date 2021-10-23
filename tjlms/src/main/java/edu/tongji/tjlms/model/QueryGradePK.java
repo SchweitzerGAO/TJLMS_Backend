@@ -1,11 +1,12 @@
 package edu.tongji.tjlms.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class GradeEntityPK implements Serializable {
+public class QueryGradePK implements Serializable {
     private String stuId;
     private String classId;
 
@@ -33,8 +34,8 @@ public class GradeEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GradeEntityPK that = (GradeEntityPK) o;
-        return Objects.equals(stuId, that.stuId) && Objects.equals(classId, that.classId);
+        QueryGradePK that = (QueryGradePK) o;
+        return stuId.equals(that.stuId) && classId.equals(that.classId);
     }
 
     @Override

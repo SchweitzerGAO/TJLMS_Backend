@@ -45,60 +45,61 @@ public class EmailSendServiceImpl implements EmailSendService {
 
     @Override
     public String sendEmail(EmailDto ed) {
-        // generate verification code
-        verificationCode = VerificationCodeUtil.generateCode();
+            // generate verification code
+            verificationCode = VerificationCodeUtil.generateCode();
 
-        // query the information from the DBMS
-        String id = ed.getId();
-        String name = "";
-        int userType = ed.getUserType();
-        switch (userType)
-        {
-            // student
-            case 1:
+            // query the information from the DBMS
+            String id = ed.getId();
+            String name = "";
+            int userType = ed.getUserType();
+            switch (userType)
             {
-                // JPA code
-                Optional<StudentEntity> student = studentRepository.findById(id);
-                if(!student.isPresent())
+                // student
+                case 1:
                 {
-                    return "学工号错误";
+                    // JPA code
+                    Optional<StudentEntity> student = studentRepository.findById(id);
+                    if(!student.isPresent())
+                    {
+                        return "学工号错误";
+                    }
+                    if(student.get().getVerified())
+                    {
+                        return "不能重复激活";
+                    }
+                    name = student.get().getName();
+                    break;
                 }
-                if(student.get().getVerified())
+                // teacher
+                case 2:
                 {
-                    return "不能重复激活";
+                    // JPA code
+                    Optional<TeacherEntity> teacher = teacherRepository.findById(id);
+                    if(!teacher.isPresent())
+                    {
+                        return "学工号错误";
+                    }
+                    if(teacher.get().getVerified())
+                    {
+                        return "不能重复激活";
+                    }
+                    name = teacher.get().getName();
+                    break;
                 }
-                name = student.get().getName();
-                break;
             }
-            // teacher
-            case 2:
-            {
-                // JPA code
-                Optional<TeacherEntity> teacher = teacherRepository.findById(id);
-                if(!teacher.isPresent())
-                {
-                    return "学工号错误";
-                }
-                if(teacher.get().getVerified())
-                {
-                    return "不能重复激活";
-                }
-                name = teacher.get().getName();
-                break;
-            }
-        }
-        // set the email
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(sender);  // the sender
-        message.setTo(ed.getEmailAddress());  // the receiver
-        message.setSubject("TJLMS邮箱验证");  // subject
-        // the text
-        final String text = "您的验证码是："+ verificationCode+"\n如操作遇到问题，请发送问题至本邮箱；若非您本人操作，请忽略此邮件。"+"\nTJLMS实验管理系统";
-        String head = name+((userType == 1) ? "同学：\n" :"老师：\n")+"您好！\n";
-        String mainMsg = head+text;
-        message.setText(mainMsg);
-        // send it!
-        jms.send(message);
-        return "发送成功";
+            // set the email
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(sender);  // the sender
+            message.setTo(ed.getEmailAddress());  // the receiver
+            message.setSubject("TJLMS邮箱验证");  // subject
+            // the text
+            final String text = "您的验证码是："+ verificationCode+"\n如操作遇到问题，请发送问题至本邮箱；若非您本人操作，请忽略此邮件。"+"\nTJLMS实验管理系统";
+            String head = name+((userType == 1) ? "同学：\n" :"老师：\n")+"您好！\n";
+            String mainMsg = head+text;
+            message.setText(mainMsg);
+            // send it!
+            jms.send(message);
+            return "发送成功";
+
     }
 }

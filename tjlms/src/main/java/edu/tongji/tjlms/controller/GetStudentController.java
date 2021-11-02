@@ -28,7 +28,7 @@ public class GetStudentController {
         try
         {
             TeacherEntity teacher = teacherRepository.getById(info.getTeacherId());
-            if(!teacher.getCanGrade())
+            if(!teacher.getGrade())
             {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("暂无权限");
             }

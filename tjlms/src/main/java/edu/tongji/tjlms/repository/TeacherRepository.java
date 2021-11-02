@@ -8,13 +8,20 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository("TeacherRepository")
 public interface TeacherRepository extends JpaRepository<TeacherEntity,String> {
     Optional<TeacherEntity> findByEmailAddrAndPassword(String email, String password);
+
     @Transactional
     @Modifying
     @Query("UPDATE TeacherEntity t SET t.emailAddr=?1,t.password=?2,t.verified=1 WHERE t.id=?3")
     int verify( String email, String password, String id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE TeacherEntity t SET t.type=?1,t.grade=?2,t.releaseLab=?3 WHERE t.id=?4")
+    void modifyPerm(Integer type,Boolean grade,Boolean releaseLab,String id);
 }

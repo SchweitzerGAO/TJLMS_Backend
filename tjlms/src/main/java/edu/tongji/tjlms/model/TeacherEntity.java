@@ -14,9 +14,9 @@ public class TeacherEntity {
     private String password;
     private String telNum;
     private Boolean verified;
-    private Boolean isResp;
-    private Boolean isAssist;
-    private Boolean canGrade;
+    private Integer type;
+    private Boolean grade;
+    private Boolean releaseLab;
 
     @Id
     @Column(name = "id")
@@ -79,45 +79,45 @@ public class TeacherEntity {
     }
 
     @Basic
-    @Column(name = "is_resp")
-    public Boolean getIsResp() {
-        return isResp;
+    @Column(name = "type")
+    public Integer getType() {
+        return type;
     }
 
-    public void setIsResp(Boolean isResp) {
-        this.isResp = isResp;
-    }
-
-    @Basic
-    @Column(name = "is_assist")
-    public Boolean getIsAssist() {
-        return isAssist;
-    }
-
-    public void setIsAssist(Boolean isAssist) {
-        this.isAssist = isAssist;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     @Basic
-    @Column(name = "can_grade")
-    public Boolean getCanGrade() {
-        return canGrade;
+    @Column(name = "grade")
+    public Boolean getGrade() {
+        return grade;
     }
 
-    public void setCanGrade(Boolean canGrade) {
-        this.canGrade = canGrade;
+    public void setGrade(Boolean grade) {
+        this.grade = grade;
+    }
+
+    @Basic
+    @Column(name = "release_lab")
+    public Boolean getReleaseLab() {
+        return releaseLab;
+    }
+
+    public void setReleaseLab(Boolean releaseLab) {
+        this.releaseLab = releaseLab;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TeacherEntity that = (TeacherEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(telNum, that.telNum) && Objects.equals(verified, that.verified) && Objects.equals(isResp, that.isResp) && Objects.equals(isAssist, that.isAssist) && Objects.equals(canGrade, that.canGrade);
+        TeacherEntity teacher = (TeacherEntity) o;
+        return id.equals(teacher.id) && emailAddr.equals(teacher.emailAddr) && name.equals(teacher.name) && password.equals(teacher.password) && telNum.equals(teacher.telNum) && verified.equals(teacher.verified) && type.equals(teacher.type) && grade.equals(teacher.grade) && releaseLab.equals(teacher.releaseLab);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, emailAddr, name, password, telNum, verified, isResp, isAssist, canGrade);
+        return Objects.hash(id, emailAddr, name, password, telNum, verified, type, grade, releaseLab);
     }
 }

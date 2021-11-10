@@ -23,7 +23,7 @@ public class GetStudentController {
 
     @PostMapping("/get/students")
     @ResponseBody
-    public ResponseEntity<?> getStudents(GetStudentDto info)
+    public ResponseEntity<?> getStudents(@RequestBody GetStudentDto info)
     {
         try
         {

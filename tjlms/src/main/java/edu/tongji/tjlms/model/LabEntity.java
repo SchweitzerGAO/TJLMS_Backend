@@ -8,6 +8,9 @@ import java.util.Objects;
 public class LabEntity {
     private String id;
     private String name;
+    private String releaseTeacher;
+    private String releaseDate;
+    private String deadline;
 
     @Id
     @Column(name = "id")
@@ -40,5 +43,35 @@ public class LabEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    @Basic
+    @Column(name = "release_teacher")
+    public String getReleaseTeacher() {
+        return releaseTeacher;
+    }
+
+    public void setReleaseTeacher(String releaseTeacher) {
+        this.releaseTeacher = releaseTeacher;
+    }
+
+    @Basic
+    @Column(name = "release_date")
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    @Basic
+    @Column(name = "deadline")
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
     }
 }

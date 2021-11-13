@@ -19,14 +19,14 @@ public class FinderServiceImpl implements FinderService{
     @Resource
     StudentWithoutGradeRepository studentWithoutGradeRepository;
     @Override
-    public List<TeachingStudentEntity> findAllStudent(String teacherId,String labId)
+    public List<TeachingStudentEntity> findAllStudent(String teacherId,Integer labId)
     {
         Specification<TeachingStudentEntity> specification = (root, criteriaQuery, criteriaBuilder) -> {
             ArrayList<Predicate> predicates = new ArrayList<>();
             Predicate teacher_id = criteriaBuilder.equal(root.get("teacherId").as(String.class),teacherId);
             Predicate resp_id = criteriaBuilder.equal(root.get("respId").as(String.class),teacherId);
             Predicate assist_id = criteriaBuilder.equal(root.get("assistId").as(String.class),teacherId);
-            Predicate lab_id = criteriaBuilder.equal(root.get("labId").as(String.class),labId);
+            Predicate lab_id = criteriaBuilder.equal(root.get("labId").as(Integer.class),labId);
             predicates.add(teacher_id);
             predicates.add(resp_id);
             predicates.add(assist_id);

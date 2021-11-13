@@ -15,7 +15,7 @@ public class TeachingStudentEntity {
     private String respId;
     private String assistId;
     private Boolean visible;
-    private String labId;
+    private Integer labId;
 
     @Basic
     @Id
@@ -111,11 +111,11 @@ public class TeachingStudentEntity {
 
     @Basic
     @Column(name = "lab_id")
-    public String getLabId() {
+    public Integer getLabId() {
         return labId;
     }
 
-    public void setLabId(String labId) {
+    public void setLabId(Integer labId) {
         this.labId = labId;
     }
 

@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class GetStudentDto {
     private String teacherId;
-    private String labId;
+    private Integer labId;
 }

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface GradeService {
     void saveGrade(List<GradeDto> list);
-    void releaseGrade();
+    void releaseGrade(String teacherId);
     List<QueryGradeDto> queryGrade(String studentId);
 }

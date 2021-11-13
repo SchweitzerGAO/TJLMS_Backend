@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "lab", schema = "lms", catalog = "")
 public class LabEntity {
-    private String id;
+    private int id;
     private String name;
     private String releaseTeacher;
     private String releaseDate;
@@ -14,11 +14,11 @@ public class LabEntity {
 
     @Id
     @Column(name = "id")
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -30,19 +30,6 @@ public class LabEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LabEntity labEntity = (LabEntity) o;
-        return Objects.equals(id, labEntity.id) && Objects.equals(name, labEntity.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
     }
 
     @Basic
@@ -73,5 +60,18 @@ public class LabEntity {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LabEntity labEntity = (LabEntity) o;
+        return id == labEntity.id && Objects.equals(name, labEntity.name) && Objects.equals(releaseTeacher, labEntity.releaseTeacher) && Objects.equals(releaseDate, labEntity.releaseDate) && Objects.equals(deadline, labEntity.deadline);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, releaseTeacher, releaseDate, deadline);
     }
 }

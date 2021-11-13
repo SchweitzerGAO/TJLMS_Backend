@@ -31,13 +31,13 @@ public class GradeController {
         }
     }
 
-    @PostMapping("/post/grade/release")
+    @PostMapping("/post/grade/release/{id}")
     @ResponseBody
-    public ResponseEntity<String> release()
+    public ResponseEntity<String> release(@PathVariable("id") String teacherId)
     {
         try
         {
-            gradeService.releaseGrade();
+            gradeService.releaseGrade(teacherId);
             return ResponseEntity.status(HttpStatus.OK).body("发布成功");
         }
         catch (Exception e)

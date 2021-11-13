@@ -26,6 +26,7 @@ public class GradeServiceImpl implements GradeService{
     QueryGradeRepository queryGradeRepository;
     public void saveGrade(List<GradeDto> list) {
         List<GradeEntity> gradeInfo = new ArrayList<>();
+
         for(GradeDto grade: list)
         {
             GradeEntity temp = new GradeEntity();
@@ -43,11 +44,12 @@ public class GradeServiceImpl implements GradeService{
     }
 
     @Override
-    public void releaseGrade() {
-        List<String> classes = studentFinderRepository.getClasses();
+    public void releaseGrade(String teacherId) {
+        List<String> classes = studentFinderRepository.getClasses(teacherId);
+        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         for(String classId: classes)
         {
-            gradeRepository.release(classId);
+            gradeRepository.release(classId,time);
         }
     }
 

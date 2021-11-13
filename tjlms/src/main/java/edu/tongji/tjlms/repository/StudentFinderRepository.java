@@ -12,7 +12,7 @@ import java.util.List;
 public interface StudentFinderRepository extends JpaRepository<TeachingStudentEntity, String>,
         JpaSpecificationExecutor<TeachingStudentEntity> {
 
-    @Query("SELECT DISTINCT classId FROM TeachingStudentEntity")
-    List<String> getClasses();
+    @Query("SELECT DISTINCT classId FROM TeachingStudentEntity WHERE teacherId=?1")
+    List<String> getClasses(String teacherId);
 
 }

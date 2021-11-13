@@ -12,6 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface GradeRepository extends JpaRepository<GradeEntity, GradeEntityPK>{
     @Transactional
     @Modifying
-    @Query("UPDATE GradeEntity g SET g.visible=1 WHERE g.classId=?1")
-    int release(String classId);
+    @Query("UPDATE GradeEntity g SET g.visible=1, g.updateDate=?2 WHERE g.classId=?1")
+    void release(String classId, String time);
 }

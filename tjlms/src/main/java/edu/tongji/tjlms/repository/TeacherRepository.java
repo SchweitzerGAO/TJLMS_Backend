@@ -23,4 +23,10 @@ public interface TeacherRepository extends JpaRepository<TeacherEntity,String> {
     @Modifying
     @Query("UPDATE TeacherEntity t SET t.type=?1,t.grade=?2,t.releaseLab=?3 WHERE t.id=?4")
     void modifyPerm(Integer type,Boolean grade,Boolean releaseLab,String id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE TeacherEntity a SET a.password=?2 WHERE a.id=?2")
+    int updatePwd(String id, String pwd);
+
 }

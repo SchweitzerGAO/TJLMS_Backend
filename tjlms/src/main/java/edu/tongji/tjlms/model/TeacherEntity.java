@@ -12,7 +12,6 @@ public class TeacherEntity {
     private String emailAddr;
     private String name;
     private String password;
-    private String telNum;
     private Boolean verified;
     private Integer type;
     private Boolean grade;
@@ -56,16 +55,6 @@ public class TeacherEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Basic
-    @Column(name = "tel_num")
-    public String getTelNum() {
-        return telNum;
-    }
-
-    public void setTelNum(String telNum) {
-        this.telNum = telNum;
     }
 
     @Basic
@@ -113,11 +102,11 @@ public class TeacherEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeacherEntity teacher = (TeacherEntity) o;
-        return id.equals(teacher.id) && emailAddr.equals(teacher.emailAddr) && name.equals(teacher.name) && password.equals(teacher.password) && telNum.equals(teacher.telNum) && verified.equals(teacher.verified) && type.equals(teacher.type) && grade.equals(teacher.grade) && releaseLab.equals(teacher.releaseLab);
+        return id.equals(teacher.id) && emailAddr.equals(teacher.emailAddr) && name.equals(teacher.name) && password.equals(teacher.password) && verified.equals(teacher.verified) && type.equals(teacher.type) && grade.equals(teacher.grade) && releaseLab.equals(teacher.releaseLab);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, emailAddr, name, password, telNum, verified, type, grade, releaseLab);
+        return Objects.hash(id, emailAddr, name, password, verified, type, grade, releaseLab);
     }
 }

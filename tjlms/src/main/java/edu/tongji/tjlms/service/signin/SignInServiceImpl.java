@@ -21,6 +21,7 @@ public class SignInServiceImpl implements SignInService{
     StudentRepository studentRepository;
     @Resource
     TeacherRepository teacherRepository;
+
     @Override
     public String signIn(SignInDto sid) {
         String verificationCode = EmailSendServiceImpl.getVerificationCode();

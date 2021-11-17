@@ -19,4 +19,9 @@ public interface StudentRepository extends JpaRepository<StudentEntity,String> {
         @Modifying
         @Query("UPDATE StudentEntity s SET s.emailAddr=?1,s.password=?2,s.verified=1 WHERE s.id=?3")
         int verify(String email, String password, String id);
+
+        @Transactional
+        @Modifying
+        @Query("UPDATE StudentEntity a SET a.password=?2 WHERE a.id=?2")
+        int updatePwd(String id, String pwd);
 }

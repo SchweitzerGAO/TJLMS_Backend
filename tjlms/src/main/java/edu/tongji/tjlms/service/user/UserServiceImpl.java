@@ -45,6 +45,10 @@ public class UserServiceImpl implements UserService{
         {
             return "添加失败";
         }
+        for(StudentEntity student:studentList)
+        {
+            student.setVerified(false);
+        }
         studentRepository.saveAll(studentList);
         return "添加成功";
     }
@@ -55,6 +59,10 @@ public class UserServiceImpl implements UserService{
         if(teacherList == null)
         {
             return "添加失败";
+        }
+        for(TeacherEntity teacher:teacherList)
+        {
+            teacher.setVerified(false);
         }
         teacherRepository.saveAll(teacherList);
         return "添加成功";

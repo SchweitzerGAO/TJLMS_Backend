@@ -11,6 +11,7 @@ public class AdminEntity {
     private String name;
     private String password;
     private String telNum;
+    private Boolean pwdReset;
 
     @Id
     @Column(name = "id")
@@ -62,16 +63,27 @@ public class AdminEntity {
         this.telNum = telNum;
     }
 
+    @Basic
+    @Column(name = "pwd_reset")
+    public Boolean getPwdReset()
+    {
+        return pwdReset;
+    }
+    public void setPwdReset(Boolean pwdReset)
+    {
+        this.pwdReset = pwdReset;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AdminEntity that = (AdminEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(telNum, that.telNum);
+        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(telNum, that.telNum) && Objects.equals(pwdReset,that.pwdReset);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, emailAddr, name, password, telNum);
+        return Objects.hash(id, emailAddr, name, password, telNum, pwdReset);
     }
 }

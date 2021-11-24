@@ -93,12 +93,12 @@ public class StudentEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentEntity that = (StudentEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(verified, that.verified) && Objects.equals(classId,that.classId);
+        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(verified, that.verified) && Objects.equals(classId,that.classId) && Objects.equals(attendance,that.attendance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, emailAddr, name, password, verified, classId);
+        return Objects.hash(id, emailAddr, name, password, verified, classId,attendance);
     }
 
 }

@@ -16,6 +16,7 @@ public class ReportEntity {
     private String result;
     private String updateDate;
     private Boolean mutable;
+    private Boolean isChecked;
 
     @Id
     @Column(name = "stu_id")
@@ -32,6 +33,7 @@ public class ReportEntity {
     public String getLabId() {
         return labId;
     }
+
 
     public void setLabId(String labId) {
         this.labId = labId;
@@ -107,16 +109,29 @@ public class ReportEntity {
         this.mutable = mutable;
     }
 
+    @Basic
+    @Column(name = "is_checked")
+    public Boolean getIsChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(Boolean isChecked) {
+        this.isChecked = isChecked;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReportEntity that = (ReportEntity) o;
-        return Objects.equals(stuId, that.stuId) && Objects.equals(labId, that.labId) && Objects.equals(classId, that.classId) && Objects.equals(aim, that.aim) && Objects.equals(principle, that.principle) && Objects.equals(step, that.step) && Objects.equals(result, that.result) && Objects.equals(updateDate, that.updateDate) && Objects.equals(mutable, that.mutable);
+        return Objects.equals(stuId, that.stuId) && Objects.equals(labId, that.labId) && Objects.equals(classId, that.classId) && Objects.equals(aim, that.aim) && Objects.equals(principle, that.principle) && Objects.equals(step, that.step) && Objects.equals(result, that.result) && Objects.equals(updateDate, that.updateDate) && Objects.equals(mutable, that.mutable) && Objects.equals(isChecked,that.isChecked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stuId, labId, classId, aim, principle, step, result, updateDate, mutable);
+        return Objects.hash(stuId, labId, classId, aim, principle, step, result, updateDate, mutable,isChecked);
     }
 }
+
+
+
+

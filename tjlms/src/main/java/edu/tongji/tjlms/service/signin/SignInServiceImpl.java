@@ -24,14 +24,7 @@ public class SignInServiceImpl implements SignInService{
 
     @Override
     public String signIn(SignInDto sid) {
-        String verificationCode = EmailSendServiceImpl.getVerificationCode();
-        // compare the verification code
-        if(!sid.getVerificationCode().equals(verificationCode))
-        {
-            EmailSendServiceImpl.setVerificationCodeToEmpty();
-            return "验证码错误";
-        }
-        EmailSendServiceImpl.setVerificationCodeToEmpty();
+
         int userType = sid.getUserType();
         String id = sid.getId();
         String email = sid.getEmailAddress();

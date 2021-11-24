@@ -47,7 +47,6 @@ public class EmailSendServiceImpl implements EmailSendService {
     public String sendEmail(EmailDto ed) {
             // generate verification code
             verificationCode = VerificationCodeUtil.generateCode();
-
             // query the information from the DBMS
             String id = ed.getId();
             String name = "";

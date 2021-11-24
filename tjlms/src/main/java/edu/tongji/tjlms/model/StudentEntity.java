@@ -11,6 +11,7 @@ public class StudentEntity {
     private String name;
     private String password;
     private Boolean verified;
+    private String classId;
 
     @Id
     @Column(name = "id")
@@ -28,6 +29,7 @@ public class StudentEntity {
         return emailAddr;
     }
 
+
     public void setEmailAddr(String emailAddr) {
         this.emailAddr = emailAddr;
     }
@@ -37,6 +39,7 @@ public class StudentEntity {
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
@@ -61,17 +64,27 @@ public class StudentEntity {
     public void setVerified(Boolean verified) {
         this.verified = verified;
     }
+    @Basic
+    @Column(name = "class_id")
+    public String getClassId() {
+        return classId;
+    }
 
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentEntity that = (StudentEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(verified, that.verified);
+        return Objects.equals(id, that.id) && Objects.equals(emailAddr, that.emailAddr) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(verified, that.verified) && Objects.equals(classId,that.classId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, emailAddr, name, password, verified);
+        return Objects.hash(id, emailAddr, name, password, verified,classId);
     }
+
+
 }

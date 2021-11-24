@@ -15,7 +15,5 @@ public class SignInDto {
     private String id;
     private String emailAddress;
     private String password;
-    private String verificationCode;
-
 
 }

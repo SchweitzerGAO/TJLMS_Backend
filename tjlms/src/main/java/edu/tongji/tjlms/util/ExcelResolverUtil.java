@@ -71,10 +71,14 @@ public class ExcelResolverUtil {
                                {
                                    temp.setName(cell.toString());
                                }
+                               else if(cIndex == 2)
+                               {
+                                   temp.setClassId(cell.toString());
+                               }
                             }
                         }
                     }
-                    if(temp.getName()!=null && temp.getId()!=null)
+                    if(temp.getName()!=null && temp.getId()!=null && temp.getClassId() != null)
                     {
                         list.add(temp);
                     }
@@ -134,7 +138,6 @@ public class ExcelResolverUtil {
                     temp.setGrade(false);
                     temp.setReleaseLab(false);
                     temp.setType(1);
-                    temp.setTelNum(null);
                     Row row = sheet.getRow(rIndex);
                     if (row != null) {
                         int firstCellIndex = row.getFirstCellNum();

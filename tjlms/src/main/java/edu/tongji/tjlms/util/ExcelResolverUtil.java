@@ -71,10 +71,6 @@ public class ExcelResolverUtil {
                                {
                                    temp.setName(cell.toString());
                                }
-                               else if(cIndex == 2)
-                               {
-                                   temp.setClassId(cell.toString());
-                               }
                             }
                         }
                     }

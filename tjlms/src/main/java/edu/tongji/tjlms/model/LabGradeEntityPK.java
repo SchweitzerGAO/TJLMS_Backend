@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class GradeEntityPK implements Serializable {
+public class LabGradeEntityPK implements Serializable {
     private String stuId;
     private String classId;
 
@@ -33,7 +33,7 @@ public class GradeEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GradeEntityPK that = (GradeEntityPK) o;
+        LabGradeEntityPK that = (LabGradeEntityPK) o;
         return Objects.equals(stuId, that.stuId) && Objects.equals(classId, that.classId);
     }
 

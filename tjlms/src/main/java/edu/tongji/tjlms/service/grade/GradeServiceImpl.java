@@ -2,7 +2,7 @@ package edu.tongji.tjlms.service.grade;
 
 import edu.tongji.tjlms.dto.GradeDto;
 import edu.tongji.tjlms.dto.QueryGradeDto;
-import edu.tongji.tjlms.model.GradeEntity;
+import edu.tongji.tjlms.model.LabGradeEntity;
 import edu.tongji.tjlms.model.QueryGradeEntity;
 import edu.tongji.tjlms.repository.GradeRepository;
 import edu.tongji.tjlms.repository.QueryGradeRepository;
@@ -25,11 +25,11 @@ public class GradeServiceImpl implements GradeService{
     @Resource
     QueryGradeRepository queryGradeRepository;
     public void saveGrade(List<GradeDto> list) {
-        List<GradeEntity> gradeInfo = new ArrayList<>();
+        List<LabGradeEntity> gradeInfo = new ArrayList<>();
 
         for(GradeDto grade: list)
         {
-            GradeEntity temp = new GradeEntity();
+            LabGradeEntity temp = new LabGradeEntity();
             temp.setStuId(grade.getStuId());
             temp.setClassId(grade.getClassId());
             temp.setLabId(grade.getLabId());

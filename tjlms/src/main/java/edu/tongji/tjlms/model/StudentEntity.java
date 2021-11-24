@@ -12,6 +12,7 @@ public class StudentEntity {
     private String password;
     private Boolean verified;
     private String classId;
+    private Double attendance;
 
     @Id
     @Column(name = "id")
@@ -56,15 +57,6 @@ public class StudentEntity {
     }
 
     @Basic
-    @Column(name = "verified")
-    public Boolean getVerified() {
-        return verified;
-    }
-
-    public void setVerified(Boolean verified) {
-        this.verified = verified;
-    }
-    @Basic
     @Column(name = "class_id")
     public String getClassId() {
         return classId;
@@ -73,6 +65,29 @@ public class StudentEntity {
     public void setClassId(String classId) {
         this.classId = classId;
     }
+
+    @Basic
+    @Column(name = "attendance")
+    public Double getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(Double attendance) {
+        this.attendance = attendance;
+    }
+
+    @Basic
+    @Column(name = "verified")
+    public Boolean getVerified() {
+        return verified;
+    }
+
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,8 +98,7 @@ public class StudentEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, emailAddr, name, password, verified,classId);
+        return Objects.hash(id, emailAddr, name, password, verified, classId);
     }
-
 
 }

@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "grade", schema = "lms", catalog = "")
-@IdClass(GradeEntityPK.class)
-public class GradeEntity {
+@Table(name = "lab_grade", schema = "lms", catalog = "")
+@IdClass(LabGradeEntityPK.class)
+public class LabGradeEntity {
     private String stuId;
     private String classId;
     private String updateDate;
@@ -100,7 +100,7 @@ public class GradeEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GradeEntity that = (GradeEntity) o;
+        LabGradeEntity that = (LabGradeEntity) o;
         return Objects.equals(stuId, that.stuId) && Objects.equals(classId, that.classId) && Objects.equals(updateDate, that.updateDate) && Objects.equals(visible, that.visible) && Objects.equals(labId, that.labId) && Objects.equals(score, that.score) && Objects.equals(note, that.note) && Objects.equals(teacherId, that.teacherId);
     }
 

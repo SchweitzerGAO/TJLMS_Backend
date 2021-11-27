@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ReportEntityPK implements Serializable {
+public class QueryReportPK implements Serializable {
     private String stuId;
     private Integer labId;
 
@@ -19,6 +19,7 @@ public class ReportEntityPK implements Serializable {
         this.stuId = stuId;
     }
 
+
     @Column(name = "lab_id")
     @Id
     public Integer getLabId() {
@@ -29,13 +30,12 @@ public class ReportEntityPK implements Serializable {
         this.labId = labId;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ReportEntityPK that = (ReportEntityPK) o;
-        return Objects.equals(stuId, that.stuId) && Objects.equals(labId, that.labId);
+        QueryReportPK that = (QueryReportPK) o;
+        return stuId.equals(that.stuId) && labId.equals(that.labId);
     }
 
     @Override

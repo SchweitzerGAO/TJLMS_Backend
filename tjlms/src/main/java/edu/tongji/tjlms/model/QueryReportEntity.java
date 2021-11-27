@@ -4,21 +4,22 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "report", schema = "lms", catalog = "")
-@IdClass(ReportEntityPK.class)
-public class ReportEntity {
+@Table(name = "query_report", schema = "lms", catalog = "")
+@IdClass(QueryReportPK.class)
+public class QueryReportEntity {
     private String stuId;
     private Integer labId;
-    private String classId;
+    private String labName;
     private String aim;
     private String principle;
     private String step;
-    private String result;
     private String updateDate;
+    private String result;
     private Boolean mutable;
     private Boolean isChecked;
 
     @Id
+    @Basic
     @Column(name = "stu_id")
     public String getStuId() {
         return stuId;
@@ -29,24 +30,24 @@ public class ReportEntity {
     }
 
     @Id
+    @Basic
     @Column(name = "lab_id")
-    public Integer getLabId() {
+    public int getLabId() {
         return labId;
     }
 
-
-    public void setLabId(Integer labId) {
+    public void setLabId(int labId) {
         this.labId = labId;
     }
 
-    @Id
-    @Column(name = "class_id")
-    public String getClassId() {
-        return classId;
+    @Basic
+    @Column(name = "lab_name")
+    public String getLabName() {
+        return labName;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setLabName(String labName) {
+        this.labName = labName;
     }
 
     @Basic
@@ -80,16 +81,6 @@ public class ReportEntity {
     }
 
     @Basic
-    @Column(name = "result")
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    @Basic
     @Column(name = "update_date")
     public String getUpdateDate() {
         return updateDate;
@@ -100,7 +91,17 @@ public class ReportEntity {
     }
 
     @Basic
-    @Column(name = "status")
+    @Column(name = "result")
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    @Basic
+    @Column(name = "mutable")
     public Boolean getMutable() {
         return mutable;
     }
@@ -111,27 +112,24 @@ public class ReportEntity {
 
     @Basic
     @Column(name = "is_checked")
-    public Boolean getIsChecked() {
+    public Boolean getChecked() {
         return isChecked;
     }
 
-    public void setIsChecked(Boolean isChecked) {
-        this.isChecked = isChecked;
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ReportEntity that = (ReportEntity) o;
-        return Objects.equals(stuId, that.stuId) && Objects.equals(labId, that.labId) && Objects.equals(classId, that.classId) && Objects.equals(aim, that.aim) && Objects.equals(principle, that.principle) && Objects.equals(step, that.step) && Objects.equals(result, that.result) && Objects.equals(updateDate, that.updateDate) && Objects.equals(mutable, that.mutable) && Objects.equals(isChecked,that.isChecked);
+        QueryReportEntity that = (QueryReportEntity) o;
+        return Objects.equals(labId, that.labId) && Objects.equals(stuId, that.stuId) && Objects.equals(labName, that.labName) && Objects.equals(aim, that.aim) && Objects.equals(principle, that.principle) && Objects.equals(step, that.step) && Objects.equals(updateDate, that.updateDate) && Objects.equals(result, that.result) && Objects.equals(mutable, that.mutable) && Objects.equals(isChecked, that.isChecked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stuId, labId, classId, aim, principle, step, result, updateDate, mutable, isChecked);
+        return Objects.hash(stuId, labId, labName, aim, principle, step, updateDate, result, mutable, isChecked);
     }
 }
-
-
-
-

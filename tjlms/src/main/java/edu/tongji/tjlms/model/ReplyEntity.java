@@ -9,6 +9,7 @@ public class ReplyEntity {
     private int id;
     private String from;
     private String to;
+    private String title;
     private String content;
     private String time;
 
@@ -40,6 +41,16 @@ public class ReplyEntity {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    @Basic
+    @Column(name = "title")
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Basic

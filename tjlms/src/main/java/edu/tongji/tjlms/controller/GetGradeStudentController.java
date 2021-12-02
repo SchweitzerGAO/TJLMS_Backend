@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class GetStudentController {
+public class GetGradeStudentController {
     @Autowired
     private FinderService finderService;
     @Resource

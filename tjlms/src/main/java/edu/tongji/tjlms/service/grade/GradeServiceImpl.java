@@ -1,70 +1,62 @@
 package edu.tongji.tjlms.service.grade;
 
 import edu.tongji.tjlms.dto.GradeDto;
-import edu.tongji.tjlms.dto.QueryGradeDto;
 import edu.tongji.tjlms.model.LabGradeEntity;
-import edu.tongji.tjlms.model.QueryGradeEntity;
-import edu.tongji.tjlms.repository.GradeRepository;
-import edu.tongji.tjlms.repository.QueryGradeRepository;
-import edu.tongji.tjlms.repository.StudentFinderRepository;
-import edu.tongji.tjlms.util.ScoreConvertUtil;
+import edu.tongji.tjlms.model.ReportEntity;
+import edu.tongji.tjlms.model.ReportEntityPK;
+import edu.tongji.tjlms.model.ReportListEntity;
+import edu.tongji.tjlms.repository.LabGradeRepository;
+import edu.tongji.tjlms.repository.ReportListRepository;
+import edu.tongji.tjlms.repository.ReportRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class GradeServiceImpl implements GradeService{
-    @Resource
-    GradeRepository gradeRepository;
-    @Resource
-    StudentFinderRepository studentFinderRepository;
-    @Resource
-    QueryGradeRepository queryGradeRepository;
-    public void saveGrade(List<GradeDto> list) {
-        List<LabGradeEntity> gradeInfo = new ArrayList<>();
 
-        for(GradeDto grade: list)
-        {
-            LabGradeEntity temp = new LabGradeEntity();
-            temp.setStuId(grade.getStuId());
-            temp.setClassId(grade.getClassId());
-            temp.setLabId(grade.getLabId());
-            temp.setNote(grade.getNote());
-            temp.setTeacherId(grade.getTeacherId());
-            temp.setScore(grade.getScore());
-            temp.setVisible(false);
-            temp.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            gradeInfo.add(temp);
-        }
-        gradeRepository.saveAll(gradeInfo);
+    @Resource
+    ReportListRepository reportListRepository;
+
+    @Resource
+    ReportRepository reportRepository;
+
+    @Resource
+    LabGradeRepository labGradeRepository;
+
+    @Override
+    public List<ReportListEntity> getReportList(String teacherId) {
+        return reportListRepository.findAllByTeacherId(teacherId);
     }
 
     @Override
-    public void releaseGrade(String teacherId) {
-        List<String> classes = studentFinderRepository.getClasses(teacherId);
+    public ReportEntity getReport(ReportEntityPK pk) {
+        return reportRepository.findByStuIdAndLabId(pk.getStuId(),pk.getLabId());
+    }
+
+    @Override
+    public String save(GradeDto info) {
+        LabGradeEntity grade = new LabGradeEntity();
+        grade.setClassId(info.getClassId());
+        grade.setLabId(info.getLabId());
+        grade.setScore(info.getScore());
+        grade.setNote(info.getNote());
+        grade.setVisible(false);
+        grade.setStuId(info.getStuId());
+        grade.setTeacherId(info.getTeacherId());
+        grade.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        labGradeRepository.save(grade);
+
+        return "暂存成功";
+    }
+
+    @Override
+    public String release(String classId) {
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        for(String classId: classes)
-        {
-            gradeRepository.release(classId,time);
-        }
+        labGradeRepository.release(classId,time);
+        return "发布成功";
     }
-
-    @Override
-    public List<QueryGradeDto> queryGrade(String studentId) {
-        List<QueryGradeEntity> queryGradeEntities = queryGradeRepository.findAllByStuId(studentId);
-        List<QueryGradeDto> grades = new ArrayList<>();
-        for(QueryGradeEntity entity:queryGradeEntities)
-        {
-            QueryGradeDto temp = new QueryGradeDto();
-            temp.setQueryGradeEntity(entity);
-            temp.setGrade(ScoreConvertUtil.score2Grade(entity.getScore()));
-            grades.add(temp);
-        }
-        return grades;
-    }
-
 }

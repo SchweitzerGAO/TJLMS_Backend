@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository("GradeRepository")
-public interface GradeRepository extends JpaRepository<LabGradeEntity, LabGradeEntityPK>{
+public interface LabGradeRepository extends JpaRepository<LabGradeEntity, LabGradeEntityPK>{
     @Transactional
     @Modifying
     @Query("UPDATE LabGradeEntity g SET g.visible=1, g.updateDate=?2 WHERE g.classId=?1")

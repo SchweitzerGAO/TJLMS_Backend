@@ -54,6 +54,8 @@ public class ClassServiceImpl implements ClassService{
         if(list != null)
         {
             takesRepository.saveAll(list);
+            int len = list.size();
+            classRepository.updateNum(isd.getClassId(),len);
             return "添加成功";
         }
         return "添加失败";

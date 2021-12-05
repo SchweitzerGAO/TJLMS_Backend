@@ -1,6 +1,9 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.GradeDto;
+import edu.tongji.tjlms.model.ReportEntity;
+import edu.tongji.tjlms.model.ReportEntityPK;
+import edu.tongji.tjlms.model.ReportListEntity;
 import edu.tongji.tjlms.service.grade.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,39 +14,75 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class GradeController {
     @Autowired
     GradeService gradeService;
 
-    @PostMapping("/post/grade/save")
-    @ResponseBody
-    public ResponseEntity<String> save(@RequestBody List<GradeDto> list)
+    @GetMapping("/get/report/list")
+    public ResponseEntity<?> getReportList(String teacherId)
     {
         try
         {
-            gradeService.saveGrade(list);
-            return ResponseEntity.status(HttpStatus.OK).body("暂存成功");
+            List<ReportListEntity> list = gradeService.getReportList(teacherId);
+            if(list != null)
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(list);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无实验报告信息");
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求失败");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
     }
 
-    @PostMapping("/post/grade/release/{id}")
-    @ResponseBody
-    public ResponseEntity<String> release(@PathVariable("id") String teacherId)
+    @GetMapping("/get/report/detail")
+    public ResponseEntity<?> getReportDetail(ReportEntityPK pk)
     {
         try
         {
-            gradeService.releaseGrade(teacherId);
-            return ResponseEntity.status(HttpStatus.OK).body("发布成功");
+            ReportEntity report = gradeService.getReport(pk);
+            if(report != null)
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(report);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无此学生报告信息");
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求失败");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
     }
+
+    @PostMapping("/post/save/grade")
+    public ResponseEntity<String> saveGrade(@RequestBody GradeDto grade)
+    {
+        try
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(gradeService.save(grade));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @PostMapping("/post/release/grade")
+    public ResponseEntity<String> releaseGrade(String classId)
+    {
+        try
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(gradeService.release(classId));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
 }

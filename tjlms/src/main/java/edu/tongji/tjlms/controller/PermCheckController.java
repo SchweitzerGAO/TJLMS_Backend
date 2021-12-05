@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class PermCheckController {
     @Autowired
     PermService permService;
 
     @GetMapping("/check/grade/{id}")
-    @ResponseBody
     public ResponseEntity<?> checkGrade(@PathVariable("id") String teacherId)
     {
         try
@@ -29,7 +29,6 @@ public class PermCheckController {
     }
 
     @GetMapping("/check/release/{id}")
-    @ResponseBody
     public ResponseEntity<?> checkRelease(@PathVariable("id") String teacherId)
     {
         try
@@ -44,7 +43,6 @@ public class PermCheckController {
     }
 
     @GetMapping("/check/ddl/{id}")
-    @ResponseBody
     public ResponseEntity<?> checkDdl(@PathVariable("id") Integer labId)
     {
         try
@@ -58,5 +56,20 @@ public class PermCheckController {
         }
 
     }
+
+    @GetMapping("/check/notice/{id}")
+    public ResponseEntity<?> checkNotice(@PathVariable("id") String teacherId)
+    {
+        try
+        {
+            return permService.canNotice(teacherId) ? ResponseEntity.status(HttpStatus.OK).body(true) :
+                    ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
 
 }

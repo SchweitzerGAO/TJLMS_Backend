@@ -9,4 +9,9 @@ import lombok.Setter;
 public class QueryGradeDto {
     private QueryGradeEntity queryGradeEntity;
     private String grade;
+
+    public QueryGradeDto(QueryGradeEntity queryGradeEntity, String grade) {
+        this.queryGradeEntity = queryGradeEntity;
+        this.grade = grade;
+    }
 }

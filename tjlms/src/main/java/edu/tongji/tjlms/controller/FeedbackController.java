@@ -52,7 +52,7 @@ public class FeedbackController {
         try
         {
             List<?> ret = feedbackService.getFromFeedback(from);
-            if (ret == null)
+            if (ret.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无发出的反馈");
             }
@@ -72,7 +72,7 @@ public class FeedbackController {
         try
         {
             List<?> ret = feedbackService.getToFeedback(to);
-            if (ret == null)
+            if (ret.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无收到的反馈");
             }
@@ -92,7 +92,7 @@ public class FeedbackController {
         try
         {
             List<?> ret = feedbackService.getFromReply(from);
-            if (ret == null)
+            if (ret.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无发出的回复");
             }
@@ -112,7 +112,7 @@ public class FeedbackController {
         try
         {
             List<?> ret = feedbackService.getToReply(to);
-            if (ret == null)
+            if (ret.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无收到的回复");
             }

@@ -24,7 +24,11 @@ public class UserManageController {
         try
         {
             List<StudentEntity> students = userService.getAllStudents();
-            return ResponseEntity.status(HttpStatus.OK).body(students);
+            if(!students.isEmpty())
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(students);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无学生信息");
         }
         catch (Exception e)
         {
@@ -39,8 +43,12 @@ public class UserManageController {
     {
         try
         {
-            List<TeacherEntity> students = userService.getAllTeachers();
-            return ResponseEntity.status(HttpStatus.OK).body(students);
+            List<TeacherEntity> teachers = userService.getAllTeachers();
+            if(!teachers.isEmpty())
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(teachers);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无教师信息");
         }
         catch (Exception e)
         {

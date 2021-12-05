@@ -16,7 +16,7 @@ public class LabController {
     @Autowired
     LabService labService;
 
-    @GetMapping("/get/all")
+    @GetMapping("/get/labs")
     @ResponseBody
     public ResponseEntity<?> getAllLabs()
     {

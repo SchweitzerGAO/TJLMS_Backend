@@ -47,7 +47,7 @@ public class ClassController {
         try
         {
             List<TeacherEntity> ret = classService.getAllTeacher();
-            if(ret != null)
+            if(!ret.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.OK).body(ret);
             }
@@ -68,7 +68,7 @@ public class ClassController {
         try
         {
             List<TeacherEntity> ret = classService.getAllAssist();
-            if(ret != null)
+            if(!ret.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.OK).body(ret);
             }
@@ -89,7 +89,7 @@ public class ClassController {
         try
         {
             List<ClassEntity> ret = classService.getAllClasses();
-            if(ret != null)
+            if(!ret.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.OK).body(ret);
             }
@@ -103,14 +103,14 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/get/students")
+    @GetMapping("/get/students/{classId}")
     @ResponseBody
-    public ResponseEntity<?> getStudents(String classId)
+    public ResponseEntity<?> getStudents(@PathVariable("classId") String classId)
     {
         try
         {
             List<TakesEntity> ret = classService.getAllStudentsByClassId(classId);
-            if(ret != null)
+            if(!ret.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.OK).body(ret);
             }
@@ -126,7 +126,7 @@ public class ClassController {
 
 
 
-    @PostMapping("/post/insert/class")
+    @PostMapping("/post/class")
     @ResponseBody
     public ResponseEntity<String> insertClass(@RequestBody InsertClassDto icd)
     {
@@ -141,9 +141,9 @@ public class ClassController {
         }
     }
 
-    @PostMapping("/post/delete/class")
+    @PostMapping("/delete/class/{id}")
     @ResponseBody
-    public ResponseEntity<String> deleteClass(String id)
+    public ResponseEntity<String> deleteClass(@PathVariable("id") String id)
     {
         try
         {
@@ -156,7 +156,7 @@ public class ClassController {
         }
     }
 
-    @PostMapping("/post/insert/student")
+    @PostMapping("/post/student")
     @ResponseBody
     public ResponseEntity<String> insertStudent(@RequestBody InsertStudentDto isd)
     {
@@ -171,9 +171,9 @@ public class ClassController {
         }
     }
 
-    @PostMapping("/post/delete/student")
+    @PostMapping("/delete/class/student/{id}")
     @ResponseBody
-    public ResponseEntity<String> deleteStudent(String id)
+    public ResponseEntity<String> deleteStudent(@PathVariable("id") String id)
     {
         try
         {

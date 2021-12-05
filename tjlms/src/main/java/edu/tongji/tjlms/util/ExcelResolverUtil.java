@@ -75,7 +75,7 @@ public class ExcelResolverUtil {
                             }
                         }
                     }
-                    if(temp.getName()!=null && temp.getId()!=null && temp.getClassId() != null)
+                    if(temp.getName()!=null && temp.getId()!=null)
                     {
                         list.add(temp);
                     }

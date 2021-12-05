@@ -1,14 +1,11 @@
 package edu.tongji.tjlms.controller;
 
-import edu.tongji.tjlms.dto.QueryGradeDto;
-import edu.tongji.tjlms.service.grade.GradeService;
+import edu.tongji.tjlms.dto.FinalGradeDto;
 import edu.tongji.tjlms.service.grade.QueryGradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -22,12 +19,12 @@ public class QueryGradeController {
     {
         try
         {
-            List<QueryGradeDto> grades = queryGradeService.queryGrade(studentId);
-            if(grades.isEmpty())
+            FinalGradeDto grade = queryGradeService.queryFinalGrade(studentId);
+            if(grade.getEachGrades().isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无成绩信息");
             }
-            return ResponseEntity.status(HttpStatus.OK).body(grades);
+            return ResponseEntity.status(HttpStatus.OK).body(grade);
         }
         catch (Exception e)
         {

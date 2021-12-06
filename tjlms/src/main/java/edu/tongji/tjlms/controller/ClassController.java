@@ -15,12 +15,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class ClassController {
     @Autowired
     ClassService classService;
 
     @GetMapping("/get/resp")
-    @ResponseBody
     public ResponseEntity<?> getResp()
     {
         try
@@ -41,7 +41,6 @@ public class ClassController {
     }
 
     @GetMapping("/get/teacher")
-    @ResponseBody
     public ResponseEntity<?> getTeacher()
     {
         try
@@ -62,7 +61,6 @@ public class ClassController {
     }
 
     @GetMapping("/get/assist")
-    @ResponseBody
     public ResponseEntity<?> getAssist()
     {
         try
@@ -83,7 +81,6 @@ public class ClassController {
     }
 
     @GetMapping("/get/classes")
-    @ResponseBody
     public ResponseEntity<?> getClasses()
     {
         try
@@ -104,7 +101,6 @@ public class ClassController {
     }
 
     @GetMapping("/get/students/{classId}")
-    @ResponseBody
     public ResponseEntity<?> getStudents(@PathVariable("classId") String classId)
     {
         try
@@ -127,7 +123,6 @@ public class ClassController {
 
 
     @PostMapping("/post/class")
-    @ResponseBody
     public ResponseEntity<String> insertClass(@RequestBody InsertClassDto icd)
     {
         try
@@ -142,7 +137,6 @@ public class ClassController {
     }
 
     @PostMapping("/delete/class/{id}")
-    @ResponseBody
     public ResponseEntity<String> deleteClass(@PathVariable("id") String id)
     {
         try
@@ -157,7 +151,6 @@ public class ClassController {
     }
 
     @PostMapping("/post/student")
-    @ResponseBody
     public ResponseEntity<String> insertStudent(@RequestBody InsertStudentDto isd)
     {
         try
@@ -172,7 +165,6 @@ public class ClassController {
     }
 
     @PostMapping("/delete/class/student/{id}")
-    @ResponseBody
     public ResponseEntity<String> deleteStudent(@PathVariable("id") String id)
     {
         try

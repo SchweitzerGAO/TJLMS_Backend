@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class PreVerifyController {
     @Autowired
     private PreVerifyService preVerifyService;
 
 
     @PostMapping("/post/preVerify")
-    @ResponseBody
     public ResponseEntity<Boolean> preVerify(@RequestBody PreVerifyDto pvd)
     {
         boolean exist = preVerifyService.exists(pvd);

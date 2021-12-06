@@ -1,16 +1,20 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.GradeDto;
+import edu.tongji.tjlms.model.ClassEntity;
 import edu.tongji.tjlms.model.ReportEntity;
 import edu.tongji.tjlms.model.ReportEntityPK;
 import edu.tongji.tjlms.model.ReportListEntity;
 import edu.tongji.tjlms.service.grade.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -19,8 +23,9 @@ public class GradeController {
     @Autowired
     GradeService gradeService;
 
-    @GetMapping("/get/report/list")
-    public ResponseEntity<?> getReportList(String teacherId)
+    Integer countList;
+    @GetMapping("/get/report/list/{id}")
+    public ResponseEntity<?> getReportList(@PathVariable("id") String teacherId)
     {
         try
         {
@@ -37,9 +42,39 @@ public class GradeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
     }
+    @GetMapping("/get/report/page/{id}")
+    public ResponseEntity<?> getReportPage(@PathVariable("id") String teacherId, Integer pageNum,Integer pageSize)
+    {
+        try
+        {
+            if(pageNum == null || pageNum == 0)
+            {
+                pageNum = 1;
+            }
+            if(countList != null && pageSize >= countList)
+            {
+                pageNum = countList;
+            }
+            Page<ReportListEntity> page = gradeService.getReportListPaged(teacherId,pageNum,pageSize);
+            if(page.isEmpty())
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无实验报告信息");
+            }
+            countList = page.getTotalPages();
+            Map<String,Object> map = new HashMap<>();
+            map.put("data",page);
+            map.put("pageNum",countList);
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
 
-    @GetMapping("/get/report/detail")
-    public ResponseEntity<?> getReportDetail(ReportEntityPK pk)
+    @PostMapping("/get/report/detail")
+    public ResponseEntity<?> getReportDetail(@RequestBody ReportEntityPK pk)
     {
         try
         {
@@ -49,6 +84,25 @@ public class GradeController {
                 return ResponseEntity.status(HttpStatus.OK).body(report);
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无此学生报告信息");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @GetMapping("/get/my/classes")
+    public ResponseEntity<?> getMyClasses(String teacherId)
+    {
+        try
+        {
+            List<ClassEntity> classes = gradeService.getMyClasses(teacherId);
+            if(!classes.isEmpty())
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(classes);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无您负责的班级");
         }
         catch (Exception e)
         {

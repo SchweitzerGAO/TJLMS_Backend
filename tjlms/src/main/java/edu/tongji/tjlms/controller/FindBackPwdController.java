@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class FindBackPwdController {
     @Autowired
     FindBackPwdService findBackPwdService;
 
     @PostMapping("/post/find/pwd")
-    @ResponseBody
     public ResponseEntity<String> findBackPwd(@RequestBody FindBackPwdDto fbpd)
     {
         try

@@ -6,6 +6,8 @@ import edu.tongji.tjlms.model.TeacherEntity;
 import edu.tongji.tjlms.repository.StudentRepository;
 import edu.tongji.tjlms.repository.TeacherRepository;
 import edu.tongji.tjlms.util.ExcelResolverUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -91,4 +93,28 @@ public class UserServiceImpl implements UserService{
         }
         return "权限修改成功";
     }
+
+    @Override
+    public Page<StudentEntity> getStudentsPaged( Integer pageNum, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNum-1,pageSize);
+        Page<StudentEntity> page = studentRepository.findAll(pageRequest);
+        for(StudentEntity student:page.getContent())
+        {
+            student.setPassword(null);
+        }
+        return page;
+    }
+
+    @Override
+    public Page<TeacherEntity> getTeachersPaged(Integer pageNum, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNum-1,pageSize);
+        Page<TeacherEntity> page = teacherRepository.findAll(pageRequest);
+        for (TeacherEntity teacher:
+             page.getContent()) {
+            teacher.setPassword(null);
+        }
+        return page;
+    }
+
+
 }

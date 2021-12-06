@@ -47,7 +47,7 @@ public class PermServiceImpl implements PermService {
     }
 
     @Override
-    public boolean canNotice(String teacherId) {
+    public boolean isResp(String teacherId) {
         TeacherEntity teacher = teacherRepository.getById(teacherId);
         return teacher.getType() == 0;
     }

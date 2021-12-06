@@ -5,6 +5,8 @@ import edu.tongji.tjlms.model.FeedbackEntity;
 import edu.tongji.tjlms.model.ReplyEntity;
 import edu.tongji.tjlms.repository.FeedbackRepository;
 import edu.tongji.tjlms.repository.ReplyRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -62,4 +64,28 @@ public class FeedbackServiceImpl implements FeedbackService {
     public List<ReplyEntity> getToReply(String to) {
         return replyRepository.findAllByTo(to);
     }
+
+    @Override
+    public Page<FeedbackEntity> getFromFeedbackPaged(String from, Integer pageNum, Integer pageSize) {
+
+        return feedbackRepository.findAllByFrom(from, PageRequest.of(pageNum-1,pageSize));
+    }
+
+    @Override
+    public Page<FeedbackEntity> getToFeedbackPaged(String to, Integer pageNum, Integer pageSize) {
+
+        return feedbackRepository.findAllByTo(to, PageRequest.of(pageNum-1,pageSize));
+    }
+
+    @Override
+    public Page<ReplyEntity> getFromReplyPaged(String from, Integer pageNum, Integer pageSize) {
+        return replyRepository.findAllByFrom(from,PageRequest.of(pageNum-1,pageSize));
+    }
+
+    @Override
+    public Page<ReplyEntity> getToReplyPaged(String to, Integer pageNum, Integer pageSize) {
+        return replyRepository.findAllByTo(to,PageRequest.of(pageNum-1,pageSize));
+    }
+
+
 }

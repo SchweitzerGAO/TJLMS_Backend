@@ -15,6 +15,7 @@ public class FeedbackEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -24,7 +25,7 @@ public class FeedbackEntity {
     }
 
     @Basic
-    @Column(name = "from")
+    @Column(name = "from_id")
     public String getFrom() {
         return from;
     }
@@ -34,7 +35,7 @@ public class FeedbackEntity {
     }
 
     @Basic
-    @Column(name = "to")
+    @Column(name = "to_id")
     public String getTo() {
         return to;
     }

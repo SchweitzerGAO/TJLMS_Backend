@@ -1,13 +1,13 @@
 package edu.tongji.tjlms.service.grade;
 
 import edu.tongji.tjlms.dto.GradeDto;
-import edu.tongji.tjlms.model.LabGradeEntity;
-import edu.tongji.tjlms.model.ReportEntity;
-import edu.tongji.tjlms.model.ReportEntityPK;
-import edu.tongji.tjlms.model.ReportListEntity;
+import edu.tongji.tjlms.model.*;
+import edu.tongji.tjlms.repository.ClassRepository;
 import edu.tongji.tjlms.repository.LabGradeRepository;
 import edu.tongji.tjlms.repository.ReportListRepository;
 import edu.tongji.tjlms.repository.ReportRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +27,9 @@ public class GradeServiceImpl implements GradeService{
     @Resource
     LabGradeRepository labGradeRepository;
 
+    @Resource
+    ClassRepository classRepository;
+
     @Override
     public List<ReportListEntity> getReportList(String teacherId) {
         return reportListRepository.findAllByTeacherId(teacherId);
@@ -35,6 +38,17 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public ReportEntity getReport(ReportEntityPK pk) {
         return reportRepository.findByStuIdAndLabId(pk.getStuId(),pk.getLabId());
+    }
+
+    @Override
+    public List<ClassEntity> getMyClasses(String teacherId) {
+        return classRepository.findAllByTeacherIdOrRespIdOrAssistId(teacherId,teacherId,teacherId);
+    }
+
+    @Override
+    public Page<ReportListEntity> getReportListPaged(String teacherId, Integer pageNum, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNum-1,pageSize);
+        return reportListRepository.findAllByTeacherId(teacherId,pageRequest);
     }
 
     @Override

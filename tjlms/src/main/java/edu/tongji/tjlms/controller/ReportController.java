@@ -14,12 +14,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class ReportController {
     @Autowired
     ReportService reportService;
 
     @PostMapping("/post/save/report")
-    @ResponseBody
     public ResponseEntity<String> saveReport(@RequestBody SubmitReportDto reportDto)
     {
         try
@@ -33,7 +33,6 @@ public class ReportController {
         }
     }
     @PostMapping("/post/submit/report")
-    @ResponseBody
     public ResponseEntity<String> submitReport(@RequestBody ReportEntityPK reportEntityPK)
     {
         try
@@ -50,7 +49,6 @@ public class ReportController {
     }
 
     @GetMapping("/get/report/info")
-    @ResponseBody
     public ResponseEntity<?> getInfo(String id)
     {
         try
@@ -71,7 +69,6 @@ public class ReportController {
     }
 
     @PostMapping("/post/report/content")
-    @ResponseBody
     public ResponseEntity<?> getContent(@RequestBody ReportEntityPK reportEntityPK)
     {
         try

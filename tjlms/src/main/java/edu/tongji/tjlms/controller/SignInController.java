@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class SignInController {
     @Autowired
     private SignInService signInService;
@@ -23,7 +24,6 @@ public class SignInController {
      * @return response code with information
      */
     @PostMapping("/post/sign/in")
-    @ResponseBody
     public ResponseEntity<String> signIn(@RequestBody SignInDto sid)
     {
         try

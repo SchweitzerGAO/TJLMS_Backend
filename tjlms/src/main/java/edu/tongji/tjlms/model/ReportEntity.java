@@ -100,7 +100,7 @@ public class ReportEntity {
     }
 
     @Basic
-    @Column(name = "status")
+    @Column(name = "mutable")
     public Boolean getMutable() {
         return mutable;
     }

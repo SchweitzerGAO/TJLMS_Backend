@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class EmailSendController {
     @Autowired
     private EmailSendService emailSendService;
@@ -24,7 +25,6 @@ public class EmailSendController {
      * @return the response code with information
      */
     @PostMapping("/post/verify")
-    @ResponseBody
     public ResponseEntity<String> sendEmail(@RequestBody EmailDto ed)
     {
         try

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class LoginController {
     @Autowired
     private LoginService loginService;
@@ -24,7 +25,6 @@ public class LoginController {
      * @return the user's necessary information
      */
     @PostMapping("/post/login")
-    @ResponseBody
     public ResponseEntity<String> login(@RequestBody LoginDto ld)
     {
 

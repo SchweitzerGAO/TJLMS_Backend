@@ -62,7 +62,7 @@ public class PermCheckController {
     {
         try
         {
-            return permService.canNotice(teacherId) ? ResponseEntity.status(HttpStatus.OK).body(true) :
+            return permService.isResp(teacherId) ? ResponseEntity.status(HttpStatus.OK).body(true) :
                     ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
         }
         catch (Exception e)

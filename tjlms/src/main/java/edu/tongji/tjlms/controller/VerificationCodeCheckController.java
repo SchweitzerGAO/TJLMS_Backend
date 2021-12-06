@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class VerificationCodeCheckController {
     @PostMapping("post/check/code")
-    @ResponseBody
     public ResponseEntity<Boolean> checkCode(String code)
     {
         String verificationCode = EmailSendServiceImpl.getVerificationCode();

@@ -5,20 +5,25 @@ import edu.tongji.tjlms.model.StudentEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
 import edu.tongji.tjlms.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class UserManageController {
     @Autowired
     UserService userService;
 
+    Integer countStudent;
+    Integer countTeacher;
     @GetMapping("/get/all/students")
-    @ResponseBody
     public ResponseEntity<?> getAllStudents()
     {
         try
@@ -38,7 +43,6 @@ public class UserManageController {
     }
 
     @GetMapping("/get/all/teachers")
-    @ResponseBody
     public ResponseEntity<?> getAllTeachers()
     {
         try
@@ -58,7 +62,6 @@ public class UserManageController {
     }
 
     @PostMapping("/post/students")
-    @ResponseBody
     public ResponseEntity<String> insertStudents(String filePath)
     {
         try
@@ -81,7 +84,6 @@ public class UserManageController {
     }
 
     @PostMapping("/post/teachers")
-    @ResponseBody
     public ResponseEntity<String> insertTeachers(@RequestBody String filePath)
     {
         try
@@ -104,7 +106,6 @@ public class UserManageController {
     }
 
     @PostMapping("/delete/student/{id}")
-    @ResponseBody
     public ResponseEntity<String> deleteStudentById(@PathVariable("id") String id)
     {
         try
@@ -119,7 +120,6 @@ public class UserManageController {
     }
 
     @PostMapping("/delete/teacher/{id}")
-    @ResponseBody
     public ResponseEntity<String> deleteTeacherById(@PathVariable("id") String id)
     {
         try
@@ -134,7 +134,6 @@ public class UserManageController {
     }
 
     @PostMapping("/post/modify/permission")
-    @ResponseBody
     public ResponseEntity<String> modifyPerm(@RequestBody List<PermDto> list)
     {
         try
@@ -145,6 +144,70 @@ public class UserManageController {
         {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("权限更改失败");
+        }
+    }
+
+    @GetMapping("/get/students/page")
+    public ResponseEntity<?> getStudentsPaged(@RequestParam(defaultValue = "1") Integer pageNum,
+                                              @RequestParam(defaultValue = "20") Integer pageSize)
+    {
+        try
+        {
+            if(pageNum == null || pageNum == 0)
+            {
+                pageNum = 1;
+            }
+            if(countStudent != null && pageNum >= countStudent)
+            {
+                pageNum = countStudent;
+            }
+            Page<StudentEntity> page = userService.getStudentsPaged(pageNum,pageSize);
+            if(page.isEmpty())
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无学生信息");
+            }
+            countStudent = page.getTotalPages();
+            Map<String,Object> map = new HashMap<>();
+            map.put("data",page);
+            map.put("pageNum",countStudent);
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @GetMapping("/get/teachers/page")
+    public ResponseEntity<?> getTeachersPaged(@RequestParam(defaultValue = "1") Integer pageNum,
+                                              @RequestParam(defaultValue = "20") Integer pageSize)
+    {
+        try
+        {
+            if(pageNum == null || pageNum == 0)
+            {
+                pageNum = 1;
+            }
+            if(countTeacher != null && pageNum >= countTeacher)
+            {
+                pageNum = countTeacher;
+            }
+            Page<TeacherEntity> page = userService.getTeachersPaged(pageNum,pageSize);
+            if (!page.isEmpty())
+            {
+                countTeacher = page.getTotalPages();
+                Map<String, Object> map = new HashMap<>();
+                map.put("data", page);
+                map.put("pageNum", countTeacher);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无教师信息");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
     }
 

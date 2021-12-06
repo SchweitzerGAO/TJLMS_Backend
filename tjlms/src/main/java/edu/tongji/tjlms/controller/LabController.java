@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class LabController {
     @Autowired
     LabService labService;
 
     @GetMapping("/get/labs")
-    @ResponseBody
     public ResponseEntity<?> getAllLabs()
     {
         try
@@ -33,7 +33,6 @@ public class LabController {
     }
 
     @PostMapping("/post/release")
-    @ResponseBody
     public ResponseEntity<String> releaseLab(@RequestBody LabDto lab)
     {
         try

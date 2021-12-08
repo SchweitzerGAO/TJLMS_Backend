@@ -1,5 +1,6 @@
 package edu.tongji.tjlms.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -7,9 +8,9 @@ import java.util.Objects;
 
 public class LabGradeEntityPK implements Serializable {
     private String stuId;
-    private String classId;
+    private String labId;
 
-    @Column(name = "stu_id")
+    @Column(name = "stu_id", nullable = false, length = 45)
     @Id
     public String getStuId() {
         return stuId;
@@ -19,14 +20,14 @@ public class LabGradeEntityPK implements Serializable {
         this.stuId = stuId;
     }
 
-    @Column(name = "class_id")
+    @Column(name = "lab_id", nullable = false)
     @Id
-    public String getClassId() {
-        return classId;
+    public String getLabId() {
+        return labId;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setLabId(String labId) {
+        this.labId = labId;
     }
 
     @Override
@@ -34,11 +35,11 @@ public class LabGradeEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LabGradeEntityPK that = (LabGradeEntityPK) o;
-        return Objects.equals(stuId, that.stuId) && Objects.equals(classId, that.classId);
+        return Objects.equals(stuId, that.stuId) && Objects.equals(labId, that.labId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stuId, classId);
+        return Objects.hash(stuId, labId);
     }
 }

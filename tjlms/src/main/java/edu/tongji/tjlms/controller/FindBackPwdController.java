@@ -1,6 +1,7 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.FindBackPwdDto;
+import edu.tongji.tjlms.dto.SafePwdDto;
 import edu.tongji.tjlms.service.findbackpwd.FindBackPwdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ public class FindBackPwdController {
     @Autowired
     FindBackPwdService findBackPwdService;
 
-    @PostMapping("/post/find/pwd")
+    @PostMapping("/find/pwd")
     public ResponseEntity<String> findBackPwd(@RequestBody FindBackPwdDto fbpd)
     {
         try
@@ -33,6 +34,20 @@ public class FindBackPwdController {
                 }
             }
             return ResponseEntity.status(HttpStatus.OK).body(ret);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @PostMapping("/safe/pwd")
+    public ResponseEntity<String> safePwd(@RequestBody SafePwdDto spd)
+    {
+        try
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(findBackPwdService.safePwd(spd));
         }
         catch (Exception e)
         {

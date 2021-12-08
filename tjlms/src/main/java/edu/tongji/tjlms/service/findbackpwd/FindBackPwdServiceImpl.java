@@ -1,6 +1,7 @@
 package edu.tongji.tjlms.service.findbackpwd;
 
 import edu.tongji.tjlms.dto.FindBackPwdDto;
+import edu.tongji.tjlms.dto.SafePwdDto;
 import edu.tongji.tjlms.model.AdminEntity;
 import edu.tongji.tjlms.model.StudentEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
@@ -71,5 +72,11 @@ public class FindBackPwdServiceImpl implements FindBackPwdService {
             }
         }
         return "密码修改成功";
+    }
+
+    @Override
+    public String safePwd(SafePwdDto spd) {
+        adminRepository.safePwd(spd.getId(), EncryptSha256Util.getSha256Str(spd.getPassword()));
+        return "初始密码修改成功";
     }
 }

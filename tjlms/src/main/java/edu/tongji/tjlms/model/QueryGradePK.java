@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class QueryGradePK implements Serializable {
     private String stuId;
-    private String classId;
+    private String labId;
 
     @Column(name = "stu_id")
     @Id
@@ -20,14 +20,14 @@ public class QueryGradePK implements Serializable {
         this.stuId = stuId;
     }
 
-    @Column(name = "class_id")
+    @Column(name = "lab_id")
     @Id
-    public String getClassId() {
-        return classId;
+    public String getLabId() {
+        return labId;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setLabId(String classId) {
+        this.labId = classId;
     }
 
     @Override
@@ -35,11 +35,11 @@ public class QueryGradePK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QueryGradePK that = (QueryGradePK) o;
-        return stuId.equals(that.stuId) && classId.equals(that.classId);
+        return stuId.equals(that.stuId) && labId.equals(that.labId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stuId, classId);
+        return Objects.hash(stuId, labId);
     }
 }

@@ -18,7 +18,7 @@ public interface UserService {
     String deleteTeacher(String id);
 
     String modifyPerm(List<PermDto> list);
-
+    String modifyPerm(PermDto perm);
     Page<StudentEntity> getStudentsPaged(Integer pageNum,Integer pageSize);
     Page<TeacherEntity> getTeachersPaged(Integer pageNum, Integer pageSize);
 }

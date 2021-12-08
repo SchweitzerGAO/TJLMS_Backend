@@ -91,7 +91,16 @@ public class UserServiceImpl implements UserService{
                                          permission.isReleaseLab(),
                                          permission.getId());
         }
-        return "权限修改成功";
+        return "权限批量修改成功";
+    }
+
+    @Override
+    public String modifyPerm(PermDto permission) {
+        teacherRepository.modifyPerm(permission.getType(),
+                permission.isGrade(),
+                permission.isReleaseLab(),
+                permission.getId());
+        return null;
     }
 
     @Override

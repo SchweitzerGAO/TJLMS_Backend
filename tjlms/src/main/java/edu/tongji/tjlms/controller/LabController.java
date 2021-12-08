@@ -1,6 +1,7 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.LabDto;
+import edu.tongji.tjlms.dto.ScheduleDto;
 import edu.tongji.tjlms.model.LabEntity;
 import edu.tongji.tjlms.service.lab.LabService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class LabController {
     @Autowired
     LabService labService;
 
-    @GetMapping("/get/labs")
+    @GetMapping("/get/all/labs")
     public ResponseEntity<?> getAllLabs()
     {
         try
@@ -32,13 +33,31 @@ public class LabController {
         }
     }
 
-    @PostMapping("/post/release")
+    @PostMapping("/release/lab")
     public ResponseEntity<String> releaseLab(@RequestBody LabDto lab)
     {
         try
         {
             String ret = labService.releaseLab(lab);
             return ResponseEntity.status(HttpStatus.OK).body(ret);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+    @GetMapping("/get/schedule")
+    public ResponseEntity<?> getSchedule()
+    {
+        try
+        {
+            List<ScheduleDto> schedule = labService.getSchedule();
+            if(schedule.isEmpty())
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无日程安排");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(schedule);
         }
         catch (Exception e)
         {

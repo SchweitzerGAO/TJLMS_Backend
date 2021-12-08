@@ -27,6 +27,16 @@ public class LabGradeEntity {
     }
 
     @Id
+    @Column(name = "lab_id", nullable = false)
+    public String getLabId() {
+        return labId;
+    }
+    public void setLabId(String labId) {
+        this.labId = labId;
+    }
+
+
+    @Basic
     @Column(name = "class_id")
     public String getClassId() {
         return classId;
@@ -54,16 +64,6 @@ public class LabGradeEntity {
 
     public void setVisible(Boolean visible) {
         this.visible = visible;
-    }
-
-    @Basic
-    @Column(name = "lab_id")
-    public String getLabId() {
-        return labId;
-    }
-
-    public void setLabId(String labId) {
-        this.labId = labId;
     }
 
     @Basic

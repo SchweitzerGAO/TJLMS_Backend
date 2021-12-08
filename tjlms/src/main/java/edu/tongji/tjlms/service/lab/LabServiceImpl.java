@@ -1,6 +1,7 @@
 package edu.tongji.tjlms.service.lab;
 
 import edu.tongji.tjlms.dto.LabDto;
+import edu.tongji.tjlms.dto.ScheduleDto;
 import edu.tongji.tjlms.model.LabEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
 import edu.tongji.tjlms.repository.LabRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +34,17 @@ public class LabServiceImpl implements LabService{
         labEntity.setReleaseDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         labRepository.save(labEntity);
         return "发布成功";
+    }
+
+    @Override
+    public List<ScheduleDto> getSchedule() {
+        List<LabEntity> labs = getAll();
+        List<ScheduleDto> ret = new ArrayList<>();
+        for(LabEntity lab:labs)
+        {
+            ret.add(new ScheduleDto(lab.getId(),lab.getName(),lab.getDeadline()));
+        }
+        return ret;
     }
 
 

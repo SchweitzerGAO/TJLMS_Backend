@@ -8,11 +8,11 @@ import java.util.Objects;
 @IdClass(QueryGradePK.class)
 public class QueryGradeEntity {
     private String stuId;
-    private String classId;
     private String name;
     private Double score;
     private String note;
     private String updateDate;
+    private int labId;
 
     @Id
     @Column(name = "stu_id")
@@ -25,13 +25,13 @@ public class QueryGradeEntity {
     }
 
     @Id
-    @Column(name = "class_id")
-    public String getClassId() {
-        return classId;
+    @Column(name = "lab_id")
+    public int getLabId() {
+        return labId;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setLabId(int labId) {
+        this.labId = labId;
     }
 
     @Basic
@@ -79,11 +79,13 @@ public class QueryGradeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QueryGradeEntity that = (QueryGradeEntity) o;
-        return Objects.equals(stuId, that.stuId) && Objects.equals(classId, that.classId) && Objects.equals(name, that.name) && Objects.equals(score, that.score) && Objects.equals(note, that.note) && Objects.equals(updateDate, that.updateDate);
+        return Objects.equals(stuId, that.stuId) && Objects.equals(labId,that.labId) && Objects.equals(name, that.name) && Objects.equals(score, that.score) && Objects.equals(note, that.note) && Objects.equals(updateDate, that.updateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stuId, classId, name, score, note, updateDate);
+        return Objects.hash(stuId, labId, name, score, note, updateDate);
     }
+
+
 }

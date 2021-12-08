@@ -3,7 +3,6 @@ package edu.tongji.tjlms.service.grade;
 import edu.tongji.tjlms.dto.FinalGradeDto;
 import edu.tongji.tjlms.dto.QueryGradeDto;
 import edu.tongji.tjlms.model.QueryGradeEntity;
-import edu.tongji.tjlms.model.ReportEntity;
 import edu.tongji.tjlms.repository.LabRepository;
 import edu.tongji.tjlms.repository.QueryGradeRepository;
 import edu.tongji.tjlms.repository.ReportRepository;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QueryGradeServiceImpl implements QueryGradeService{
+public class QueryMyGradeServiceImpl implements QueryMyGradeService {
     @Resource
     QueryGradeRepository queryGradeRepository;
 

@@ -44,7 +44,7 @@ public class QueryMyGradeServiceImpl implements QueryMyGradeService {
             ret.setAttendance(0.);
         }
         long numReports = reportRepository.countByStuId(id);
-        ret.setAttendance((double)numLab*100/numReports);
+        ret.setAttendance((double)numReports*100/numLab);
         double sum = 0;
         for (QueryGradeDto grade: ret.getEachGrades())
         {

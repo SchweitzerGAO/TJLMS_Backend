@@ -33,7 +33,6 @@ public class SwaggerUtil {
         return new ApiInfoBuilder()
                 .title("TJLMS")
                 .description("TJLMS Backend")
-                .contact("Charles CFfun iSECULiAR")
                 .version("1.0")
                 .build();
     }

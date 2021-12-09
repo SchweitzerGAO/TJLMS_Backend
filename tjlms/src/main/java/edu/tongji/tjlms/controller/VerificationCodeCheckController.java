@@ -10,18 +10,27 @@ import org.springframework.web.bind.annotation.*;
 @ResponseBody
 public class VerificationCodeCheckController {
     @PostMapping("post/check/code")
-    public ResponseEntity<Boolean> checkCode(String code)
+    public ResponseEntity<?> checkCode(String code)
     {
-        String verificationCode = EmailSendServiceImpl.getVerificationCode();
-        System.out.println(verificationCode);
-        // compare the verification code
-        if(!code.equals(verificationCode))
+        try
         {
+            String verificationCode = EmailSendServiceImpl.getVerificationCode();
+//            System.out.println(verificationCode);
+            // compare the verification code
+            if(!code.equals(verificationCode))
+            {
+                EmailSendServiceImpl.setVerificationCodeToEmpty();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+            }
             EmailSendServiceImpl.setVerificationCodeToEmpty();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+            return ResponseEntity.status(HttpStatus.OK).body(true);
         }
-        EmailSendServiceImpl.setVerificationCodeToEmpty();
-        return ResponseEntity.status(HttpStatus.OK).body(true);
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+
     }
 
 }

@@ -1,7 +1,7 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.FinalGradeDto;
-import edu.tongji.tjlms.service.grade.QueryMyGradeService;
+import edu.tongji.tjlms.service.grade.QueryGradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @ResponseBody
 public class QueryGradeController {
     @Autowired
-    private QueryMyGradeService queryGradeService;
+    private QueryGradeService queryGradeService;
 
     @GetMapping("/get/grade/{id}")
     public ResponseEntity<?> getGrades(@PathVariable("id") String studentId)

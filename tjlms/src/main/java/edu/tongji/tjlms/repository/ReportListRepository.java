@@ -11,4 +11,5 @@ import java.util.List;
 public interface ReportListRepository extends JpaRepository<ReportListEntity, ReportListPK> {
     List<ReportListEntity> findAllByTeacherId(String id);
     Page<ReportListEntity> findAllByTeacherId(String id,Pageable pageable);
+    List<ReportListEntity> findAllByClassIdAndLabId(String classId,Integer labId);
 }

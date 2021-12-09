@@ -5,7 +5,7 @@ import edu.tongji.tjlms.dto.QueryGradeDto;
 
 import java.util.List;
 
-public interface QueryMyGradeService {
+public interface QueryGradeService {
     List<QueryGradeDto> queryGrade(String id);
     FinalGradeDto queryFinalGrade(String id);
 }

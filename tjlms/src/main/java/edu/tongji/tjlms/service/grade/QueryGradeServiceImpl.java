@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QueryMyGradeServiceImpl implements QueryMyGradeService {
+public class QueryGradeServiceImpl implements QueryGradeService {
     @Resource
     QueryGradeRepository queryGradeRepository;
 

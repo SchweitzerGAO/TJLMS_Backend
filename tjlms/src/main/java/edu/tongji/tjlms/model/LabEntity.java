@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "lab", schema = "lms", catalog = "")
 public class LabEntity {
-    private int id;
+    private Integer id;
     private String name;
     private String releaseTeacher;
     private String releaseDate;
@@ -15,11 +15,11 @@ public class LabEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,7 +68,7 @@ public class LabEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LabEntity labEntity = (LabEntity) o;
-        return id == labEntity.id && Objects.equals(name, labEntity.name) && Objects.equals(releaseTeacher, labEntity.releaseTeacher) && Objects.equals(releaseDate, labEntity.releaseDate) && Objects.equals(deadline, labEntity.deadline);
+        return Objects.equals(id, labEntity.id) && Objects.equals(name, labEntity.name) && Objects.equals(releaseTeacher, labEntity.releaseTeacher) && Objects.equals(releaseDate, labEntity.releaseDate) && Objects.equals(deadline, labEntity.deadline);
     }
 
     @Override

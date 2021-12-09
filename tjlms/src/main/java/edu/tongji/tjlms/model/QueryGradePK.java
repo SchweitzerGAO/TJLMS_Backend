@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class QueryGradePK implements Serializable {
     private String stuId;
-    private String labId;
+    private Integer labId;
 
     @Column(name = "stu_id")
     @Id
@@ -22,11 +22,11 @@ public class QueryGradePK implements Serializable {
 
     @Column(name = "lab_id")
     @Id
-    public String getLabId() {
+    public Integer getLabId() {
         return labId;
     }
 
-    public void setLabId(String classId) {
+    public void setLabId(Integer classId) {
         this.labId = classId;
     }
 

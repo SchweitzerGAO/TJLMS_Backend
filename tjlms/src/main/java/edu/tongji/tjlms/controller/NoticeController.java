@@ -37,7 +37,7 @@ public class NoticeController {
         }
     }
 
-    @GetMapping("/get/notice/{id}")
+    @GetMapping("/get/notice/id/{id}")
     public ResponseEntity<?> getNoticeById(@PathVariable("id") Integer id)
     {
         try
@@ -56,7 +56,7 @@ public class NoticeController {
         }
     }
 
-    @GetMapping("/get/notice/{releaser}")
+    @GetMapping("/get/notice/releaser/{releaser}")
     public ResponseEntity<?> getNoticeByReleaser(@PathVariable("releaser") String releaser)
     {
         try

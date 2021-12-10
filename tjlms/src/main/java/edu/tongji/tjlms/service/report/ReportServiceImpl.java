@@ -56,13 +56,17 @@ public class ReportServiceImpl implements ReportService{
     public List<ReportInfoDto> getInfo(String id) {
         List<QueryReportEntity> reportList = queryReportRepository.findAllByStuId(id);
         List<ReportInfoDto> reportInfo = new ArrayList<>();
+        if(reportList.isEmpty())
+        {
+            return null;
+        }
         for(QueryReportEntity report: reportList)
         {
             ReportInfoDto temp = new ReportInfoDto();
             temp.setLabName(report.getLabName());
             temp.setUpdateDate(report.getUpdateDate());
             temp.setMutable(report.getMutable());
-            temp.setChecked(report.getChecked());
+            temp.setIsChecked(report.getChecked());
             reportInfo.add(temp);
         }
         return reportInfo;

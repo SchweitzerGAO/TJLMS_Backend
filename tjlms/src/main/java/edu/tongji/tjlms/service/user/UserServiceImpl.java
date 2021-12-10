@@ -87,8 +87,8 @@ public class UserServiceImpl implements UserService{
         for(PermDto permission:list)
         {
             teacherRepository.modifyPerm(permission.getType(),
-                                         permission.isGrade(),
-                                         permission.isReleaseLab(),
+                                         permission.getGrade(),
+                                         permission.getReleaseLab(),
                                          permission.getId());
         }
         return "权限批量修改成功";
@@ -97,8 +97,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public String modifyPerm(PermDto permission) {
         teacherRepository.modifyPerm(permission.getType(),
-                permission.isGrade(),
-                permission.isReleaseLab(),
+                permission.getGrade(),
+                permission.getReleaseLab(),
                 permission.getId());
         return null;
     }

@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class PreVerifyDto {
     private String id;
-    private int userType;
+    private Integer userType;
 }

@@ -13,6 +13,6 @@ import lombok.Setter;
 public class EmailDto {
     private String id;
     private String emailAddress;
-    private int userType;
+    private Integer userType;
 
 }

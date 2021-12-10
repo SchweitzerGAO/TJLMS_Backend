@@ -13,7 +13,7 @@ import lombok.Setter;
 public class LoginDto {
     private String emailAddress;
     private String password;
-    private int userType;  // 0->Admin 1->Student 2->Teacher
+    private Integer userType;  // 0->Admin 1->Student 2->Teacher
 
 }
 

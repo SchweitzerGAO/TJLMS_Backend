@@ -1,12 +1,15 @@
 package edu.tongji.tjlms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "notice", schema = "lms", catalog = "")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class NoticeEntity {
-    private int id;
+    private Integer id;
     private String releaser;
     private String title;
     private String content;
@@ -15,11 +18,11 @@ public class NoticeEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,7 +71,7 @@ public class NoticeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NoticeEntity that = (NoticeEntity) o;
-        return id == that.id && Objects.equals(releaser, that.releaser) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(releaseTime, that.releaseTime);
+        return Objects.equals(id, that.id) && Objects.equals(releaser, that.releaser) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(releaseTime, that.releaseTime);
     }
 
     @Override

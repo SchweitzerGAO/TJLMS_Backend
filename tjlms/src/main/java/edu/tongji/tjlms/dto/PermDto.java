@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PermDto {
-    private int type;
-    private boolean grade;
-    private boolean releaseLab;
+    private Integer type;
+    private Boolean grade;
+    private Boolean releaseLab;
     private String id;
 }

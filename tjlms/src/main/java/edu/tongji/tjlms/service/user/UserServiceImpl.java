@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService{
                 permission.getGrade(),
                 permission.getReleaseLab(),
                 permission.getId());
-        return null;
+        return "权限修改成功";
     }
 
     @Override

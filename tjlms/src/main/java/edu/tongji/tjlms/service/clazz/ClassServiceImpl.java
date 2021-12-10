@@ -75,16 +75,18 @@ public class ClassServiceImpl implements ClassService{
 
     @Override
     public List<TeacherEntity> getAllResp() {
-        return teacherRepository.findAllByType(0);
+        return teacherRepository.findAllByTypeAndVerified(0,true);
     }
 
     @Override
     public List<TeacherEntity> getAllTeacher() {
-        return teacherRepository.findAllByType(1);
+        List<TeacherEntity> list = getAllResp();
+        list.addAll(teacherRepository.findAllByTypeAndVerified(1,true));
+        return list;
     }
 
     @Override
     public List<TeacherEntity> getAllAssist() {
-        return teacherRepository.findAllByType(2);
+        return teacherRepository.findAllByTypeAndVerified(2,true);
     }
 }

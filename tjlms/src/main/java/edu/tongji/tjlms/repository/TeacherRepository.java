@@ -31,7 +31,7 @@ public interface TeacherRepository extends JpaRepository<TeacherEntity,String> {
     void updatePwd(String id, String pwd);
 
 
-    List<TeacherEntity> findAllByType(Integer type);
+    List<TeacherEntity> findAllByTypeAndVerified(Integer type,Boolean verified);
 
 
 }

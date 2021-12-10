@@ -133,12 +133,25 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/post/modify/permission")
+    @PostMapping("/post/modify/batch")
     public ResponseEntity<String> modifyPerm(@RequestBody List<PermDto> list)
     {
         try
         {
             return ResponseEntity.status(HttpStatus.OK).body(userService.modifyPerm(list));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("权限更改失败");
+        }
+    }
+    @PostMapping("/post/modify")
+    public ResponseEntity<String> modifyPerm(PermDto pd)
+    {
+        try
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(userService.modifyPerm(pd));
         }
         catch (Exception e)
         {

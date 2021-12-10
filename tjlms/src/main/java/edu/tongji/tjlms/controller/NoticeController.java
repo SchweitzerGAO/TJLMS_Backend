@@ -52,7 +52,7 @@ public class NoticeController {
         catch (Exception e)
         {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("公告不存在");
         }
     }
 

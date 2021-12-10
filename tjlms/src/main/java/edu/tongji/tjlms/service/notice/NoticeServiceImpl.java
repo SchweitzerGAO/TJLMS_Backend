@@ -30,7 +30,13 @@ public class NoticeServiceImpl implements NoticeService{
 
     @Override
     public NoticeEntity getNoticeById(Integer id) {
-        return noticeRepository.getById(id);
+
+        NoticeEntity notice =  noticeRepository.getById(id);
+        if(notice.getTitle() == null)
+        {
+            return null;
+        }
+        return notice;
     }
 
     @Override

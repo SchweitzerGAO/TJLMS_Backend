@@ -5,11 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SubmitReportDto {
+public class SummatorBasicDto {
     private String stuId;
-    private Integer labId;
     private String aim;
     private String principle;
     private String step;
-    private String result;
 }

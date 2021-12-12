@@ -10,4 +10,5 @@ public interface TakesRepository extends JpaRepository<TakesEntity, TakesEntityP
     void deleteByStuId(String id);
 
     List<TakesEntity> findAllByClassId(String classId);
+    TakesEntity findByStuId(String id);
 }

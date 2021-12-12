@@ -4,6 +4,9 @@ import edu.tongji.tjlms.dto.GetNoticeDto;
 import edu.tongji.tjlms.dto.PostNoticeDto;
 import edu.tongji.tjlms.model.NoticeEntity;
 import edu.tongji.tjlms.repository.NoticeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,10 +21,11 @@ public class NoticeServiceImpl implements NoticeService{
     @Resource
     NoticeRepository noticeRepository;
     @Override
-    public List<GetNoticeDto> getAllTitles() {
-        List<NoticeEntity> list = noticeRepository.findAll();
+    public List<GetNoticeDto> getAllTitles(Integer pageNum,Integer pageSize) {
+        Page<NoticeEntity> list = noticeRepository.findAll(PageRequest.of(pageNum-1,pageSize));
+
         List<GetNoticeDto> ret = new ArrayList<>();
-        for(NoticeEntity notice: list)
+        for(NoticeEntity notice: list.getContent())
         {
             ret.add(new GetNoticeDto(notice.getId(),notice.getTitle()));
         }

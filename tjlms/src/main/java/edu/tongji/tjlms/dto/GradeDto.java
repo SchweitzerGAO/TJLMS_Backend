@@ -9,7 +9,7 @@ public class GradeDto {
     private String stuId;
     private String classId;
     private String teacherId;
-    private String labId;
+    private Integer labId;
     private Double score;
     private String note;
 

@@ -31,6 +31,7 @@ public class LabServiceImpl implements LabService{
         labEntity.setName(lab.getName());
         labEntity.setDeadline(lab.getDeadline());
         labEntity.setReleaseTeacher(lab.getReleaseTeacher());
+        labEntity.setIntro(lab.getIntro());
         labEntity.setReleaseDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         labRepository.save(labEntity);
         return "发布成功";

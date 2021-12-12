@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FeedBackDto {
-    private String feedbacker;
+public class ReplyDto {
+    private Integer id;
+    private String replier;
     private String title;
     private String content;
-    private Boolean isAnonymous;
 }

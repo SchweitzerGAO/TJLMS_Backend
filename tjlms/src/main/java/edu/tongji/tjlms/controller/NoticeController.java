@@ -19,11 +19,12 @@ public class NoticeController {
     NoticeService noticeService;
 
     @GetMapping("/get/titles")
-    public ResponseEntity<?> getAllTitles()
+    public ResponseEntity<?> getAllTitles(@RequestParam(defaultValue = "1") Integer pageNum,
+                                          @RequestParam(defaultValue = "20")Integer pageSize)
     {
         try
         {
-            List<GetNoticeDto> titles = noticeService.getAllTitles();
+            List<GetNoticeDto> titles = noticeService.getAllTitles(pageNum,pageSize);
             if(!titles.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.OK).body(titles);
@@ -102,4 +103,5 @@ public class NoticeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
     }
+
 }

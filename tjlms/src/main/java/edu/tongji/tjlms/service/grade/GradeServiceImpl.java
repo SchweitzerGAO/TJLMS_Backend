@@ -2,18 +2,14 @@ package edu.tongji.tjlms.service.grade;
 
 import edu.tongji.tjlms.dto.GradeDto;
 import edu.tongji.tjlms.model.*;
-import edu.tongji.tjlms.repository.ClassRepository;
-import edu.tongji.tjlms.repository.LabGradeRepository;
-import edu.tongji.tjlms.repository.ReportListRepository;
-import edu.tongji.tjlms.repository.ReportRepository;
+import edu.tongji.tjlms.repository.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GradeServiceImpl implements GradeService{
@@ -30,6 +26,15 @@ public class GradeServiceImpl implements GradeService{
     @Resource
     ClassRepository classRepository;
 
+    @Resource
+    SummatorResultRepository summatorResultRepository;
+
+    @Resource
+    SummatorBasicRepository summatorBasicRepository;
+
+    @Resource
+    SummatorListRepository summatorListRepository;
+
     @Override
     public List<ReportListEntity> getReportList(String teacherId) {
         return reportListRepository.findAllByTeacherId(teacherId);
@@ -38,6 +43,16 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public ReportEntity getReport(ReportEntityPK pk) {
         return reportRepository.findByStuIdAndLabId(pk.getStuId(),pk.getLabId());
+    }
+
+    @Override
+    public Map<String, Object> getSummator(String id) {
+        Map<String,Object> map = new HashMap<>();
+        SummatorBasicEntity basic = summatorBasicRepository.findByStuId(id);
+        map.put("basic",basic);
+        List<SummatorResultEntity> result = summatorResultRepository.findAllByStuId(id);
+        map.put("result",result);
+        return map;
     }
 
     @Override
@@ -52,6 +67,11 @@ public class GradeServiceImpl implements GradeService{
     }
 
     @Override
+    public Page<SummatorListEntity> getSummatorListPaged(String teacherId, Integer pageNum, Integer pageSize) {
+        return summatorListRepository.findAllByTeacherId(teacherId, PageRequest.of(pageNum-1,pageSize));
+    }
+
+    @Override
     public String save(GradeDto info) {
         LabGradeEntity grade = new LabGradeEntity();
         grade.setClassId(info.getClassId());
@@ -62,8 +82,25 @@ public class GradeServiceImpl implements GradeService{
         grade.setStuId(info.getStuId());
         grade.setTeacherId(info.getTeacherId());
         grade.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        reportRepository.updateChecked(info.getStuId(),info.getLabId());
         labGradeRepository.save(grade);
 
+        return "暂存成功";
+    }
+
+    @Override
+    public String saveSummator(GradeDto info) {
+        LabGradeEntity grade = new LabGradeEntity();
+        grade.setClassId(info.getClassId());
+        grade.setLabId(1);
+        grade.setScore(info.getScore());
+        grade.setNote(info.getNote());
+        grade.setVisible(false);
+        grade.setStuId(info.getStuId());
+        grade.setTeacherId(info.getTeacherId());
+        grade.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        summatorBasicRepository.updateCheck(info.getStuId());
+        labGradeRepository.save(grade);
         return "暂存成功";
     }
 

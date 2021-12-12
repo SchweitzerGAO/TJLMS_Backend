@@ -8,6 +8,7 @@ import edu.tongji.tjlms.model.ReportEntity;
 import edu.tongji.tjlms.model.ReportEntityPK;
 import edu.tongji.tjlms.repository.QueryReportRepository;
 import edu.tongji.tjlms.repository.ReportRepository;
+import edu.tongji.tjlms.repository.TakesRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,10 +25,15 @@ public class ReportServiceImpl implements ReportService{
     @Resource
     QueryReportRepository queryReportRepository;
 
+    @Resource
+    TakesRepository takesRepository;
+
     @Override
     public String saveReport(SubmitReportDto report) {
         ReportEntity reportEntity = new ReportEntity();
-        reportEntity.setClassId(report.getClassId());
+        reportEntity.setStuId(report.getStuId());
+        reportEntity.setLabId(report.getLabId());
+        reportEntity.setClassId(takesRepository.findByStuId(report.getStuId()).getClassId());
         reportEntity.setAim(report.getAim());
         reportEntity.setIsChecked(false);
         reportEntity.setResult(report.getResult());

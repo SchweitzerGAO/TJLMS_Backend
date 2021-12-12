@@ -1,10 +1,7 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.GradeDto;
-import edu.tongji.tjlms.model.ClassEntity;
-import edu.tongji.tjlms.model.ReportEntity;
-import edu.tongji.tjlms.model.ReportEntityPK;
-import edu.tongji.tjlms.model.ReportListEntity;
+import edu.tongji.tjlms.model.*;
 import edu.tongji.tjlms.service.grade.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -131,6 +128,57 @@ public class GradeController {
         try
         {
             return ResponseEntity.status(HttpStatus.OK).body(gradeService.release(classId));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @GetMapping("/get/summator/list")
+    public ResponseEntity<?> getSummatorList(String teacherId,
+                                             @RequestParam(defaultValue = "1") Integer pageNum,
+                                             @RequestParam(defaultValue = "20") Integer pageSize)
+    {
+        try
+        {
+            Page<SummatorListEntity> page = gradeService.getSummatorListPaged(teacherId,pageNum,pageSize);
+            if(page.getContent().isEmpty())
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无加法器实验报告信息");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(page);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @GetMapping("get/summator/detail")
+    public ResponseEntity<?> getSummatorDetail(String stuId)
+    {
+        try
+        {
+            Map<String,Object> map = gradeService.getSummator(stuId);
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+
+    }
+
+    @PostMapping("/post/save/summator/grade")
+    public ResponseEntity<String> saveSummatorGrade(@RequestBody GradeDto grade)
+    {
+        try
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(gradeService.saveSummator(grade));
         }
         catch (Exception e)
         {

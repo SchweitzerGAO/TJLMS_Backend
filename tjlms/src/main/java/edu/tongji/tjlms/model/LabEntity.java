@@ -8,6 +8,7 @@ import java.util.Objects;
 public class LabEntity {
     private Integer id;
     private String name;
+    private String intro;
     private String releaseTeacher;
     private String releaseDate;
     private String deadline;
@@ -31,6 +32,17 @@ public class LabEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    @Basic
+    @Column(name="intro")
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 
     @Basic

@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class LabDto {
     private String name;
+    private String intro;
     private String releaseTeacher;
     private String deadline;
 }

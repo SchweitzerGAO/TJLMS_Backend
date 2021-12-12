@@ -11,7 +11,7 @@ public class LabGradeEntity {
     private String classId;
     private String updateDate;
     private Boolean visible;
-    private String labId;
+    private Integer labId;
     private Double score;
     private String note;
     private String teacherId;
@@ -28,10 +28,10 @@ public class LabGradeEntity {
 
     @Id
     @Column(name = "lab_id", nullable = false)
-    public String getLabId() {
+    public Integer getLabId() {
         return labId;
     }
-    public void setLabId(String labId) {
+    public void setLabId(Integer labId) {
         this.labId = labId;
     }
 

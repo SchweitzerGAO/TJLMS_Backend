@@ -16,4 +16,5 @@ public interface FeedbackRepository extends JpaRepository<FeedbackEntity,Integer
 
     Page<FeedbackEntity> findAllByFeedbacker(String id, Pageable pageable);
     Page<FeedbackEntity> findAllByReplier(String id,Pageable pageable);
+    Page<FeedbackEntity> findAllByIsReplied(Boolean replied,Pageable pageable);
 }

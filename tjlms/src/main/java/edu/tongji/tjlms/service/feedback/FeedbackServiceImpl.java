@@ -67,7 +67,7 @@ public class FeedbackServiceImpl implements FeedbackService{
 
     @Override
     public Page<FeedbackEntity> getAllFeedback(Integer pageNum, Integer pageSize) {
-        Page<FeedbackEntity> page = feedbackRepository.findAll(PageRequest.of(pageNum-1,pageSize));
+        Page<FeedbackEntity> page = feedbackRepository.findAllByIsReplied(false,PageRequest.of(pageNum-1,pageSize));
         if(page.getContent().isEmpty())
         {
             return null;

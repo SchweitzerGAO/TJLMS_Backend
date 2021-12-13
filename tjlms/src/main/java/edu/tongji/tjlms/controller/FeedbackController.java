@@ -97,7 +97,7 @@ public class FeedbackController {
             Page<FeedbackEntity> page = feedbackService.getAllFeedback(pageNum,pageSize);
             if(page == null)
             {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无反馈信息");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无未回复的反馈信息");
             }
             return ResponseEntity.status(HttpStatus.OK).body(page);
         }

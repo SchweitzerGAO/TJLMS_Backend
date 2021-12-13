@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface FeedbackRepository extends JpaRepository<FeedbackEntity,Integer> {
     @Transactional
     @Modifying
-    @Query("UPDATE FeedbackEntity f set f.replier=?1,f.rpTitle=?2,f.rpContent=?3,f.rpTime=?4 WHERE f.id=?5")
+    @Query("UPDATE FeedbackEntity f set f.replier=?1,f.rpTitle=?2,f.rpContent=?3,f.rpTime=?4,f.isReplied=true WHERE f.id=?5")
     void reply(String replier,String rpTitie,String rpContent,String rpTime,Integer id);
 
     Page<FeedbackEntity> findAllByFeedbacker(String id, Pageable pageable);

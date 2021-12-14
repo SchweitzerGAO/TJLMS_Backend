@@ -11,6 +11,7 @@ public class SummatorBasicEntity {
     private String aim;
     private String principle;
     private String step;
+    private String conclusion;
     private String updateDate;
     private Boolean mutable;
     private Boolean isChecked;
@@ -63,6 +64,17 @@ public class SummatorBasicEntity {
 
     public void setStep(String step) {
         this.step = step;
+    }
+
+
+    @Basic
+    @Column(name = "conclusion")
+    public String getConclusion() {
+        return conclusion;
+    }
+
+    public void setConclusion(String conclusion) {
+        this.conclusion = conclusion;
     }
 
     @Basic

@@ -36,6 +36,7 @@ public class SummatorReportServiceImpl implements SummatorReportService{
         sbe.setPrinciple(ssd.getSummatorBasicDto().getPrinciple());
         sbe.setStep(ssd.getSummatorBasicDto().getStep());
         sbe.setIsChecked(false);
+        sbe.setConclusion(ssd.getSummatorBasicDto().getConclusion());
         summatorBasicRepository.save(sbe);
 
         List<SummatorResultEntity> list = new ArrayList<>();

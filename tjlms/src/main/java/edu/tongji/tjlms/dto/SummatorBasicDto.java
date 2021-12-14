@@ -10,4 +10,5 @@ public class SummatorBasicDto {
     private String aim;
     private String principle;
     private String step;
+    private String conclusion;
 }

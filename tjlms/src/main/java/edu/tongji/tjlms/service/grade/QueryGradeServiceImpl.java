@@ -3,15 +3,18 @@ package edu.tongji.tjlms.service.grade;
 import edu.tongji.tjlms.dto.FinalGradeDto;
 import edu.tongji.tjlms.dto.QueryGradeDto;
 import edu.tongji.tjlms.model.QueryGradeEntity;
+import edu.tongji.tjlms.model.SummatorBasicEntity;
 import edu.tongji.tjlms.repository.LabRepository;
 import edu.tongji.tjlms.repository.QueryGradeRepository;
 import edu.tongji.tjlms.repository.ReportRepository;
+import edu.tongji.tjlms.repository.SummatorBasicRepository;
 import edu.tongji.tjlms.util.ScoreConvertUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QueryGradeServiceImpl implements QueryGradeService {
@@ -23,6 +26,9 @@ public class QueryGradeServiceImpl implements QueryGradeService {
 
     @Resource
     ReportRepository reportRepository;
+
+    @Resource
+    SummatorBasicRepository summatorBasicRepository;
     @Override
     public List<QueryGradeDto> queryGrade(String id) {
         List<QueryGradeDto> ret = new ArrayList<>();
@@ -43,7 +49,14 @@ public class QueryGradeServiceImpl implements QueryGradeService {
         {
             ret.setAttendance(0.);
         }
+        Optional<SummatorBasicEntity> opt = summatorBasicRepository.findByStuId(id);
+
         long numReports = reportRepository.countByStuId(id);
+        if(opt.isPresent())
+        {
+            numReports+=1;
+        }
+
         ret.setAttendance((double)numReports*100/numLab);
         double sum = 0;
         for (QueryGradeDto grade: ret.getEachGrades())

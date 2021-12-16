@@ -8,9 +8,11 @@ import lombok.Setter;
 public class GetNoticeDto {
     private Integer id;
     private String title;
+    private String time;
 
-    public GetNoticeDto(Integer id, String title) {
+    public GetNoticeDto(Integer id, String title,String time) {
         this.id = id;
         this.title = title;
+        this.time = time;
     }
 }

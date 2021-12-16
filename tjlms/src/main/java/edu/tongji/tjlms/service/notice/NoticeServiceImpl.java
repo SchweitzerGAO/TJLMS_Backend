@@ -27,7 +27,7 @@ public class NoticeServiceImpl implements NoticeService{
         List<GetNoticeDto> ret = new ArrayList<>();
         for(NoticeEntity notice: list.getContent())
         {
-            ret.add(new GetNoticeDto(notice.getId(),notice.getTitle()));
+            ret.add(new GetNoticeDto(notice.getId(),notice.getTitle(),notice.getReleaseTime()));
         }
         return ret;
     }

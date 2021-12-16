@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 public interface SummatorBasicRepository extends JpaRepository<SummatorBasicEntity,String> {
     @Transactional
     @Modifying
@@ -17,5 +19,5 @@ public interface SummatorBasicRepository extends JpaRepository<SummatorBasicEnti
     @Query("UPDATE SummatorBasicEntity s SET s.isChecked=true WHERE s.stuId=?1")
     void updateCheck(String stuId);
 
-    SummatorBasicEntity findByStuId(String stuId);
+    Optional<SummatorBasicEntity> findByStuId(String stuId);
 }

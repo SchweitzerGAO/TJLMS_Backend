@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -43,7 +44,7 @@ public class NoticeController {
     {
         try
         {
-            NoticeEntity notice = noticeService.getNoticeById(id);
+            Map<String,Object> notice = noticeService.geyNoticeWithNameById(id);
             if(notice != null)
             {
                 return ResponseEntity.status(HttpStatus.OK).body(notice);

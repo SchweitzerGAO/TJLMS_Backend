@@ -6,10 +6,12 @@ import edu.tongji.tjlms.model.NoticeEntity;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NoticeService {
     List<GetNoticeDto> getAllTitles(Integer pageNum,Integer pageSize);
     NoticeEntity getNoticeById(Integer id);
+    Map<String,Object> geyNoticeWithNameById(Integer id);
     List<NoticeEntity> getNoticeByReleaser(String teacherId);
     String postNotice(PostNoticeDto pnd);
     String deleteNotice(Integer id);

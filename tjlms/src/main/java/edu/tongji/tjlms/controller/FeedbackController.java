@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api")
@@ -53,12 +56,12 @@ public class FeedbackController {
     {
         try
         {
-            Page<FeedbackEntity> page = feedbackService.myFeedback(id,pageNum,pageSize);
-            if(page == null)
+            Map<String,Object> map = feedbackService.myFeedbackWithName(id,pageNum,pageSize);
+            if(map == null)
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无发出的反馈信息");
             }
-            return ResponseEntity.status(HttpStatus.OK).body(page);
+            return ResponseEntity.status(HttpStatus.OK).body(map);
         }
         catch (Exception e)
         {

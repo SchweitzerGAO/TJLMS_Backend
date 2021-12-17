@@ -5,9 +5,11 @@ import edu.tongji.tjlms.dto.ScheduleDto;
 import edu.tongji.tjlms.model.LabEntity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LabService {
     List<LabEntity> getAll();
+    Map<String, Object> getAllWithNames();
     String releaseLab(LabDto lab);
     List<ScheduleDto> getSchedule();
 }

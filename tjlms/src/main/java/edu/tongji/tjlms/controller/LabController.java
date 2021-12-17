@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -23,7 +24,11 @@ public class LabController {
     {
         try
         {
-            List<LabEntity> labs = labService.getAll();
+            Map<String,Object> labs = labService.getAllWithNames();
+            if(labs == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无实验信息");
+            }
             return ResponseEntity.status(HttpStatus.OK).body(labs);
         }
         catch (Exception e)
@@ -53,7 +58,7 @@ public class LabController {
         try
         {
             List<ScheduleDto> schedule = labService.getSchedule();
-            if(schedule.isEmpty())
+            if(schedule == null)
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无日程安排");
             }

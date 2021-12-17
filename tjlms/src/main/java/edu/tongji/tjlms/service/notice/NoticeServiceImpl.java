@@ -4,6 +4,7 @@ import edu.tongji.tjlms.dto.GetNoticeDto;
 import edu.tongji.tjlms.dto.PostNoticeDto;
 import edu.tongji.tjlms.model.NoticeEntity;
 import edu.tongji.tjlms.repository.NoticeRepository;
+import edu.tongji.tjlms.repository.TeacherRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -11,15 +12,16 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{
 
     @Resource
     NoticeRepository noticeRepository;
+
+    @Resource
+    TeacherRepository teacherRepository;
     @Override
     public List<GetNoticeDto> getAllTitles(Integer pageNum,Integer pageSize) {
         Page<NoticeEntity> list = noticeRepository.findAll(PageRequest.of(pageNum-1,pageSize));
@@ -41,6 +43,19 @@ public class NoticeServiceImpl implements NoticeService{
             return null;
         }
         return notice;
+    }
+
+    @Override
+    public Map<String, Object> geyNoticeWithNameById(Integer id) {
+        Map<String,Object> map = new HashMap<>();
+        NoticeEntity notice =  noticeRepository.getById(id);
+        if(notice.getTitle() == null)
+        {
+            return null;
+        }
+        map.put("notice",notice);
+        map.put("name",teacherRepository.findById(notice.getReleaser()));
+        return map;
     }
 
     @Override

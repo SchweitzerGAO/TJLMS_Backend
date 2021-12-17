@@ -3,16 +3,13 @@ package edu.tongji.tjlms.service.lab;
 import edu.tongji.tjlms.dto.LabDto;
 import edu.tongji.tjlms.dto.ScheduleDto;
 import edu.tongji.tjlms.model.LabEntity;
-import edu.tongji.tjlms.model.TeacherEntity;
 import edu.tongji.tjlms.repository.LabRepository;
 import edu.tongji.tjlms.repository.TeacherRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class LabServiceImpl implements LabService{
@@ -20,9 +17,28 @@ public class LabServiceImpl implements LabService{
     LabRepository labRepository;
     @Resource
     TeacherRepository teacherRepository;
+
     @Override
     public List<LabEntity> getAll() {
         return labRepository.findAll();
+    }
+
+    @Override
+    public Map<String, Object> getAllWithNames() {
+        Map<String, Object> map = new HashMap<>();
+        List<LabEntity> list = labRepository.findAll();
+        if(list.isEmpty())
+        {
+            return null;
+        }
+        map.put("labs",list);
+        List<String> names = new ArrayList<>();
+        for(LabEntity lab:list)
+        {
+            names.add(teacherRepository.findById(lab.getReleaseTeacher()).get().getName());
+        }
+        map.put("names",names);
+        return map;
     }
 
     @Override
@@ -40,6 +56,10 @@ public class LabServiceImpl implements LabService{
     @Override
     public List<ScheduleDto> getSchedule() {
         List<LabEntity> labs = getAll();
+        if(labs.isEmpty())
+        {
+            return null;
+        }
         List<ScheduleDto> ret = new ArrayList<>();
         for(LabEntity lab:labs)
         {

@@ -3,20 +3,29 @@ package edu.tongji.tjlms.service.feedback;
 import edu.tongji.tjlms.dto.FeedBackDto;
 import edu.tongji.tjlms.dto.ReplyDto;
 import edu.tongji.tjlms.model.FeedbackEntity;
+import edu.tongji.tjlms.model.StudentEntity;
 import edu.tongji.tjlms.repository.FeedbackRepository;
+import edu.tongji.tjlms.repository.StudentRepository;
+import edu.tongji.tjlms.repository.TeacherRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService{
 
     @Resource
     FeedbackRepository feedbackRepository;
+
+    @Resource
+    StudentRepository studentRepository;
+
+    @Resource
+    TeacherRepository teacherRepository;
     @Override
     public String feedback(FeedBackDto fbd) {
         FeedbackEntity feedback = new FeedbackEntity();
@@ -61,6 +70,10 @@ public class FeedbackServiceImpl implements FeedbackService{
             {
                 feedback.setFeedbacker("匿名反馈");
             }
+            else
+            {
+                feedback.setFeedbacker(feedback.getFeedbacker()+' '+studentRepository.findById(feedback.getFeedbacker()).get().getName());
+            }
         }
         return page;
     }
@@ -78,7 +91,37 @@ public class FeedbackServiceImpl implements FeedbackService{
             {
                 feedback.setFeedbacker("匿名反馈");
             }
+            else
+            {
+                feedback.setFeedbacker(feedback.getFeedbacker()+' '+studentRepository.findById(feedback.getFeedbacker()).get().getName());
+            }
         }
         return page;
+    }
+
+    @Override
+    public Map<String, Object> myFeedbackWithName(String id, Integer pageNum, Integer pageSize) {
+        Map<String,Object> map = new HashMap<>();
+        Page<FeedbackEntity> page =  feedbackRepository.findAllByReplier(id, PageRequest.of(pageNum-1,pageSize));
+        if(page.getContent().isEmpty())
+        {
+            return null;
+        }
+        List<String> names = new ArrayList<>();
+        map.put("feedbacks",page.getContent());
+        for(FeedbackEntity feedback:page.getContent())
+        {
+            if(feedback.getReplier() == null)
+            {
+                names.add(null);
+            }
+            else
+            {
+                names.add(feedback.getReplier()+' '+teacherRepository.findById(feedback.getReplier()).get().getName());
+            }
+        }
+        map.put("names",names);
+        return map;
+
     }
 }

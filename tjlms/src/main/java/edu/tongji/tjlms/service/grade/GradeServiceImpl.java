@@ -48,8 +48,15 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public Map<String, Object> getSummator(String id) {
         Map<String,Object> map = new HashMap<>();
-        SummatorBasicEntity basic = summatorBasicRepository.findByStuId(id);
-        map.put("basic",basic);
+        Optional<SummatorBasicEntity> basic = summatorBasicRepository.findByStuId(id);
+        if(basic.isPresent())
+        {
+            map.put("basic",basic.get());
+        }
+        else
+        {
+            map.put("basic",null);
+        }
         List<SummatorResultEntity> result = summatorResultRepository.findAllByStuId(id);
         map.put("result",result);
         return map;

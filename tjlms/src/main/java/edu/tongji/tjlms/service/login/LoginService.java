@@ -7,5 +7,5 @@ import edu.tongji.tjlms.dto.LoginDto;
  * @description the login service interface
  */
 public interface LoginService {
-    String login(LoginDto ld);
+    Object login(LoginDto ld);
 }

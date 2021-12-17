@@ -28,7 +28,7 @@ public class LoginServiceImpl implements LoginService{
     TeacherRepository teacherRepository;
 
     @Override
-    public String login(LoginDto ld) {
+    public Object login(LoginDto ld) {
         int userType = ld.getUserType();
         String email = ld.getEmailAddress();
         String password = EncryptSha256Util.getSha256Str(ld.getPassword());
@@ -41,9 +41,9 @@ public class LoginServiceImpl implements LoginService{
                 Optional<AdminEntity> admin = adminRepository.findByEmailAddrAndPassword(email, password);
                 if(!admin.isPresent())
                 {
-                    return "邮箱或密码错误。";
+                    return "邮箱或密码错误";
                 }
-                return "登录成功";
+                return admin.get();
             }
 
             // Student
@@ -59,7 +59,7 @@ public class LoginServiceImpl implements LoginService{
                 {
                     return "尚未激活";
                 }
-                return "登录成功";
+                return student.get();
 
             }
 
@@ -76,7 +76,7 @@ public class LoginServiceImpl implements LoginService{
                 {
                     return "尚未激活";
                 }
-                return "登录成功";
+                return teacher.get();
 
             }
             default:

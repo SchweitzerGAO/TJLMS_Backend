@@ -25,13 +25,13 @@ public class LoginController {
      * @return the user's necessary information
      */
     @PostMapping("/post/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto ld)
+    public ResponseEntity<?> login(@RequestBody LoginDto ld)
     {
 
         try
         {
-           String ret = loginService.login(ld);
-           if(ret.equals("登录成功"))
+           Object ret = loginService.login(ld);
+           if(!(ret instanceof String))
            {
                return ResponseEntity.status(HttpStatus.OK).body(ret);
            }

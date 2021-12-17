@@ -61,7 +61,7 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/post/students/batch")
+    @PostMapping("/post/students")
     public ResponseEntity<String> insertStudents(String filePath)
     {
         try
@@ -83,7 +83,7 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/post/teachers/batch")
+    @PostMapping("/post/teachers")
     public ResponseEntity<String> insertTeachers(@RequestBody String filePath)
     {
         try
@@ -105,7 +105,7 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/post/student")
+    @PostMapping("/admin//post/student")
     public ResponseEntity<String> insertStudent(@RequestBody StudentEntity student)
     {
         try
@@ -119,7 +119,7 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/post/teacher")
+    @PostMapping("/admin/post/teacher")
     public ResponseEntity<String> insertTeacher(@RequestBody TeacherEntity teacher)
     {
         try {

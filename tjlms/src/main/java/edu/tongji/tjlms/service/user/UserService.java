@@ -14,6 +14,9 @@ public interface UserService {
     String insertStudent(String filePath);
     String insertTeacher(String filePath);
 
+    String insertStudent(StudentEntity student);
+    String insertTeacher(TeacherEntity teacher);
+
     String deleteStudent(String id);
     String deleteTeacher(String id);
 

@@ -71,6 +71,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public String insertStudent(StudentEntity student) {
+        studentRepository.save(student);
+        return "添加成功";
+    }
+
+    @Override
+    public String insertTeacher(TeacherEntity teacher) {
+        teacherRepository.save(teacher);
+        return "添加成功";
+    }
+
+    @Override
     public String deleteStudent(String id) {
         studentRepository.deleteById(id);
         return "删除成功";

@@ -61,7 +61,7 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/post/students")
+    @PostMapping("/post/students/batch")
     public ResponseEntity<String> insertStudents(String filePath)
     {
         try
@@ -83,7 +83,7 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/post/teachers")
+    @PostMapping("/post/teachers/batch")
     public ResponseEntity<String> insertTeachers(@RequestBody String filePath)
     {
         try
@@ -97,6 +97,33 @@ public class UserManageController {
             {
                 return ResponseEntity.status(HttpStatus.OK).body(ret);
             }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @PostMapping("/post/student")
+    public ResponseEntity<String> insertStudent(@RequestBody StudentEntity student)
+    {
+        try
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(userService.insertStudent(student));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @PostMapping("/post/teacher")
+    public ResponseEntity<String> insertTeacher(@RequestBody TeacherEntity teacher)
+    {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(userService.insertTeacher(teacher));
         }
         catch (Exception e)
         {

@@ -174,7 +174,7 @@ public class UserManageController {
         }
     }
     @PostMapping("/post/modify")
-    public ResponseEntity<String> modifyPerm(PermDto pd)
+    public ResponseEntity<String> modifyPerm(@RequestBody PermDto pd)
     {
         try
         {

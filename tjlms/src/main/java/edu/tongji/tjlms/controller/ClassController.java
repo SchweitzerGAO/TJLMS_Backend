@@ -2,6 +2,7 @@ package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.InsertClassDto;
 import edu.tongji.tjlms.dto.InsertStudentDto;
+import edu.tongji.tjlms.dto.InsertStudentsDto;
 import edu.tongji.tjlms.model.ClassEntity;
 import edu.tongji.tjlms.model.TakesEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
@@ -150,12 +151,25 @@ public class ClassController {
         }
     }
 
+    @PostMapping("/post/students/class")
+    public ResponseEntity<String> insertStudents(@RequestBody InsertStudentsDto isd)
+    {
+        try
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(classService.insertStudents(isd));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
     @PostMapping("/post/student")
     public ResponseEntity<String> insertStudent(@RequestBody InsertStudentDto isd)
     {
         try
         {
-            return ResponseEntity.status(HttpStatus.OK).body(classService.insertStudents(isd));
+            return ResponseEntity.status(HttpStatus.OK).body(classService.insertStudent(isd));
         }
         catch (Exception e)
         {

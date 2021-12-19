@@ -102,7 +102,7 @@ public class FeedbackServiceImpl implements FeedbackService{
     @Override
     public Map<String, Object> myFeedbackWithName(String id, Integer pageNum, Integer pageSize) {
         Map<String,Object> map = new HashMap<>();
-        Page<FeedbackEntity> page =  feedbackRepository.findAllByReplier(id, PageRequest.of(pageNum-1,pageSize));
+        Page<FeedbackEntity> page =  feedbackRepository.findAllByFeedbacker(id, PageRequest.of(pageNum-1,pageSize));
         if(page.getContent().isEmpty())
         {
             return null;

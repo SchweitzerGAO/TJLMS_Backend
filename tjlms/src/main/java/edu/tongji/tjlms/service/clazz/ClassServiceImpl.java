@@ -2,10 +2,12 @@ package edu.tongji.tjlms.service.clazz;
 
 import edu.tongji.tjlms.dto.InsertClassDto;
 import edu.tongji.tjlms.dto.InsertStudentDto;
+import edu.tongji.tjlms.dto.InsertStudentsDto;
 import edu.tongji.tjlms.model.ClassEntity;
 import edu.tongji.tjlms.model.TakesEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
 import edu.tongji.tjlms.repository.ClassRepository;
+import edu.tongji.tjlms.repository.StudentRepository;
 import edu.tongji.tjlms.repository.TakesRepository;
 import edu.tongji.tjlms.repository.TeacherRepository;
 import edu.tongji.tjlms.util.ExcelResolverUtil;
@@ -23,6 +25,9 @@ public class ClassServiceImpl implements ClassService{
     TeacherRepository teacherRepository;
     @Resource
     TakesRepository takesRepository;
+
+    @Resource
+    StudentRepository studentRepository;
 
 
     @Override
@@ -49,7 +54,7 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
-    public String insertStudents(InsertStudentDto isd) {
+    public String insertStudents(InsertStudentsDto isd) {
         List<TakesEntity> list = ExcelResolverUtil.resolveClassStudent(isd.getFilePath(),isd.getClassId());
         if(list != null)
         {
@@ -59,6 +64,16 @@ public class ClassServiceImpl implements ClassService{
             return "添加成功";
         }
         return "添加失败";
+    }
+
+    @Override
+    public String insertStudent(InsertStudentDto isd) {
+        TakesEntity takes = new TakesEntity();
+        takes.setStuId(isd.getStuId());
+        takes.setClassId(isd.getClassId());
+        takes.setStuName(studentRepository.findById(isd.getStuId()).get().getName());
+        takesRepository.save(takes);
+        return "学生添加成功";
     }
 
     @Override

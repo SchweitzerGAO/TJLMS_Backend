@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MaterialRepository extends JpaRepository<MaterialEntity,String> {
+public interface MaterialRepository extends JpaRepository<MaterialEntity,Integer> {
     List<MaterialEntity> findAllByLabId(Integer labId);
     Page<MaterialEntity> findAllByLabId(Integer labId,Pageable pageable);
     Page<MaterialEntity> findAllByUploader(String uploader, Pageable pageable);

@@ -80,6 +80,7 @@ public class ExcelResolverUtil {
                         list.add(temp);
                     }
                 }
+                wb.close();
                 return list;
             }
             else
@@ -116,7 +117,7 @@ public class ExcelResolverUtil {
                 }
                 else
                 {
-                    System.out.println("文件类型错误!");
+                    System.err.println("文件类型错误!");
                     return null;
                 }
 
@@ -160,6 +161,7 @@ public class ExcelResolverUtil {
                         list.add(temp);
                     }
                 }
+                wb.close();
                 return list;
             }
             else
@@ -226,6 +228,7 @@ public class ExcelResolverUtil {
                         list.add(temp);
                     }
                 }
+                wb.close();
                 return list;
 
             }

@@ -25,8 +25,8 @@ public class MaterialServiceImpl implements MaterialService{
     }
 
     @Override
-    public String deleteMaterial(String location) {
-        materialRepository.deleteById(location);
+    public String deleteMaterial(Integer id) {
+        materialRepository.deleteById(id);
         return "资料删除成功";
     }
 

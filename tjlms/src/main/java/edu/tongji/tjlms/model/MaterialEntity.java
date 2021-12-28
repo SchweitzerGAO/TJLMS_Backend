@@ -6,6 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "material", schema = "lms", catalog = "")
 public class MaterialEntity {
+    private Integer id;
     private String location;
     private Integer labId;
     private String uploader;
@@ -13,6 +14,17 @@ public class MaterialEntity {
     private String uploadTime;
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Basic
     @Column(name = "location")
     public String getLocation() {
         return location;

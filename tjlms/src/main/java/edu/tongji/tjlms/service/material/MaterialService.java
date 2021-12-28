@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MaterialService {
     String uploadMaterial(UploadMaterialDto umd);
-    String deleteMaterial(String location);
+    String deleteMaterial(Integer id);
 
     Page<MaterialEntity> getAllMaterials(Integer pageNum,Integer pageSize);
 

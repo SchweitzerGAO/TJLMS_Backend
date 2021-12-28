@@ -43,6 +43,7 @@ public class LoginServiceImpl implements LoginService{
                 {
                     return "邮箱或密码错误";
                 }
+                admin.get().setPassword(null);
                 return admin.get();
             }
 
@@ -59,6 +60,7 @@ public class LoginServiceImpl implements LoginService{
                 {
                     return "尚未激活";
                 }
+                student.get().setPassword(null);
                 return student.get();
 
             }
@@ -76,6 +78,7 @@ public class LoginServiceImpl implements LoginService{
                 {
                     return "尚未激活";
                 }
+                teacher.get().setPassword(null);
                 return teacher.get();
 
             }

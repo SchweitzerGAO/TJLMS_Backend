@@ -38,12 +38,12 @@ public class MaterialController {
         }
     }
 
-    @PostMapping("/delete/material")
-    public ResponseEntity<String> deleteMaterial(@RequestBody String location)
+    @PostMapping("/delete/material/{id}")
+    public ResponseEntity<String> deleteMaterial(@PathVariable("id") Integer id)
     {
         try
         {
-            return ResponseEntity.status(HttpStatus.OK).body(materialService.deleteMaterial(location));
+            return ResponseEntity.status(HttpStatus.OK).body(materialService.deleteMaterial(id));
         }
         catch (Exception e)
         {

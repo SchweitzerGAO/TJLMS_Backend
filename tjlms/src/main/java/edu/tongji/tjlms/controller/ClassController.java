@@ -137,8 +137,8 @@ public class ClassController {
         }
     }
 
-    @PostMapping("/delete/class/{id}")
-    public ResponseEntity<String> deleteClass(@PathVariable("id") String id)
+    @PostMapping("/delete/class/{classId}")
+    public ResponseEntity<String> deleteClass(@PathVariable("classId") String id)
     {
         try
         {
@@ -178,8 +178,8 @@ public class ClassController {
         }
     }
 
-    @PostMapping("/delete/class/student/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable("id") String id)
+    @PostMapping("/delete/class/student/{studentId}")
+    public ResponseEntity<String> deleteStudent(@PathVariable("studentId") String id)
     {
         try
         {

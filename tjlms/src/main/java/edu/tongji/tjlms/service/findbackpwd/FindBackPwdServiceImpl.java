@@ -36,16 +36,7 @@ public class FindBackPwdServiceImpl implements FindBackPwdService {
         int type = fbpd.getUserType();
         switch (type)
         {
-            case 0:
-            {
-                Optional<AdminEntity> admin = adminRepository.findById(fbpd.getId());
-                if(!admin.isPresent())
-                {
-                    return "未找到用户信息";
-                }
-                adminRepository.updatePwd(fbpd.getId(), EncryptSha256Util.getSha256Str(fbpd.getNewPwd()));
-                break;
-            }
+
             case 1:
             {
                 Optional<StudentEntity> student = studentRepository.findById(fbpd.getId());

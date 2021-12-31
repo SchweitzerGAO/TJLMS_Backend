@@ -6,6 +6,7 @@ import edu.tongji.tjlms.model.FeedbackEntity;
 import org.springframework.data.domain.Page;
 
 import java.util.Map;
+import java.util.Optional;
 
 public interface FeedbackService {
     String feedback(FeedBackDto fbd);
@@ -14,5 +15,6 @@ public interface FeedbackService {
     Page<FeedbackEntity> myReply(String id,Integer pageNum,Integer pageSize);
     Page<FeedbackEntity> getAllFeedback(Integer pageNum, Integer pageSize);
     Map<String, Object> myFeedbackWithName(String id,Integer pageNum,Integer pageSize);
+    FeedbackEntity getFeedbackById(Integer id);
 
 }

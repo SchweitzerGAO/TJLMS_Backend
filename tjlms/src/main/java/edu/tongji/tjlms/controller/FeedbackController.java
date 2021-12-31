@@ -111,4 +111,23 @@ public class FeedbackController {
         }
     }
 
+    @GetMapping("/get/feedback/{feedbackId}")
+    ResponseEntity<?> getFeedbackById(@PathVariable("feedbackId") Integer id)
+    {
+        try
+        {
+            FeedbackEntity feedback = feedbackService.getFeedbackById(id);
+            if(feedback == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("反馈不存在");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(feedback);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
 }

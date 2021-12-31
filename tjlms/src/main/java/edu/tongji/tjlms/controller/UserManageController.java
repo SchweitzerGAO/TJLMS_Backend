@@ -134,8 +134,8 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/delete/student/{id}")
-    public ResponseEntity<String> deleteStudentById(@PathVariable("id") String id)
+    @PostMapping("/delete/student/{studentId}")
+    public ResponseEntity<String> deleteStudentById(@PathVariable("studentId") String id)
     {
         try
         {
@@ -148,8 +148,8 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/delete/teacher/{id}")
-    public ResponseEntity<String> deleteTeacherById(@PathVariable("id") String id)
+    @PostMapping("/delete/teacher/{studentId}")
+    public ResponseEntity<String> deleteTeacherById(@PathVariable("studentId") String id)
     {
         try
         {

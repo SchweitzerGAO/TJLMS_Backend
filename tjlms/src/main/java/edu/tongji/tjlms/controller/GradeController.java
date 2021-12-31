@@ -21,8 +21,8 @@ public class GradeController {
     GradeService gradeService;
 
     Integer countList;
-    @GetMapping("/get/report/list/{id}")
-    public ResponseEntity<?> getReportList(@PathVariable("id") String teacherId)
+    @GetMapping("/get/report/list/{teacherId}")
+    public ResponseEntity<?> getReportList(@PathVariable("teacherId") String teacherId)
     {
         try
         {
@@ -39,8 +39,8 @@ public class GradeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
     }
-    @GetMapping("/get/report/page/{id}")
-    public ResponseEntity<?> getReportPage(@PathVariable("id") String teacherId, Integer pageNum,Integer pageSize)
+    @GetMapping("/get/report/page/{teacherId}")
+    public ResponseEntity<?> getReportPage(@PathVariable("teacherId") String teacherId, Integer pageNum,Integer pageSize)
     {
         try
         {

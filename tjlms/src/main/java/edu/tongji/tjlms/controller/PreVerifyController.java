@@ -1,6 +1,8 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.PreVerifyDto;
+import edu.tongji.tjlms.dto.PreVerifyEmailDto;
+import edu.tongji.tjlms.dto.PreVerifyExistsDto;
 import edu.tongji.tjlms.service.preverify.PreVerifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,14 +18,63 @@ public class PreVerifyController {
 
 
     @PostMapping("/post/preVerify")
-    public ResponseEntity<Boolean> preVerify(@RequestBody PreVerifyDto pvd)
+    public ResponseEntity<?> preVerify(@RequestBody PreVerifyDto pvd)
     {
-        boolean exist = preVerifyService.exists(pvd);
-        if(exist)
+        try
         {
-            return ResponseEntity.status(HttpStatus.OK).body(exist);
+            boolean existAndUnverified = preVerifyService.exists(pvd);
+            if(existAndUnverified)
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(existAndUnverified);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(existAndUnverified);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exist);
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+
+    }
+
+    @PostMapping("/post/exists")
+    public ResponseEntity<?> idExists(@RequestBody PreVerifyExistsDto pved)
+    {
+        try
+        {
+            boolean exists = preVerifyService.exists(pved);
+            if(exists)
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(exists);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exists);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+
+    }
+
+    @PostMapping("/post/checkEmail")
+    public ResponseEntity<?> emailCorrect(@RequestBody PreVerifyEmailDto pved)
+    {
+        try
+        {
+            boolean correct = preVerifyService.emailCorrect(pved);
+            if(correct)
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(correct);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(correct);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+
     }
 
 }

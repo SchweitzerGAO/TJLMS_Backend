@@ -39,8 +39,8 @@ public class NoticeController {
         }
     }
 
-    @GetMapping("/get/notice/id/{id}")
-    public ResponseEntity<?> getNoticeById(@PathVariable("id") Integer id)
+    @GetMapping("/get/notice/id/{noticeId}")
+    public ResponseEntity<?> getNoticeById(@PathVariable("noticeId") Integer id)
     {
         try
         {
@@ -58,8 +58,8 @@ public class NoticeController {
         }
     }
 
-    @GetMapping("/get/notice/releaser/{releaser}")
-    public ResponseEntity<?> getNoticeByReleaser(@PathVariable("releaser") String releaser)
+    @GetMapping("/get/notice/releaser/{teacherId}")
+    public ResponseEntity<?> getNoticeByReleaser(@PathVariable("teacherId") String releaser)
     {
         try
         {
@@ -91,8 +91,8 @@ public class NoticeController {
         }
     }
 
-    @PostMapping("/delete/notice/{id}")
-    public ResponseEntity<String> deleteNotice(@PathVariable("id") Integer id)
+    @PostMapping("/delete/notice/{noticeId}")
+    public ResponseEntity<String> deleteNotice(@PathVariable("noticeId") Integer id)
     {
         try
         {

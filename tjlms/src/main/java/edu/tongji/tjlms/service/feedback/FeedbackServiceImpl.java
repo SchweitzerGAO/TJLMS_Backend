@@ -124,4 +124,10 @@ public class FeedbackServiceImpl implements FeedbackService{
         return map;
 
     }
+
+    @Override
+    public FeedbackEntity getFeedbackById(Integer id) {
+        Optional<FeedbackEntity> feedback = feedbackRepository.findById(id);
+        return feedback.orElse(null);
+    }
 }

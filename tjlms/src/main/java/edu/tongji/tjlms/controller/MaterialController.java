@@ -38,8 +38,8 @@ public class MaterialController {
         }
     }
 
-    @PostMapping("/delete/material/{id}")
-    public ResponseEntity<String> deleteMaterial(@PathVariable("id") Integer id)
+    @PostMapping("/delete/material/{materialId}")
+    public ResponseEntity<String> deleteMaterial(@PathVariable("materialId") Integer id)
     {
         try
         {
@@ -84,8 +84,8 @@ public class MaterialController {
         }
     }
 
-    @GetMapping("/get/lab/material/page/{id}")
-    public ResponseEntity<?> getAllMaterialsByLabId(@PathVariable("id") Integer id,
+    @GetMapping("/get/lab/material/page/{labId}")
+    public ResponseEntity<?> getAllMaterialsByLabId(@PathVariable("labId") Integer id,
                                              @RequestParam(defaultValue = "1") Integer pageNum,
                                              @RequestParam(defaultValue = "20") Integer pageSize)
     {
@@ -117,8 +117,8 @@ public class MaterialController {
         }
     }
 
-    @GetMapping("/get/lab/material/{id}")
-    public ResponseEntity<?> getAllMaterialsByLabId(@PathVariable("id") Integer id)
+    @GetMapping("/get/lab/material/{labId}")
+    public ResponseEntity<?> getAllMaterialsByLabId(@PathVariable("labId") Integer id)
     {
         try
         {
@@ -136,8 +136,8 @@ public class MaterialController {
         }
     }
 
-    @GetMapping("/get/uploader/material/{id}")
-    public ResponseEntity<?> getAllMaterialByUploader(@PathVariable("id") String id,
+    @GetMapping("/get/uploader/material/{teacherId}")
+    public ResponseEntity<?> getAllMaterialByUploader(@PathVariable("teacherId") String id,
                                                       @RequestParam(defaultValue = "1") Integer pageNum,
                                                       @RequestParam(defaultValue = "20") Integer pageSize)
     {

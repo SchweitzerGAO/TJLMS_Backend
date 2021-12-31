@@ -13,8 +13,8 @@ public class PermCheckController {
     @Autowired
     PermService permService;
 
-    @GetMapping("/check/grade/{id}")
-    public ResponseEntity<?> checkGrade(@PathVariable("id") String teacherId)
+    @GetMapping("/check/grade/{teacherId}")
+    public ResponseEntity<?> checkGrade(@PathVariable("teacherId") String teacherId)
     {
         try
         {
@@ -28,8 +28,8 @@ public class PermCheckController {
 
     }
 
-    @GetMapping("/check/release/{id}")
-    public ResponseEntity<?> checkRelease(@PathVariable("id") String teacherId)
+    @GetMapping("/check/release/{teacherId}")
+    public ResponseEntity<?> checkRelease(@PathVariable("teacherId") String teacherId)
     {
         try
         {
@@ -42,8 +42,8 @@ public class PermCheckController {
         }
     }
 
-    @GetMapping("/check/ddl/{id}")
-    public ResponseEntity<?> checkDdl(@PathVariable("id") Integer labId)
+    @GetMapping("/check/ddl/{teacherId}")
+    public ResponseEntity<?> checkDdl(@PathVariable("teacherId") Integer labId)
     {
         try
         {
@@ -57,8 +57,8 @@ public class PermCheckController {
 
     }
 
-    @GetMapping("/check/notice/{id}")
-    public ResponseEntity<?> checkNotice(@PathVariable("id") String teacherId)
+    @GetMapping("/check/notice/{teacherId}")
+    public ResponseEntity<?> checkNotice(@PathVariable("teacherId") String teacherId)
     {
         try
         {

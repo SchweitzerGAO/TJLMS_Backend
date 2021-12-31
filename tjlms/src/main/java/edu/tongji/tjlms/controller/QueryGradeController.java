@@ -14,8 +14,8 @@ public class QueryGradeController {
     @Autowired
     private QueryGradeService queryGradeService;
 
-    @GetMapping("/get/grade/{id}")
-    public ResponseEntity<?> getGrades(@PathVariable("id") String studentId)
+    @GetMapping("/get/grade/{studentId}")
+    public ResponseEntity<?> getGrades(@PathVariable("studentId") String studentId)
     {
         try
         {

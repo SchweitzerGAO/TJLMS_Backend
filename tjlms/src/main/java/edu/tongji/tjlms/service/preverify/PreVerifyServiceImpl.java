@@ -46,12 +46,20 @@ public class PreVerifyServiceImpl implements PreVerifyService{
             case 1:
             {
                 Optional<StudentEntity> student = studentRepository.findById(pved.getId());
-                return student.isPresent();
+               if(student.isPresent())
+               {
+                   return student.get().getVerified();
+               }
+               return false;
             }
             case 2:
             {
                 Optional<TeacherEntity> teacher = teacherRepository.findById(pved.getId());
-                return teacher.isPresent();
+                if(teacher.isPresent())
+                {
+                    return teacher.get().getVerified();
+                }
+                return false;
             }
         }
         return false;

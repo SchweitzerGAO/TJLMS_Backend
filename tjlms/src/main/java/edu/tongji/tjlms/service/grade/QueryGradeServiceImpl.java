@@ -29,6 +29,12 @@ public class QueryGradeServiceImpl implements QueryGradeService {
 
     @Resource
     SummatorBasicRepository summatorBasicRepository;
+
+    @Override
+    public QueryGradeEntity queryParticularGrade(String stuId, Integer labId) {
+        return queryGradeRepository.findByStuIdAndLabId(stuId,labId);
+    }
+
     @Override
     public List<QueryGradeDto> queryGrade(String id) {
         List<QueryGradeDto> ret = new ArrayList<>();

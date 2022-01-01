@@ -70,4 +70,23 @@ public class LabController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
     }
+
+    @GetMapping("/get/lab/{labId}")
+    public ResponseEntity<?> getLabById(@PathVariable("labId") Integer id)
+    {
+        try
+        {
+            LabEntity lab = labService.getById(id);
+            if(lab == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("实验不存在");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(lab);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
 }

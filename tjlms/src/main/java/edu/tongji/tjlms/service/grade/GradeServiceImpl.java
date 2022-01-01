@@ -21,6 +21,9 @@ public class GradeServiceImpl implements GradeService{
     ReportRepository reportRepository;
 
     @Resource
+    ReportFileRepository reportFileRepository;
+
+    @Resource
     LabGradeRepository labGradeRepository;
 
     @Resource
@@ -40,9 +43,13 @@ public class GradeServiceImpl implements GradeService{
         return reportListRepository.findAllByTeacherId(teacherId);
     }
 
+
     @Override
-    public ReportEntity getReport(ReportEntityPK pk) {
-        return reportRepository.findByStuIdAndLabId(pk.getStuId(),pk.getLabId());
+    public Map<String,Object> getReport(ReportEntityPK pk) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("content",reportRepository.findByStuIdAndLabId(pk.getStuId(),pk.getLabId()));
+        map.put("file",reportFileRepository.findByStuIdAndLabId(pk.getStuId(),pk.getLabId()));
+        return map;
     }
 
     @Override
@@ -76,6 +83,11 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public Page<SummatorListEntity> getSummatorListPaged(String teacherId, Integer pageNum, Integer pageSize) {
         return summatorListRepository.findAllByTeacherId(teacherId, PageRequest.of(pageNum-1,pageSize));
+    }
+
+    @Override
+    public List<ReportListEntity> getByTeacherIdAndLabId(String teacherId, Integer labId) {
+        return reportListRepository.findAllByTeacherIdAndLabId(teacherId, labId);
     }
 
     @Override

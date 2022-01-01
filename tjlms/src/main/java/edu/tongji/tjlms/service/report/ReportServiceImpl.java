@@ -52,6 +52,7 @@ public class ReportServiceImpl implements ReportService{
         {
             report.setMutable(false);
             report.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            reportRepository.save(report);
             return "提交成功";
         }
         return "提交失败";

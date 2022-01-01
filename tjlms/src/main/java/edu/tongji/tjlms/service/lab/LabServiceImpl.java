@@ -68,5 +68,10 @@ public class LabServiceImpl implements LabService{
         return ret;
     }
 
+    @Override
+    public LabEntity getById(Integer id) {
+        return labRepository.getById(id);
+    }
+
 
 }

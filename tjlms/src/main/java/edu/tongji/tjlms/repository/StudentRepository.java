@@ -18,6 +18,6 @@ public interface StudentRepository extends JpaRepository<StudentEntity,String> {
 
         @Transactional
         @Modifying
-        @Query("UPDATE StudentEntity a SET a.password=?2 WHERE a.id=?2")
+        @Query("UPDATE StudentEntity a SET a.password=?2 WHERE a.id=?1")
         void updatePwd(String id, String pwd);
 }

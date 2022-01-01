@@ -9,12 +9,12 @@ import java.util.Map;
 
 public interface GradeService {
     List<ReportListEntity> getReportList(String teacherId);
-    ReportEntity getReport(ReportEntityPK pk);
+    Map<String,Object> getReport(ReportEntityPK pk);
     Map<String, Object> getSummator(String id);
     List<ClassEntity> getMyClasses(String teacherId);
     Page<ReportListEntity> getReportListPaged(String teacherId,Integer pageNum,Integer pageSize);
     Page<SummatorListEntity> getSummatorListPaged(String teacherId,Integer pageNum,Integer pageSize);
-
+    List<ReportListEntity> getByTeacherIdAndLabId(String teacherId,Integer labId);
     String save(GradeDto info);
     String saveSummator(GradeDto info);
     String release(String classId);

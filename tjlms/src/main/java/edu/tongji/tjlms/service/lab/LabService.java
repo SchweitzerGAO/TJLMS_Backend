@@ -12,4 +12,5 @@ public interface LabService {
     Map<String, Object> getAllWithNames();
     String releaseLab(LabDto lab);
     List<ScheduleDto> getSchedule();
+    LabEntity getById(Integer id);
 }

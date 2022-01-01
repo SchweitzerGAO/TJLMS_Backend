@@ -26,34 +26,17 @@ public class FindBackPwdServiceImpl implements FindBackPwdService {
 
     @Override
     public String resetPwd(FindBackPwdDto fbpd) {
-        String verificationCode = EmailSendServiceImpl.getVerificationCode();
-        if(!fbpd.getVerificationCode().equals(verificationCode))
-        {
-            EmailSendServiceImpl.setVerificationCodeToEmpty();
-            return "验证码错误";
-        }
-        EmailSendServiceImpl.setVerificationCodeToEmpty();
         int type = fbpd.getUserType();
         switch (type)
         {
 
             case 1:
             {
-                Optional<StudentEntity> student = studentRepository.findById(fbpd.getId());
-                if(!student.isPresent())
-                {
-                    return "未找到用户信息";
-                }
                 studentRepository.updatePwd(fbpd.getId(),EncryptSha256Util.getSha256Str(fbpd.getNewPwd()));
                 break;
             }
             case 2:
             {
-                Optional<TeacherEntity> teacher = teacherRepository.findById(fbpd.getId());
-                if(!teacher.isPresent())
-                {
-                    return "未找到用户信息";
-                }
                 teacherRepository.updatePwd(fbpd.getId(),EncryptSha256Util.getSha256Str(fbpd.getNewPwd()));
                 break;
             }

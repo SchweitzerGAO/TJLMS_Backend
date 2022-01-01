@@ -75,7 +75,7 @@ public class GradeController {
     {
         try
         {
-            ReportEntity report = gradeService.getReport(pk);
+            Map<String,Object> report = gradeService.getReport(pk);
             if(report != null)
             {
                 return ResponseEntity.status(HttpStatus.OK).body(report);
@@ -179,6 +179,25 @@ public class GradeController {
         try
         {
             return ResponseEntity.status(HttpStatus.OK).body(gradeService.saveSummator(grade));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @GetMapping("/get/lab/report")
+    public ResponseEntity<?> getReportListByTeacherIdAndLabId(String teacherId,Integer labId)
+    {
+        try
+        {
+            List<ReportListEntity> list = gradeService.getByTeacherIdAndLabId(teacherId,labId);
+            if(list.isEmpty())
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无该实验相关实验报告");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(list);
         }
         catch (Exception e)
         {

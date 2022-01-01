@@ -12,4 +12,5 @@ public interface ReportListRepository extends JpaRepository<ReportListEntity, Re
     List<ReportListEntity> findAllByTeacherId(String id);
     Page<ReportListEntity> findAllByTeacherId(String id,Pageable pageable);
     List<ReportListEntity> findAllByClassIdAndLabId(String classId,Integer labId);
+    List<ReportListEntity> findAllByTeacherIdAndLabId(String teacherId,Integer labId);
 }

@@ -62,10 +62,6 @@ public class EmailSendServiceImpl implements EmailSendService {
                     {
                         return "学工号错误";
                     }
-                    if(student.get().getVerified())
-                    {
-                        return "不能重复激活";
-                    }
                     name = student.get().getName();
                     break;
                 }
@@ -77,10 +73,6 @@ public class EmailSendServiceImpl implements EmailSendService {
                     if(!teacher.isPresent())
                     {
                         return "学工号错误";
-                    }
-                    if(teacher.get().getVerified())
-                    {
-                        return "不能重复激活";
                     }
                     name = teacher.get().getName();
                     break;

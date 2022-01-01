@@ -31,6 +31,7 @@ public class FindBackPwdController {
                 case "未找到用户信息":
                 {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ret);
+
                 }
             }
             return ResponseEntity.status(HttpStatus.OK).body(ret);

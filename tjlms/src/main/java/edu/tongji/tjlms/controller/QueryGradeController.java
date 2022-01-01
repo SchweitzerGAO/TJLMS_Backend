@@ -1,6 +1,7 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.FinalGradeDto;
+import edu.tongji.tjlms.model.QueryGradeEntity;
 import edu.tongji.tjlms.service.grade.QueryGradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,25 @@ public class QueryGradeController {
             if(grade.getEachGrades().isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无成绩信息");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(grade);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
+    @GetMapping("/get/particular/grade")
+    public ResponseEntity<?> getParticularGrade(String stuId,Integer labId)
+    {
+        try
+        {
+            QueryGradeEntity grade = queryGradeService.queryParticularGrade(stuId,labId);
+            if(grade == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无成绩");
             }
             return ResponseEntity.status(HttpStatus.OK).body(grade);
         }

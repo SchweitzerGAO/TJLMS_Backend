@@ -10,7 +10,7 @@
     </parent>
     <groupId>edu.tongji</groupId>
     <artifactId>tjlms</artifactId>
-    <version>0.8.4</version>
+    <version>0.9.0</version>
     <name>tjlms</name>
     <description>tjlms</description>
     <properties>

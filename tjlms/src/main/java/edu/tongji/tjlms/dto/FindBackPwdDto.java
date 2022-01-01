@@ -7,8 +7,6 @@ import lombok.Setter;
 @Setter
 public class FindBackPwdDto {
     private Integer userType;
-    private String emailAddress;
     private String id;
     private String newPwd;
-    private String verificationCode;
 }

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface FeedbackRepository extends JpaRepository<FeedbackEntity,Integer> {
     @Transactional
     @Modifying
@@ -16,5 +18,5 @@ public interface FeedbackRepository extends JpaRepository<FeedbackEntity,Integer
 
     Page<FeedbackEntity> findAllByFeedbacker(String id, Pageable pageable);
     Page<FeedbackEntity> findAllByReplier(String id,Pageable pageable);
-    Page<FeedbackEntity> findAllByIsReplied(Boolean replied,Pageable pageable);
+    Page<FeedbackEntity> findAll(Pageable pageable);
 }

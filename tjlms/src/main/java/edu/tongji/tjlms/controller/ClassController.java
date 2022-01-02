@@ -121,7 +121,24 @@ public class ClassController {
         }
     }
 
-
+    @GetMapping("/get/class/{classId}")
+    public ResponseEntity<?> getClassById(@PathVariable("classId") String classId)
+    {
+        try
+        {
+            ClassEntity clazz = classService.getClassById(classId);
+            if(clazz == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("班级不存在");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(clazz);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
 
     @PostMapping("/post/class")
     public ResponseEntity<String> insertClass(@RequestBody InsertClassDto icd)

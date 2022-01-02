@@ -15,4 +15,5 @@ public interface ClassRepository extends JpaRepository<ClassEntity,String> {
     void updateNum(String id,Integer num);
 
     List<ClassEntity> findAllByTeacherIdOrRespIdOrAssistId(String teacherId,String respId,String assistId);
+    ClassEntity findAllById(String id);
 }

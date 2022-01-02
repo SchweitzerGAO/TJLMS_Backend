@@ -11,4 +11,6 @@ public class ReportContentDto {
     private String principle;
     private String step;
     private String result;
+    private Boolean mutable;
+    private Boolean isChecked;
 }

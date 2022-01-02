@@ -84,4 +84,23 @@ public class ReportFileController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
     }
+
+    @GetMapping("/get/reportFilePK")
+    ResponseEntity<?> getByPK(String stuId,Integer labId)
+    {
+        try {
+            ReportFileEntity file = reportFileService.getByStuIdAndLabId(stuId,labId);
+            if(file == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("文件不存在");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(file);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+
+    }
 }

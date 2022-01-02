@@ -54,6 +54,11 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
+    public ClassEntity getClassById(String id) {
+        return classRepository.findAllById(id);
+    }
+
+    @Override
     public String insertStudents(InsertStudentsDto isd) {
         List<TakesEntity> list = ExcelResolverUtil.resolveClassStudent(isd.getFilePath(),isd.getClassId());
         if(list != null)

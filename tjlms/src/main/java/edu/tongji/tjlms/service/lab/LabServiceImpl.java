@@ -70,7 +70,7 @@ public class LabServiceImpl implements LabService{
 
     @Override
     public LabEntity getById(Integer id) {
-        return labRepository.getById(id);
+        return labRepository.findAllById(id);
     }
 
 

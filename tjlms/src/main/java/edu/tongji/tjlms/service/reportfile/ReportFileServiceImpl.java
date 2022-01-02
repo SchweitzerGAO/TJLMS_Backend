@@ -47,4 +47,9 @@ public class ReportFileServiceImpl implements ReportFileService{
     public List<ReportFileEntity> getAllByLabId(Integer labId) {
         return reportFileRepository.findAllByLabId(labId);
     }
+
+    @Override
+    public ReportFileEntity getByStuIdAndLabId(String stuId, Integer labId) {
+        return reportFileRepository.findByStuIdAndLabId(stuId,labId);
+    }
 }

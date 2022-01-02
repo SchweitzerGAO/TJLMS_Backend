@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface LabRepository extends JpaRepository<LabEntity,Integer> {
+    LabEntity findAllById(Integer id);
 }

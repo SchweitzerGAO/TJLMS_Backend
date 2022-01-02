@@ -3,6 +3,7 @@ package edu.tongji.tjlms.service.notice;
 import edu.tongji.tjlms.dto.GetNoticeDto;
 import edu.tongji.tjlms.dto.PostNoticeDto;
 import edu.tongji.tjlms.model.NoticeEntity;
+import edu.tongji.tjlms.model.TeacherEntity;
 import edu.tongji.tjlms.repository.NoticeRepository;
 import edu.tongji.tjlms.repository.TeacherRepository;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,9 @@ public class NoticeServiceImpl implements NoticeService{
         List<GetNoticeDto> ret = new ArrayList<>();
         for(NoticeEntity notice: list.getContent())
         {
-            ret.add(new GetNoticeDto(notice.getId(),notice.getTitle(),notice.getReleaseTime()));
+            Optional<TeacherEntity> teacher = teacherRepository.findById(notice.getReleaser());
+
+            ret.add(new GetNoticeDto(notice.getId(),notice.getTitle(),notice.getReleaseTime(),teacher.get().getName()));
         }
         return ret;
     }

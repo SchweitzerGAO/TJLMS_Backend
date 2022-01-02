@@ -11,4 +11,5 @@ public interface ReportFileService {
     String submitFile(ReportFileEntityPK pk);
     List<ReportFileEntity> getAllByStuId(String stuId);
     List<ReportFileEntity> getAllByLabId(Integer labId);
+    ReportFileEntity getByStuIdAndLabId(String stuId,Integer labId);
 }

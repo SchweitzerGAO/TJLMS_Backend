@@ -92,6 +92,8 @@ public class ReportServiceImpl implements ReportService{
             temp.setResult(report.getResult());
             temp.setStep(report.getStep());
             temp.setLabName(report.getLabName());
+            temp.setMutable(report.getMutable());
+            temp.setIsChecked(report.getChecked());
             reportContent.add(temp);
         }
         return reportContent;

@@ -13,6 +13,7 @@ public interface ClassService {
     String insertClass(InsertClassDto icd);
     String deleteClass(String id);
     List<ClassEntity> getAllClasses();
+    ClassEntity getClassById(String id);
 
     String insertStudents(InsertStudentsDto isd);
     String insertStudent(InsertStudentDto isd);

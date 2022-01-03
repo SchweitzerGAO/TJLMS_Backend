@@ -3,7 +3,6 @@ package edu.tongji.tjlms.service.signin;
 import edu.tongji.tjlms.dto.SignInDto;
 import edu.tongji.tjlms.repository.StudentRepository;
 import edu.tongji.tjlms.repository.TeacherRepository;
-import edu.tongji.tjlms.service.email.EmailSendServiceImpl;
 import edu.tongji.tjlms.util.EncryptSha256Util;
 import org.springframework.stereotype.Service;
 

@@ -7,7 +7,6 @@ import edu.tongji.tjlms.model.TeacherEntity;
 import edu.tongji.tjlms.repository.NoticeRepository;
 import edu.tongji.tjlms.repository.TeacherRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 

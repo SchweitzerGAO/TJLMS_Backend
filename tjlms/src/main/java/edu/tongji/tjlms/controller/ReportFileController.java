@@ -3,7 +3,6 @@ package edu.tongji.tjlms.controller;
 import edu.tongji.tjlms.dto.UploadReportDto;
 import edu.tongji.tjlms.model.ReportFileEntity;
 import edu.tongji.tjlms.model.ReportFileEntityPK;
-import edu.tongji.tjlms.model.ReportListEntity;
 import edu.tongji.tjlms.service.reportfile.ReportFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

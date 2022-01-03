@@ -3,7 +3,6 @@ package edu.tongji.tjlms.service.feedback;
 import edu.tongji.tjlms.dto.FeedBackDto;
 import edu.tongji.tjlms.dto.ReplyDto;
 import edu.tongji.tjlms.model.FeedbackEntity;
-import edu.tongji.tjlms.model.StudentEntity;
 import edu.tongji.tjlms.repository.FeedbackRepository;
 import edu.tongji.tjlms.repository.StudentRepository;
 import edu.tongji.tjlms.repository.TeacherRepository;

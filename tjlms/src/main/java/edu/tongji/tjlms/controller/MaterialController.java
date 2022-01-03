@@ -66,15 +66,11 @@ public class MaterialController {
             {
                 pageNum = countAll;
             }
-            Page<MaterialEntity> page = materialService.getAllMaterials(pageNum,pageSize);
-            if(page.isEmpty())
+            Map<String,Object> map = materialService.getAllMaterials(pageNum,pageSize);
+            if(map == null)
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无教学资料");
             }
-            Map<String, Object> map = new HashMap<>();
-            countAll = page.getTotalPages();
-            map.put("data",page);
-            map.put("count",countAll);
             return ResponseEntity.status(HttpStatus.OK).body(map);
         }
         catch (Exception e)
@@ -99,15 +95,11 @@ public class MaterialController {
             {
                 pageNum = countLab;
             }
-            Page<MaterialEntity> page = materialService.getAllByLabId(id,pageNum,pageSize);
-            if(page.isEmpty())
+            Map<String,Object> map = materialService.getAllByLabId(id,pageNum,pageSize);
+            if(map == null)
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无该实验相关教学资料");
             }
-            Map<String, Object> map = new HashMap<>();
-            countLab = page.getTotalPages();
-            map.put("data",page);
-            map.put("count",countLab);
             return ResponseEntity.status(HttpStatus.OK).body(map);
         }
         catch (Exception e)

@@ -21,8 +21,10 @@ public class ClassServiceImpl implements ClassService{
 
     @Resource
     ClassRepository classRepository;
+
     @Resource
     TeacherRepository teacherRepository;
+
     @Resource
     TakesRepository takesRepository;
 

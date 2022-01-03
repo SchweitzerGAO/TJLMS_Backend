@@ -1,6 +1,5 @@
 package edu.tongji.tjlms.dto;
 
-import io.swagger.models.auth.In;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,10 @@
 package edu.tongji.tjlms.service.grade;
 
 import edu.tongji.tjlms.dto.GradeDto;
-import edu.tongji.tjlms.model.*;
+import edu.tongji.tjlms.model.ClassEntity;
+import edu.tongji.tjlms.model.ReportEntityPK;
+import edu.tongji.tjlms.model.ReportListEntity;
+import edu.tongji.tjlms.model.SummatorListEntity;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

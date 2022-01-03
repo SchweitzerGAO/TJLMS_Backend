@@ -3,7 +3,6 @@ package edu.tongji.tjlms.repository;
 import edu.tongji.tjlms.model.QueryReportEntity;
 import edu.tongji.tjlms.model.QueryReportPK;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

@@ -33,7 +33,7 @@ public class SummatorResultEntity {
         this.stuId = stuId;
     }
 
-    @Basic
+    @Id
     @Column(name = "B1")
     public Integer getB1() {
         return b1;
@@ -43,7 +43,7 @@ public class SummatorResultEntity {
         this.b1 = b1;
     }
 
-    @Basic
+    @Id
     @Column(name = "B2")
     public Integer getB2() {
         return b2;
@@ -53,7 +53,7 @@ public class SummatorResultEntity {
         this.b2 = b2;
     }
 
-    @Basic
+    @Id
     @Column(name = "B3")
     public Integer getB3() {
         return b3;
@@ -63,7 +63,7 @@ public class SummatorResultEntity {
         this.b3 = b3;
     }
 
-    @Basic
+    @Id
     @Column(name = "B4")
     public Integer getB4() {
         return b4;
@@ -73,7 +73,7 @@ public class SummatorResultEntity {
         this.b4 = b4;
     }
 
-    @Basic
+    @Id
     @Column(name = "S1")
     public Integer getS1() {
         return s1;
@@ -83,7 +83,7 @@ public class SummatorResultEntity {
         this.s1 = s1;
     }
 
-    @Basic
+    @Id
     @Column(name = "S2")
     public Integer getS2() {
         return s2;
@@ -93,7 +93,7 @@ public class SummatorResultEntity {
         this.s2 = s2;
     }
 
-    @Basic
+    @Id
     @Column(name = "S3")
     public Integer getS3() {
         return s3;
@@ -103,7 +103,7 @@ public class SummatorResultEntity {
         this.s3 = s3;
     }
 
-    @Basic
+    @Id
     @Column(name = "S4")
     public Integer getS4() {
         return s4;
@@ -113,7 +113,7 @@ public class SummatorResultEntity {
         this.s4 = s4;
     }
 
-    @Basic
+    @Id
     @Column(name = "C")
     public Integer getC() {
         return c;

@@ -3,7 +3,6 @@ package edu.tongji.tjlms.service.notice;
 import edu.tongji.tjlms.dto.GetNoticeDto;
 import edu.tongji.tjlms.dto.PostNoticeDto;
 import edu.tongji.tjlms.model.NoticeEntity;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Map;

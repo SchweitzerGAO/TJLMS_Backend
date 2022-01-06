@@ -6,15 +6,13 @@ import edu.tongji.tjlms.dto.InsertStudentsDto;
 import edu.tongji.tjlms.model.ClassEntity;
 import edu.tongji.tjlms.model.TakesEntity;
 import edu.tongji.tjlms.model.TeacherEntity;
-import edu.tongji.tjlms.repository.ClassRepository;
-import edu.tongji.tjlms.repository.StudentRepository;
-import edu.tongji.tjlms.repository.TakesRepository;
-import edu.tongji.tjlms.repository.TeacherRepository;
+import edu.tongji.tjlms.repository.*;
 import edu.tongji.tjlms.util.ExcelResolverUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClassServiceImpl implements ClassService{
@@ -30,6 +28,9 @@ public class ClassServiceImpl implements ClassService{
 
     @Resource
     StudentRepository studentRepository;
+
+    @Resource
+    CourseRepository courseRepository;
 
 
     @Override
@@ -84,8 +85,8 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
-    public String deleteStudent(String id) {
-        takesRepository.deleteByStuId(id);
+    public String deleteStudent(String id,String classId) {
+        takesRepository.deleteByStuIdAndClassId(id,classId);
         return "学生删除成功";
     }
 
@@ -110,5 +111,36 @@ public class ClassServiceImpl implements ClassService{
     @Override
     public List<TeacherEntity> getAllAssist() {
         return teacherRepository.findAllByTypeAndVerified(2,true);
+    }
+
+    @Override
+    public String setRatio(Double ratio) {
+        if(ratio>=100.0)
+        {
+            return "考勤比例超出合理范围";
+        }
+        ratio/=100.0;
+        courseRepository.setRatio("420000",ratio);
+        return "考勤比例设置成功";
+    }
+
+
+    @Override
+    public String setTA(String classId, String TAId) {
+        Optional<TeacherEntity> teacher = teacherRepository.findById(TAId);
+        if(!teacher.isPresent())
+        {
+            return "助教信息不存在";
+        }
+        if(!teacher.get().getVerified())
+        {
+            return "该助教未激活";
+        }
+        if(teacher.get().getType() != 2)
+        {
+            return "该教师不是助教";
+        }
+        classRepository.updateAssist(classId,TAId);
+        return "助教设置成功";
     }
 }

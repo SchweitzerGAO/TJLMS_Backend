@@ -17,11 +17,15 @@ public interface ClassService {
 
     String insertStudents(InsertStudentsDto isd);
     String insertStudent(InsertStudentDto isd);
-    String deleteStudent(String id);
+    String deleteStudent(String id, String classId);
     List<TakesEntity> getAllStudentsByClassId(String id);
 
     List<TeacherEntity> getAllResp();
     List<TeacherEntity> getAllTeacher();
     List<TeacherEntity> getAllAssist();
+
+    String setRatio(Double ratio);
+
+    String setTA(String classId,String TAId);
 
 }

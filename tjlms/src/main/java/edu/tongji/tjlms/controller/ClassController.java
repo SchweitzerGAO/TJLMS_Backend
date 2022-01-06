@@ -196,12 +196,12 @@ public class ClassController {
         }
     }
 
-    @PostMapping("/delete/class/student/{studentId}")
-    public ResponseEntity<String> deleteStudent(@PathVariable("studentId") String id)
+    @PostMapping("/delete/class/student")
+    public ResponseEntity<String> deleteStudent( String studentId,String classId)
     {
         try
         {
-            return ResponseEntity.status(HttpStatus.OK).body(classService.deleteStudent(id));
+            return ResponseEntity.status(HttpStatus.OK).body(classService.deleteStudent(studentId,classId));
         }
         catch (Exception e)
         {
@@ -210,8 +210,49 @@ public class ClassController {
         }
     }
 
+    @PostMapping("/post/attendance/ratio")
+    public ResponseEntity<String> setAttendanceRatio(Double attendanceRatio)
+    {
+        try
+        {
+            String ret = classService.setRatio(attendanceRatio);
+            if(ret.equals("考勤比例超出合理范围"))
+            {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ret);
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(ret);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
 
+    @PostMapping("/post/set/assistant")
+    public ResponseEntity<String> setAssistant(String classId, String assistId)
+    {
+        try {
+            String ret = classService.setTA(classId,assistId);
+            switch (ret)
+            {
+                case "助教信息不存在":
+                {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ret);
+                }
+                case "该助教未激活":
+                case "该教师不是助教":
+                {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ret);
+                }
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(ret);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
 
-
-
+    }
 }

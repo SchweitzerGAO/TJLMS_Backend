@@ -195,7 +195,7 @@ public class GradeController {
     {
         try
         {
-            List<ReportListEntity> list = gradeService.getByTeacherIdAndLabId(teacherId,labId);
+            List<ReportListEntity> list = gradeService.getReportByTeacherIdAndLabId(teacherId,labId);
             if(list.isEmpty())
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无该实验相关实验报告");

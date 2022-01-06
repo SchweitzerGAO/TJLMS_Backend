@@ -49,6 +49,7 @@ public class GradeServiceImpl implements GradeService{
         Map<String,Object> map = new HashMap<>();
         map.put("content",reportRepository.findByStuIdAndLabId(pk.getStuId(),pk.getLabId()));
         map.put("file",reportFileRepository.findByStuIdAndLabId(pk.getStuId(),pk.getLabId()));
+
         return map;
     }
 
@@ -66,6 +67,7 @@ public class GradeServiceImpl implements GradeService{
         }
         List<SummatorResultEntity> result = summatorResultRepository.findAllByStuId(id);
         map.put("result",result);
+        map.put("file",reportFileRepository.findByStuIdAndLabId(id,1));
         return map;
     }
 
@@ -84,9 +86,8 @@ public class GradeServiceImpl implements GradeService{
     public Page<SummatorListEntity> getSummatorListPaged(String teacherId, Integer pageNum, Integer pageSize) {
         return summatorListRepository.findAllByTeacherId(teacherId, PageRequest.of(pageNum-1,pageSize));
     }
-
     @Override
-    public List<ReportListEntity> getByTeacherIdAndLabId(String teacherId, Integer labId) {
+    public List<ReportListEntity> getReportByTeacherIdAndLabId(String teacherId, Integer labId) {
         return reportListRepository.findAllByTeacherIdAndLabId(teacherId, labId);
     }
 

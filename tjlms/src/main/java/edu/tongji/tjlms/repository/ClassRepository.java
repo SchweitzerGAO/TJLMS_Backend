@@ -15,6 +15,11 @@ public interface ClassRepository extends JpaRepository<ClassEntity,String> {
     @Query("UPDATE ClassEntity Set stuNum=?2 where id=?1")
     void updateNum(String id,Integer num);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE ClassEntity Set assistId=?2 where id=?1")
+    void updateAssist(String classId, String TAId);
+
     List<ClassEntity> findAllByTeacherIdOrRespIdOrAssistId(String teacherId,String respId,String assistId);
     ClassEntity findAllById(String id);
 }

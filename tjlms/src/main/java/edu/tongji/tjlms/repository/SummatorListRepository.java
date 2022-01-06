@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SummatorListRepository extends JpaRepository<SummatorListEntity,String> {
     Page<SummatorListEntity> findAllByTeacherId(String teacherId, Pageable pageable);
+
 }

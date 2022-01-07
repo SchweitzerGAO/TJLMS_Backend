@@ -1,10 +1,7 @@
 package edu.tongji.tjlms.controller;
 
 import edu.tongji.tjlms.dto.GradeDto;
-import edu.tongji.tjlms.model.ClassEntity;
-import edu.tongji.tjlms.model.ReportEntityPK;
-import edu.tongji.tjlms.model.ReportListEntity;
-import edu.tongji.tjlms.model.SummatorListEntity;
+import edu.tongji.tjlms.model.*;
 import edu.tongji.tjlms.service.grade.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -109,6 +106,26 @@ public class GradeController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
         }
+    }
+
+    @GetMapping("/get/grade/individual")
+    public ResponseEntity<?> getIndividualGrade(String stuId,Integer labId)
+    {
+        try
+        {
+            LabGradeEntity grade = gradeService.getParticularGrade(stuId, labId);
+            if(grade == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无该学生成绩信息");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(grade);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+
     }
 
     @PostMapping("/post/save/grade")

@@ -115,7 +115,7 @@ public class ClassServiceImpl implements ClassService{
 
     @Override
     public String setRatio(Double ratio) {
-        if(ratio>=100.0)
+        if(ratio>100.0)
         {
             return "考勤比例超出合理范围";
         }

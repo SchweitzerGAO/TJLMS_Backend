@@ -2,13 +2,13 @@ package edu.tongji.tjlms.service.grade;
 
 import edu.tongji.tjlms.dto.FinalGradeDto;
 import edu.tongji.tjlms.dto.QueryGradeDto;
+import edu.tongji.tjlms.model.CourseEntity;
 import edu.tongji.tjlms.model.QueryGradeEntity;
 import edu.tongji.tjlms.model.SummatorBasicEntity;
-import edu.tongji.tjlms.repository.LabRepository;
-import edu.tongji.tjlms.repository.QueryGradeRepository;
-import edu.tongji.tjlms.repository.ReportRepository;
-import edu.tongji.tjlms.repository.SummatorBasicRepository;
+import edu.tongji.tjlms.repository.*;
+import edu.tongji.tjlms.service.check.CheckService;
 import edu.tongji.tjlms.util.ScoreConvertUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,6 +30,12 @@ public class QueryGradeServiceImpl implements QueryGradeService {
     @Resource
     SummatorBasicRepository summatorBasicRepository;
 
+    @Autowired
+    CheckService checkService;
+
+    @Resource
+    CourseRepository courseRepository;
+
     @Override
     public QueryGradeEntity queryParticularGrade(String stuId, Integer labId) {
         return queryGradeRepository.findByStuIdAndLabId(stuId,labId);
@@ -50,26 +56,21 @@ public class QueryGradeServiceImpl implements QueryGradeService {
     public FinalGradeDto queryFinalGrade(String id) {
         FinalGradeDto ret = new FinalGradeDto();
         ret.setEachGrades(queryGrade(id));
-        long numLab = labRepository.count();
-        if(numLab == 0)
-        {
-            ret.setAttendance(0.);
-        }
-        Optional<SummatorBasicEntity> opt = summatorBasicRepository.findByStuId(id);
-
-        long numReports = reportRepository.countByStuId(id);
-        if(opt.isPresent())
-        {
-            numReports+=1;
-        }
-
-        ret.setAttendance((double)numReports*100/numLab);
-        double sum = 0;
+        Double attendance = checkService.calculateAttendance(id);
+        ret.setAttendance(attendance);
+        Optional<CourseEntity> course = courseRepository.findById("420000");
+        Double ratio = course.get().getRatio();
+        double sum = 0.;
         for (QueryGradeDto grade: ret.getEachGrades())
         {
             sum += grade.getQueryGradeEntity().getScore();
         }
-        double finalScore = sum*0.7+ret.getAttendance()*0.3;
+        double avg = 0.;
+        if(!ret.getEachGrades().isEmpty())
+        {
+            avg = sum/ret.getEachGrades().size();
+        }
+        double finalScore = avg*(1.0-ratio)+ret.getAttendance()*ratio;
         ret.setFinalScore(finalScore);
         ret.setFinalGrade(ScoreConvertUtil.score2Grade(finalScore));
         return ret;

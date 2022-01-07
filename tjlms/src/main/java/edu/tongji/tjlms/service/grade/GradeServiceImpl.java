@@ -92,6 +92,11 @@ public class GradeServiceImpl implements GradeService{
     }
 
     @Override
+    public LabGradeEntity getParticularGrade(String stuId, Integer labId) {
+        return labGradeRepository.findByStuIdAndLabId(stuId,labId);
+    }
+
+    @Override
     public String save(GradeDto info) {
         LabGradeEntity grade = new LabGradeEntity();
         grade.setClassId(info.getClassId());
@@ -102,27 +107,16 @@ public class GradeServiceImpl implements GradeService{
         grade.setStuId(info.getStuId());
         grade.setTeacherId(info.getTeacherId());
         grade.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        reportRepository.updateChecked(info.getStuId(),info.getLabId());
+        if (info.getLabId() != 1) {
+            reportRepository.updateChecked(info.getStuId(), info.getLabId());
+        } else {
+            summatorBasicRepository.updateCheck(info.getStuId());
+        }
         labGradeRepository.save(grade);
 
         return "暂存成功";
     }
 
-    @Override
-    public String saveSummator(GradeDto info) {
-        LabGradeEntity grade = new LabGradeEntity();
-        grade.setClassId(info.getClassId());
-        grade.setLabId(1);
-        grade.setScore(info.getScore());
-        grade.setNote(info.getNote());
-        grade.setVisible(false);
-        grade.setStuId(info.getStuId());
-        grade.setTeacherId(info.getTeacherId());
-        grade.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        summatorBasicRepository.updateCheck(info.getStuId());
-        labGradeRepository.save(grade);
-        return "暂存成功";
-    }
 
     @Override
     public String release(String classId) {
@@ -132,12 +126,33 @@ public class GradeServiceImpl implements GradeService{
     }
 
     @Override
-    public String release(String stuId, Integer labId) {
+    public String release(GradeDto info) {
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        LabGradeEntity labGrade = labGradeRepository.findByStuIdAndLabId(stuId,labId);
-        labGrade.setVisible(true);
-        labGrade.setUpdateDate(time);
-        labGradeRepository.save(labGrade);
+        LabGradeEntity labGrade = labGradeRepository.findByStuIdAndLabId(info.getStuId(),info.getLabId());
+        if(labGrade != null)
+        {
+            labGrade.setVisible(true);
+            labGrade.setUpdateDate(time);
+            labGradeRepository.save(labGrade);
+        }
+        else
+        {
+            LabGradeEntity grade = new LabGradeEntity();
+            grade.setClassId(info.getClassId());
+            grade.setLabId(info.getLabId());
+            grade.setScore(info.getScore());
+            grade.setNote(info.getNote());
+            grade.setVisible(true);
+            grade.setStuId(info.getStuId());
+            grade.setTeacherId(info.getTeacherId());
+            grade.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            if (info.getLabId() != 1) {
+                reportRepository.updateChecked(info.getStuId(), info.getLabId());
+            } else {
+                summatorBasicRepository.updateCheck(info.getStuId());
+            }
+            labGradeRepository.save(grade);
+        }
         return "发布成功";
     }
 }

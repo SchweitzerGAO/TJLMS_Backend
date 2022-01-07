@@ -1,10 +1,7 @@
 package edu.tongji.tjlms.service.grade;
 
 import edu.tongji.tjlms.dto.GradeDto;
-import edu.tongji.tjlms.model.ClassEntity;
-import edu.tongji.tjlms.model.ReportEntityPK;
-import edu.tongji.tjlms.model.ReportListEntity;
-import edu.tongji.tjlms.model.SummatorListEntity;
+import edu.tongji.tjlms.model.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -19,9 +16,10 @@ public interface GradeService {
     Page<SummatorListEntity> getSummatorListPaged(String teacherId,Integer pageNum,Integer pageSize);
     List<ReportListEntity> getReportByTeacherIdAndLabId(String teacherId,Integer labId);
 
+    LabGradeEntity getParticularGrade(String stuId,Integer labId);
+
     String save(GradeDto info);
-    String saveSummator(GradeDto info);
     String release(String classId);
-    String release(String stuId,Integer labId);
+    String release(GradeDto info);
 
 }

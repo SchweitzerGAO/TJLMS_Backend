@@ -8,7 +8,7 @@ import java.util.Map;
 public interface SummatorReportService {
     String saveReport(SubmitSummatorDto ssd);
 
-    String submitReport(String id);
+    String submitReport(SubmitSummatorDto ssd);
 
     ReportInfoDto getInfo(String id);
 

@@ -140,11 +140,11 @@ public class GradeController {
     }
 
     @PostMapping("/post/release/individual")
-    public ResponseEntity<String> releaseIndividual(String stuId,Integer labId)
+    public ResponseEntity<String> releaseIndividual(@RequestBody GradeDto info)
     {
         try
         {
-            return ResponseEntity.status(HttpStatus.OK).body(gradeService.release(stuId,labId));
+            return ResponseEntity.status(HttpStatus.OK).body(gradeService.release(info));
         }
         catch (Exception e)
         {
@@ -190,19 +190,6 @@ public class GradeController {
 
     }
 
-    @PostMapping("/post/save/summator/grade")
-    public ResponseEntity<String> saveSummatorGrade(@RequestBody GradeDto grade)
-    {
-        try
-        {
-            return ResponseEntity.status(HttpStatus.OK).body(gradeService.saveSummator(grade));
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
-        }
-    }
 
     @GetMapping("/get/lab/report")
     public ResponseEntity<?> getReportListByTeacherIdAndLabId(String teacherId,Integer labId)

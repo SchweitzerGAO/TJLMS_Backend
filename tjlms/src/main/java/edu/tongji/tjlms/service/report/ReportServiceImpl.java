@@ -46,16 +46,30 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
-    public String submitReport(ReportEntityPK reportEntityPK) {
-        ReportEntity report = reportRepository.findByStuIdAndLabId(reportEntityPK.getStuId(),reportEntityPK.getLabId());
+    public String submitReport(SubmitReportDto reportDto) {
+        ReportEntity report = reportRepository.findByStuIdAndLabId(reportDto.getStuId(),reportDto.getLabId());
         if(report != null)
         {
             report.setMutable(false);
             report.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             reportRepository.save(report);
-            return "提交成功";
         }
-        return "提交失败";
+        else
+        {
+            ReportEntity reportEntity = new ReportEntity();
+            reportEntity.setStuId(reportDto.getStuId());
+            reportEntity.setLabId(reportDto.getLabId());
+            reportEntity.setClassId(takesRepository.findByStuId(reportDto.getStuId()).getClassId());
+            reportEntity.setAim(reportDto.getAim());
+            reportEntity.setIsChecked(false);
+            reportEntity.setResult(reportDto.getResult());
+            reportEntity.setMutable(false);
+            reportEntity.setStep(reportDto.getStep());
+            reportEntity.setPrinciple(reportDto.getPrinciple());
+            reportEntity.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            reportRepository.save(reportEntity);
+        }
+        return "提交成功";
 
     }
 

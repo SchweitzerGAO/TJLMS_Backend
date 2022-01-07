@@ -51,8 +51,35 @@ public class SummatorReportServiceImpl implements SummatorReportService{
     }
 
     @Override
-    public String submitReport(String id) {
-        summatorBasicRepository.updateMutable(id);
+    public String submitReport(SubmitSummatorDto ssd) {
+        Optional<SummatorBasicEntity> ret = summatorBasicRepository.findByStuId(ssd.getSummatorBasicDto().getStuId());
+        if(ret.isPresent())
+        {
+            summatorBasicRepository.updateMutable(ssd.getSummatorBasicDto().getStuId());
+        }
+        else
+        {
+            SummatorBasicEntity sbe = new SummatorBasicEntity();
+            sbe.setAim(ssd.getSummatorBasicDto().getAim());
+            sbe.setMutable(false);
+            sbe.setStuId(ssd.getSummatorBasicDto().getStuId());
+            sbe.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            sbe.setClassId(takesRepository.findByStuId(ssd.getSummatorBasicDto().getStuId()).getClassId());
+            sbe.setPrinciple(ssd.getSummatorBasicDto().getPrinciple());
+            sbe.setStep(ssd.getSummatorBasicDto().getStep());
+            sbe.setIsChecked(false);
+            sbe.setConclusion(ssd.getSummatorBasicDto().getConclusion());
+            summatorBasicRepository.save(sbe);
+
+            List<SummatorResultEntity> list = new ArrayList<>();
+            for(SummatorResultDto srd:ssd.getResultList())
+            {
+                SummatorResultEntity temp = new SummatorResultEntity(srd);
+                temp.setStuId(ssd.getSummatorBasicDto().getStuId());
+                list.add(temp);
+            }
+            summatorResultRepository.saveAll(list);
+        }
         return "提交成功";
     }
 

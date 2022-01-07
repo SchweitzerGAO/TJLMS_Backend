@@ -33,11 +33,11 @@ public class ReportController {
         }
     }
     @PostMapping("/post/submit/report")
-    public ResponseEntity<String> submitReport(@RequestBody ReportEntityPK reportEntityPK)
+    public ResponseEntity<String> submitReport(@RequestBody SubmitReportDto reportDto)
     {
         try
         {
-            String ret = reportService.submitReport(reportEntityPK);
+            String ret = reportService.submitReport(reportDto);
             return ret.equals("提交成功") ? ResponseEntity.status(HttpStatus.OK).body(ret) :
                     ResponseEntity.status(HttpStatus.NOT_FOUND).body(ret);
         }

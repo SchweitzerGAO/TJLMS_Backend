@@ -33,11 +33,11 @@ public class SummatorReportController {
     }
 
     @PostMapping("/submit/summator")
-    ResponseEntity<String> submitSummator(String id)
+    ResponseEntity<String> submitSummator(@RequestBody SubmitSummatorDto ssd)
     {
         try
         {
-            return ResponseEntity.status(HttpStatus.OK).body(summatorReportService.submitReport(id));
+            return ResponseEntity.status(HttpStatus.OK).body(summatorReportService.submitReport(ssd));
         }
         catch (Exception e)
         {

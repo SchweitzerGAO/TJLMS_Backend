@@ -10,7 +10,7 @@ import java.util.List;
 public interface ReportService {
     String saveReport(SubmitReportDto report);
 
-    String submitReport(ReportEntityPK reportEntityPK);
+    String submitReport(SubmitReportDto reportDto);
 
     List<ReportInfoDto> getInfo(String id);
 

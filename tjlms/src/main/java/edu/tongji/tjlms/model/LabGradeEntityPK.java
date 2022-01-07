@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class LabGradeEntityPK implements Serializable {
     private String stuId;
-    private String labId;
+    private Integer labId;
 
     @Column(name = "stu_id", nullable = false, length = 45)
     @Id
@@ -21,11 +21,11 @@ public class LabGradeEntityPK implements Serializable {
 
     @Column(name = "lab_id", nullable = false)
     @Id
-    public String getLabId() {
+    public Integer getLabId() {
         return labId;
     }
 
-    public void setLabId(String labId) {
+    public void setLabId(Integer labId) {
         this.labId = labId;
     }
 

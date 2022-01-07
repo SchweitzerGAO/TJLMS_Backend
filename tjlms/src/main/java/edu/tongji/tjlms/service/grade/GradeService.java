@@ -22,4 +22,6 @@ public interface GradeService {
     String save(GradeDto info);
     String saveSummator(GradeDto info);
     String release(String classId);
+    String release(String stuId,Integer labId);
+
 }

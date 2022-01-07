@@ -14,4 +14,6 @@ public interface LabGradeRepository extends JpaRepository<LabGradeEntity, LabGra
     @Modifying
     @Query("UPDATE LabGradeEntity g SET g.visible=1, g.updateDate=?2 WHERE g.classId=?1")
     void release(String classId, String time);
+
+    LabGradeEntity findByStuIdAndLabId(String stuId,Integer labId);
 }

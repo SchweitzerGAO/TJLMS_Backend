@@ -130,4 +130,14 @@ public class GradeServiceImpl implements GradeService{
         labGradeRepository.release(classId,time);
         return "发布成功";
     }
+
+    @Override
+    public String release(String stuId, Integer labId) {
+        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        LabGradeEntity labGrade = labGradeRepository.findByStuIdAndLabId(stuId,labId);
+        labGrade.setVisible(true);
+        labGrade.setUpdateDate(time);
+        labGradeRepository.save(labGrade);
+        return "发布成功";
+    }
 }

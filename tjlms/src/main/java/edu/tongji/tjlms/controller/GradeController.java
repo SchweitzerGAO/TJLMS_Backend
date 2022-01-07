@@ -139,6 +139,20 @@ public class GradeController {
         }
     }
 
+    @PostMapping("/post/release/individual")
+    public ResponseEntity<String> releaseIndividual(String stuId,Integer labId)
+    {
+        try
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(gradeService.release(stuId,labId));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
     @GetMapping("/get/summator/list")
     public ResponseEntity<?> getSummatorList(String teacherId,
                                              @RequestParam(defaultValue = "1") Integer pageNum,

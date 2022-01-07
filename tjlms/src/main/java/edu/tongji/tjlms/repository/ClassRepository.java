@@ -12,7 +12,7 @@ import java.util.List;
 public interface ClassRepository extends JpaRepository<ClassEntity,String> {
     @Transactional
     @Modifying
-    @Query("UPDATE ClassEntity Set stuNum=?2 where id=?1")
+    @Query("UPDATE ClassEntity Set stuNum=stuNum+?2 where id=?1")
     void updateNum(String id,Integer num);
 
     @Transactional

@@ -52,13 +52,6 @@ public class SummatorReportServiceImpl implements SummatorReportService{
 
     @Override
     public String submitReport(SubmitSummatorDto ssd) {
-        Optional<SummatorBasicEntity> ret = summatorBasicRepository.findByStuId(ssd.getSummatorBasicDto().getStuId());
-        if(ret.isPresent())
-        {
-            summatorBasicRepository.updateMutable(ssd.getSummatorBasicDto().getStuId());
-        }
-        else
-        {
             SummatorBasicEntity sbe = new SummatorBasicEntity();
             sbe.setAim(ssd.getSummatorBasicDto().getAim());
             sbe.setMutable(false);
@@ -79,7 +72,6 @@ public class SummatorReportServiceImpl implements SummatorReportService{
                 list.add(temp);
             }
             summatorResultRepository.saveAll(list);
-        }
         return "提交成功";
     }
 

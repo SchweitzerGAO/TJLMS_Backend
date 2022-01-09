@@ -39,11 +39,11 @@ public class LabController {
     }
 
     @PostMapping("/release/lab")
-    public ResponseEntity<String> releaseLab(@RequestBody LabDto lab)
+    public ResponseEntity<?> releaseLab(@RequestBody LabDto lab)
     {
         try
         {
-            String ret = labService.releaseLab(lab);
+            Integer ret = labService.releaseLab(lab);
             return ResponseEntity.status(HttpStatus.OK).body(ret);
         }
         catch (Exception e)

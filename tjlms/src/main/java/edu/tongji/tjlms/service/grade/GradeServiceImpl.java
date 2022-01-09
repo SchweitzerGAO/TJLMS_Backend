@@ -127,16 +127,6 @@ public class GradeServiceImpl implements GradeService{
 
     @Override
     public String release(GradeDto info) {
-        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        LabGradeEntity labGrade = labGradeRepository.findByStuIdAndLabId(info.getStuId(),info.getLabId());
-        if(labGrade != null)
-        {
-            labGrade.setVisible(true);
-            labGrade.setUpdateDate(time);
-            labGradeRepository.save(labGrade);
-        }
-        else
-        {
             LabGradeEntity grade = new LabGradeEntity();
             grade.setClassId(info.getClassId());
             grade.setLabId(info.getLabId());
@@ -152,7 +142,6 @@ public class GradeServiceImpl implements GradeService{
                 summatorBasicRepository.updateCheck(info.getStuId());
             }
             labGradeRepository.save(grade);
-        }
         return "发布成功";
     }
 }

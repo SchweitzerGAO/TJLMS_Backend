@@ -10,7 +10,7 @@ import java.util.Map;
 public interface LabService {
     List<LabEntity> getAll();
     Map<String, Object> getAllWithNames();
-    String releaseLab(LabDto lab);
+    Integer releaseLab(LabDto lab);
     List<ScheduleDto> getSchedule();
     LabEntity getById(Integer id);
 }

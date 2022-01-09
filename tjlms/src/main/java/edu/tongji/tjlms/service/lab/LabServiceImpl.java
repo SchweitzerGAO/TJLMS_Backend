@@ -42,15 +42,16 @@ public class LabServiceImpl implements LabService{
     }
 
     @Override
-    public String releaseLab(LabDto lab) {
+    public Integer releaseLab(LabDto lab) {
         LabEntity labEntity = new LabEntity();
         labEntity.setName(lab.getName());
         labEntity.setDeadline(lab.getDeadline());
         labEntity.setReleaseTeacher(lab.getReleaseTeacher());
         labEntity.setIntro(lab.getIntro());
         labEntity.setReleaseDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        labRepository.save(labEntity);
-        return "发布成功";
+        LabEntity newLab = labRepository.saveAndFlush(labEntity);
+
+        return newLab.getId();
     }
 
     @Override

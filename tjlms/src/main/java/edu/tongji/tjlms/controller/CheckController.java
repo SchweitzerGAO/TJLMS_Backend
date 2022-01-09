@@ -1,7 +1,8 @@
 package edu.tongji.tjlms.controller;
 
+import edu.tongji.tjlms.dto.StuGetCheckDto;
 import edu.tongji.tjlms.dto.PostCheckDto;
-import edu.tongji.tjlms.model.CheckEntity;
+import edu.tongji.tjlms.dto.TeacherGetCheckDto;
 import edu.tongji.tjlms.service.check.CheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,12 +33,12 @@ public class CheckController {
         }
     }
 
-    @GetMapping("/get/check")
-    public ResponseEntity<?> getCheck(String stuId)
+    @GetMapping("/stu/get/check")
+    public ResponseEntity<?> getCheckStu(String stuId)
     {
         try
         {
-            List<CheckEntity> checks = checkService.getAllCheckByStuId(stuId);
+            List<StuGetCheckDto> checks = checkService.getAllCheckByStuId(stuId);
             if(checks == null)
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无签到信息");
@@ -52,12 +53,36 @@ public class CheckController {
 
     }
 
+    @GetMapping("/teacher/get/check")
+    public ResponseEntity<?> getCheckTeacher(String classId)
+    {
+        try
+        {
+            List<TeacherGetCheckDto> checks = checkService.getAllCheckByClassId(classId);
+            if(checks == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("暂无签到信息");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(checks);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据库请求错误");
+        }
+    }
+
     @PostMapping("/check/in")
     public ResponseEntity<String> checkIn(String stuId,Integer checkId)
     {
         try
         {
-            return ResponseEntity.status(HttpStatus.OK).body(checkService.submitCheck(stuId,checkId));
+            String ret = checkService.submitCheck(stuId,checkId);
+            if(ret.equals("签到成功"))
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(ret);
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ret);
         }
         catch (Exception e)
         {

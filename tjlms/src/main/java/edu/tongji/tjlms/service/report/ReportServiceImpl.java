@@ -47,15 +47,6 @@ public class ReportServiceImpl implements ReportService{
 
     @Override
     public String submitReport(SubmitReportDto reportDto) {
-        ReportEntity report = reportRepository.findByStuIdAndLabId(reportDto.getStuId(),reportDto.getLabId());
-        if(report != null)
-        {
-            report.setMutable(false);
-            report.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            reportRepository.save(report);
-        }
-        else
-        {
             ReportEntity reportEntity = new ReportEntity();
             reportEntity.setStuId(reportDto.getStuId());
             reportEntity.setLabId(reportDto.getLabId());
@@ -68,7 +59,6 @@ public class ReportServiceImpl implements ReportService{
             reportEntity.setPrinciple(reportDto.getPrinciple());
             reportEntity.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             reportRepository.save(reportEntity);
-        }
         return "提交成功";
 
     }

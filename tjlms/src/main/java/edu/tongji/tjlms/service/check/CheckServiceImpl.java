@@ -132,7 +132,7 @@ public class CheckServiceImpl implements CheckService{
         {
             ret = (double) valid/checks.size();
         }
-        return ret;
+        return ret*100.0;
     }
 
     @Override

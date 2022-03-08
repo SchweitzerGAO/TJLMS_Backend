@@ -105,7 +105,7 @@ public class UserManageController {
         }
     }
 
-    @PostMapping("/admin//post/student")
+    @PostMapping("/admin/post/student")
     public ResponseEntity<String> insertStudent(@RequestBody StudentEntity student)
     {
         try
